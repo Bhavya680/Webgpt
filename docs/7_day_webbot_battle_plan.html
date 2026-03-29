@@ -1,0 +1,219 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans)}
+.header{padding:16px 0 12px}
+.header h2{font-size:18px;font-weight:500;color:var(--color-text-primary)}
+.header p{font-size:13px;color:var(--color-text-secondary);margin-top:4px}
+.progress-bar-wrap{background:var(--color-background-secondary);border-radius:6px;height:6px;margin:12px 0 4px;overflow:hidden}
+.progress-bar-fill{height:100%;border-radius:6px;background:#7F77DD;transition:width .4s}
+.progress-label{font-size:12px;color:var(--color-text-tertiary)}
+.day-card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:12px;margin-bottom:10px;overflow:hidden}
+.day-header{display:flex;align-items:center;gap:10px;padding:12px 16px;cursor:pointer;user-select:none}
+.day-header:hover{background:var(--color-background-secondary)}
+.day-badge{font-size:11px;font-weight:500;padding:3px 10px;border-radius:6px;flex-shrink:0}
+.day-title{font-size:14px;font-weight:500;color:var(--color-text-primary);flex:1}
+.day-meta{font-size:12px;color:var(--color-text-tertiary)}
+.day-check{width:18px;height:18px;border-radius:50%;border:1.5px solid var(--color-border-secondary);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s}
+.day-check.done{background:#1D9E75;border-color:#1D9E75}
+.day-check.done svg{display:block}
+.day-check svg{display:none;width:10px;height:10px}
+.day-body{padding:0 16px 14px;border-top:0.5px solid var(--color-border-tertiary)}
+.task-row{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:0.5px solid var(--color-border-tertiary);cursor:pointer}
+.task-row:last-child{border-bottom:none}
+.task-row:hover .task-text{color:var(--color-text-primary)}
+.task-cb{width:16px;height:16px;border-radius:4px;border:1.5px solid var(--color-border-secondary);flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.task-cb.checked{background:#7F77DD;border-color:#7F77DD}
+.task-cb.checked svg{display:block}
+.task-cb svg{display:none;width:9px;height:9px}
+.task-text{font-size:13px;color:var(--color-text-secondary);line-height:1.5;flex:1;transition:color .15s}
+.task-text.done{text-decoration:line-through;color:var(--color-text-tertiary)}
+.tech-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px}
+.tag{font-size:11px;background:var(--color-background-secondary);color:var(--color-text-secondary);padding:3px 8px;border-radius:4px;border:0.5px solid var(--color-border-tertiary)}
+.ask-btn{margin-top:10px;font-size:12px;padding:5px 12px;cursor:pointer;border:0.5px solid var(--color-border-secondary);border-radius:6px;background:transparent;color:var(--color-text-secondary)}
+.ask-btn:hover{background:var(--color-background-secondary)}
+.milestone{font-size:12px;padding:6px 10px;border-radius:6px;margin-top:10px;border-left:3px solid}
+</style>
+
+<div class="header">
+  <h2>WebBot AI — 7-day sprint</h2>
+  <p>Check off tasks as you complete them. Day cards unlock your milestone.</p>
+  <div class="progress-bar-wrap"><div class="progress-bar-fill" id="prog" style="width:0%"></div></div>
+  <div class="progress-label" id="prog-label">0 of 28 tasks done</div>
+</div>
+
+<div id="days"></div>
+
+<script>
+const days = [
+  {
+    day:1, title:"Environment setup + scraper skeleton",
+    badge:"#EEEDFE", badgeText:"#3C3489", label:"Day 1",
+    milestone:"You can paste a URL and get clean text printed in the terminal.",
+    milestoneColor:"#534AB7",
+    tags:["Python 3.10+","pip","virtualenv","requests","beautifulsoup4","VS Code"],
+    cta:"Show me the exact pip install commands and folder structure for Day 1",
+    tasks:[
+      "Create a Python virtual environment: python -m venv venv && source venv/bin/activate",
+      "Install core scraping libs: pip install requests beautifulsoup4 langchain",
+      "Write scraper.py — fetch a URL, strip HTML, extract all <p> and heading tags",
+      "Print clean text to terminal and save as data/scraped.txt",
+    ]
+  },
+  {
+    day:2, title:"Embedding pipeline + ChromaDB setup",
+    badge:"#EEEDFE", badgeText:"#3C3489", label:"Day 2",
+    milestone:"You can ask a question in the terminal and get a relevant text chunk back.",
+    milestoneColor:"#534AB7",
+    tags:["sentence-transformers","chromadb","langchain","all-MiniLM-L6-v2"],
+    cta:"Write the embedding pipeline script for Day 2 using LangChain and ChromaDB",
+    tasks:[
+      "Install: pip install sentence-transformers chromadb",
+      "Load scraped.txt, split into 500-word chunks with RecursiveCharacterTextSplitter",
+      "Embed chunks using all-MiniLM-L6-v2 and store vectors in local ChromaDB",
+      "Write a query test: type a question, get top-3 matching chunks printed back",
+    ]
+  },
+  {
+    day:3, title:"SLM integration — command-line chatbot",
+    badge:"#E1F5EE", badgeText:"#085041", label:"Day 3",
+    milestone:"Full terminal chatbot: scrape → embed → ask → get AI answer.",
+    milestoneColor:"#0F6E56",
+    tags:["transformers","torch","Phi-3-mini","Gemma-2b-it","Hugging Face"],
+    cta:"Write the RAG chat script for Day 3 using Phi-3-mini and ChromaDB context",
+    tasks:[
+      "Install: pip install transformers torch accelerate",
+      "Load Phi-3-mini (or Gemma-2b-it) from Hugging Face using transformers pipeline",
+      "Build the RAG prompt: inject top-3 chunks as context into the system message",
+      "Loop: user types question → embed → retrieve chunks → prompt SLM → print answer",
+    ]
+  },
+  {
+    day:4, title:"Django project + database models",
+    badge:"#FAEEDA", badgeText:"#633806", label:"Day 4",
+    milestone:"Login works, URL submission saves to DB, scrape job triggers in background.",
+    milestoneColor:"#854F0B",
+    tags:["django","djangorestframework","psycopg2","PostgreSQL","django-cors-headers"],
+    cta:"Give me the Django models for Day 4 — User, Bot, ScrapedPage",
+    tasks:[
+      "Install: pip install django djangorestframework psycopg2-binary django-cors-headers",
+      "Create Django project: django-admin startproject webbot && python manage.py startapp core",
+      "Define models: Bot (user FK, name, url, bot_id), ScrapedPage (bot FK, url, status)",
+      "Wire up Django REST auth views + POST /api/bots/ endpoint to trigger scraping",
+    ]
+  },
+  {
+    day:5, title:"REST API + chat endpoint",
+    badge:"#FAEEDA", badgeText:"#633806", label:"Day 5",
+    milestone:"Postman can hit /api/chat/ with a message and get an AI answer back as JSON.",
+    milestoneColor:"#854F0B",
+    tags:["DRF APIView","CORS","JSON response","RAG pipeline","bot_id routing"],
+    cta:"Write the Django /api/chat/ view for Day 5 that runs the RAG pipeline",
+    tasks:[
+      "Create POST /api/chat/ view — accepts {message, bot_id} in request body",
+      "Inside the view: load the right ChromaDB collection by bot_id, run RAG query",
+      "Return {answer: '...'} JSON response",
+      "Configure CORS: add django-cors-headers, set CORS_ALLOW_ALL_ORIGINS=True for dev",
+    ]
+  },
+  {
+    day:6, title:"Embeddable widget.js + demo HTML page",
+    badge:"#FAECE7", badgeText:"#712B13", label:"Day 6",
+    milestone:"A test HTML file shows a floating chat bubble that gets real AI answers.",
+    milestoneColor:"#993C1D",
+    tags:["Vanilla JS","CSS position","fetch API","data-bot-id","Django static files"],
+    cta:"Write the full widget.js code for Day 6 — floating bubble, chat window, fetch to Django",
+    tasks:[
+      "Write widget.js: inject chat bubble div + toggle window using document.createElement",
+      "On send: fetch('http://127.0.0.1:8000/api/chat/', {method:'POST', body: JSON.stringify({message, bot_id})}) ",
+      "Read bot_id from the script tag's data-bot-id attribute at runtime",
+      "Create test.html with a <script src=widget.js data-bot-id='demo'> tag to verify it works",
+    ]
+  },
+  {
+    day:7, title:"Polish, demo prep + professor presentation",
+    badge:"#FCEBEB", badgeText:"#791F1F", label:"Day 7",
+    milestone:"Live demo: scrape a real site → ask 3 questions → show widget on test page.",
+    milestoneColor:"#A32D2D",
+    tags:["system prompt","rate limiting","README.md","demo script","Hugging Face spaces"],
+    cta:"Help me write a compelling project README and demo script for Day 7",
+    tasks:[
+      "Add system prompt guardrail: 'Answer only using the context provided. Do not make things up.'",
+      "Write a clean README.md with setup steps, architecture diagram description, and screenshots",
+      "Prepare a 3-minute live demo: open terminal, paste URL, wait for embedding, open test.html, ask 3 questions",
+      "Optional: deploy to a free Hugging Face Space or Railway.app for a live URL to show professors",
+    ]
+  }
+];
+
+const state = JSON.parse(localStorage.getItem('webbot_tasks')||'{}');
+let totalDone = 0, totalTasks = 0;
+
+function save(){ localStorage.setItem('webbot_tasks', JSON.stringify(state)); }
+
+function updateProgress(){
+  let done=0, total=0;
+  days.forEach(d=>{ d.tasks.forEach((_,i)=>{ total++; if(state[d.day+'_'+i]) done++; }); });
+  const pct = total ? Math.round(done/total*100) : 0;
+  document.getElementById('prog').style.width = pct+'%';
+  document.getElementById('prog-label').textContent = done+' of '+total+' tasks done';
+}
+
+function toggleTask(dayNum, taskIdx){
+  const key = dayNum+'_'+taskIdx;
+  state[key] = !state[key];
+  save();
+  const cb = document.getElementById('cb_'+key);
+  const txt = document.getElementById('tx_'+key);
+  if(state[key]){ cb.classList.add('checked'); txt.classList.add('done'); }
+  else { cb.classList.remove('checked'); txt.classList.remove('done'); }
+  const allDone = days.find(d=>d.day===dayNum).tasks.every((_,i)=>state[dayNum+'_'+i]);
+  const dc = document.getElementById('dc_'+dayNum);
+  if(allDone) dc.classList.add('done'); else dc.classList.remove('done');
+  updateProgress();
+}
+
+const container = document.getElementById('days');
+days.forEach(d=>{
+  const card = document.createElement('div');
+  card.className = 'day-card';
+
+  const allDoneInit = d.tasks.every((_,i)=>state[d.day+'_'+i]);
+
+  card.innerHTML = `
+    <div class="day-header" onclick="toggleBody(${d.day})">
+      <span class="day-badge" style="background:${d.badge};color:${d.badgeText}">${d.label}</span>
+      <span class="day-title">${d.title}</span>
+      <span class="day-meta" id="dm_${d.day}">${d.tasks.filter((_,i)=>state[d.day+'_'+i]).length}/${d.tasks.length}</span>
+      <div class="day-check${allDoneInit?' done':''}" id="dc_${d.day}">
+        <svg viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+    </div>
+    <div class="day-body" id="db_${d.day}" style="display:none">
+      ${d.tasks.map((t,i)=>`
+        <div class="task-row" onclick="toggleTask(${d.day},${i})">
+          <div class="task-cb${state[d.day+'_'+i]?' checked':''}" id="cb_${d.day+'_'+i}">
+            <svg viewBox="0 0 9 9" fill="none"><polyline points="1,4.5 3.5,7 8,1.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="task-text${state[d.day+'_'+i]?' done':''}" id="tx_${d.day+'_'+i}">${t}</span>
+        </div>
+      `).join('')}
+      <div class="tech-tags">${d.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+      <div class="milestone" style="background:var(--color-background-secondary);border-color:${d.milestoneColor}">
+        <span style="font-size:11px;font-weight:500;color:${d.milestoneColor}">Milestone</span>
+        <div style="color:var(--color-text-secondary);margin-top:2px">${d.milestone}</div>
+      </div>
+      <button class="ask-btn" onclick="sendPrompt('${d.cta} ↗')">${d.cta.substring(0,48)}... ↗</button>
+    </div>
+  `;
+  container.appendChild(card);
+});
+
+window.toggleBody = function(dayNum){
+  const b = document.getElementById('db_'+dayNum);
+  b.style.display = b.style.display==='none' ? 'block' : 'none';
+};
+
+document.getElementById('db_1').style.display = 'block';
+updateProgress();
+</script>
