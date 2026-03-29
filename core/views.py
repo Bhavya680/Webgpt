@@ -1,6 +1,7 @@
 import threading
 from datetime import datetime
 
+from django.shortcuts import render
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
@@ -10,6 +11,12 @@ from .models import Bot, ScrapedPage
 from .serializers import BotSerializer, ChatRequestSerializer
 from ai_engine.rag_engine import get_answer
 from ai_engine.model_loader import is_model_loaded
+
+
+def landing_page(request):
+    """Render the SiteBot marketing landing page."""
+    return render(request, 'landing.html')
+
 
 class CreateBotView(APIView):
     """POST /api/bots/ — Create a new bot and start background scraping."""

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CognitiveArchitect | SiteBot Features</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#3525cd",
+              "surface-tint": "#4d44e3",
+              "secondary-container": "#b6b4ff",
+              "surface-container-high": "#e1e8fd",
+              "on-surface-variant": "#464555",
+              "on-secondary-fixed-variant": "#413f82",
+              "surface-container-highest": "#dce2f7",
+              "outline-variant": "#c7c4d8",
+              "on-primary": "#ffffff",
+              "on-tertiary-container": "#ffd2be",
+              "background": "#f9f9ff",
+              "surface-container-low": "#f1f3ff",
+              "outline": "#777587",
+              "on-surface": "#141b2b",
+              "tertiary-fixed": "#ffdbcc",
+              "on-secondary": "#ffffff",
+              "on-tertiary-fixed": "#351000",
+              "on-error-container": "#93000a",
+              "surface": "#f9f9ff",
+              "on-primary-fixed": "#0f0069",
+              "inverse-on-surface": "#edf0ff",
+              "secondary-fixed": "#e2dfff",
+              "secondary": "#58579b",
+              "tertiary-fixed-dim": "#ffb695",
+              "surface-container-lowest": "#ffffff",
+              "secondary-fixed-dim": "#c3c0ff",
+              "error-container": "#ffdad6",
+              "on-primary-container": "#dad7ff",
+              "on-error": "#ffffff",
+              "surface-dim": "#d3daef",
+              "surface-bright": "#f9f9ff",
+              "on-secondary-container": "#454386",
+              "primary-container": "#4f46e5",
+              "error": "#ba1a1a",
+              "primary-fixed": "#e2dfff",
+              "surface-variant": "#dce2f7",
+              "on-background": "#141b2b",
+              "surface-container": "#e9edff",
+              "on-primary-fixed-variant": "#3323cc",
+              "inverse-primary": "#c3c0ff",
+              "on-tertiary": "#ffffff",
+              "on-tertiary-fixed-variant": "#7b2f00",
+              "on-secondary-fixed": "#140f54",
+              "primary-fixed-dim": "#c3c0ff",
+              "inverse-surface": "#293040",
+              "tertiary-container": "#a44100",
+              "tertiary": "#7e3000"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .editorial-grid-asymmetry {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-secondary-container selection:text-on-secondary-container">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl shadow-[0_20px_40px_rgba(20,27,43,0.06)]">
+<div class="flex justify-between items-center px-8 py-4 max-w-7xl mx-auto font-inter tracking-tight">
+<div class="text-xl font-black text-slate-900 dark:text-white tracking-tighter">
+                CognitiveArchitect
+            </div>
+<div class="hidden md:flex items-center space-x-8">
+<a class="text-indigo-700 dark:text-indigo-300 font-bold border-b-2 border-indigo-600 transition-colors duration-200" href="#">Platform</a>
+<a class="text-slate-600 dark:text-slate-400 font-medium hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-200" href="#">Solutions</a>
+<a class="text-slate-600 dark:text-slate-400 font-medium hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-200" href="#">Resources</a>
+<a class="text-slate-600 dark:text-slate-400 font-medium hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-200" href="#">Pricing</a>
+</div>
+<div class="flex items-center space-x-4">
+<button class="text-slate-600 dark:text-slate-400 font-medium hover:text-indigo-600 transition-colors duration-200">Log In</button>
+<button class="bg-primary-container text-on-primary py-2 px-5 rounded-lg font-semibold hover:bg-primary transition-all active:opacity-80 active:scale-95">Get Started</button>
+</div>
+</div>
+</nav>
+<main class="pt-24">
+<!-- Feature Grid Section -->
+<section class="bg-surface py-24 px-6 md:px-12 overflow-hidden relative">
+<!-- Context Glow -->
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary-fixed opacity-20 blur-[120px] rounded-full -z-10"></div>
+<div class="max-w-6xl mx-auto">
+<!-- Header -->
+<div class="text-center mb-16">
+<span class="label-md text-primary font-bold tracking-[0.1em] uppercase mb-4 block">Capabilities</span>
+<h2 class="text-[36px] md:text-[48px] font-extrabold text-on-surface tracking-tighter leading-tight mb-4">Everything You Need</h2>
+<div class="w-24 h-1.5 bg-primary-container mx-auto rounded-full"></div>
+</div>
+<!-- Bento-Inspired Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Card 1: Auto-Scrape -->
+<div class="group bg-surface-container-lowest p-8 rounded-xl border border-outline-variant/15 shadow-[0_20px_40px_rgba(20,27,43,0.03)] hover:shadow-[0_20px_40px_rgba(20,27,43,0.08)] transition-all duration-300">
+<div class="text-[32px] mb-6 transform group-hover:scale-110 transition-transform duration-300">🌐</div>
+<h3 class="text-[18px] font-bold text-on-surface mt-4 mb-2 tracking-tight">Auto-Scrape</h3>
+<p class="text-[14px] text-on-surface-variant leading-relaxed">We crawl your entire website automatically. Just provide a URL and our engine indexes every page for instant intelligence.</p>
+<div class="mt-6 flex items-center text-primary text-xs font-bold tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-opacity">
+                            Learn More <span class="material-symbols-outlined ml-1 text-sm">arrow_forward</span>
+</div>
+</div>
+<!-- Card 2: AI-Powered -->
+<div class="group bg-surface-container-lowest p-8 rounded-xl border border-outline-variant/15 shadow-[0_20px_40px_rgba(20,27,43,0.03)] hover:shadow-[0_20px_40px_rgba(20,27,43,0.08)] transition-all duration-300">
+<div class="text-[32px] mb-6 transform group-hover:scale-110 transition-transform duration-300">🧠</div>
+<h3 class="text-[18px] font-bold text-on-surface mt-4 mb-2 tracking-tight">AI-Powered</h3>
+<p class="text-[14px] text-on-surface-variant leading-relaxed">RAG ensures accurate, hallucination-free answers by grounding every response in your specific site data and documentation.</p>
+<div class="mt-6 flex items-center text-primary text-xs font-bold tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-opacity">
+                            View Tech <span class="material-symbols-outlined ml-1 text-sm">memory</span>
+</div>
+</div>
+<!-- Card 3: Customizable -->
+<div class="group bg-surface-container-lowest p-8 rounded-xl border border-outline-variant/15 shadow-[0_20px_40px_rgba(20,27,43,0.03)] hover:shadow-[0_20px_40px_rgba(20,27,43,0.08)] transition-all duration-300">
+<div class="text-[32px] mb-6 transform group-hover:scale-110 transition-transform duration-300">🎨</div>
+<h3 class="text-[18px] font-bold text-on-surface mt-4 mb-2 tracking-tight">Customizable</h3>
+<p class="text-[14px] text-on-surface-variant leading-relaxed">Match the widget to your brand colors perfectly. Control themes, avatars, and tone of voice to fit your unique identity.</p>
+<div class="mt-6 flex items-center text-primary text-xs font-bold tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-opacity">
+                            Style Guide <span class="material-symbols-outlined ml-1 text-sm">palette</span>
+</div>
+</div>
+<!-- Card 4: Easy Embed -->
+<div class="group bg-surface-container-lowest p-8 rounded-xl border border-outline-variant/15 shadow-[0_20px_40px_rgba(20,27,43,0.03)] hover:shadow-[0_20px_40px_rgba(20,27,43,0.08)] transition-all duration-300">
+<div class="text-[32px] mb-6 transform group-hover:scale-110 transition-transform duration-300">📋</div>
+<h3 class="text-[18px] font-bold text-on-surface mt-4 mb-2 tracking-tight">Easy Embed</h3>
+<p class="text-[14px] text-on-surface-variant leading-relaxed">One line of code. That's it. Compatible with React, Vue, WordPress, Webflow, and standard HTML integrations.</p>
+<div class="mt-6 flex items-center text-primary text-xs font-bold tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-opacity">
+                            Documentation <span class="material-symbols-outlined ml-1 text-sm">code</span>
+</div>
+</div>
+<!-- Card 5: Multi-Bot -->
+<div class="group bg-surface-container-lowest p-8 rounded-xl border border-outline-variant/15 shadow-[0_20px_40px_rgba(20,27,43,0.03)] hover:shadow-[0_20px_40px_rgba(20,27,43,0.08)] transition-all duration-300">
+<div class="text-[32px] mb-6 transform group-hover:scale-110 transition-transform duration-300">🤖</div>
+<h3 class="text-[18px] font-bold text-on-surface mt-4 mb-2 tracking-tight">Multi-Bot</h3>
+<p class="text-[14px] text-on-surface-variant leading-relaxed">Manage multiple bots per account from one dashboard. Ideal for agencies and companies with various product lines.</p>
+<div class="mt-6 flex items-center text-primary text-xs font-bold tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-opacity">
+                            Dashboard <span class="material-symbols-outlined ml-1 text-sm">dashboard_customize</span>
+</div>
+</div>
+<!-- Card 6: Data Isolated -->
+<div class="group bg-surface-container-lowest p-8 rounded-xl border border-outline-variant/15 shadow-[0_20px_40px_rgba(20,27,43,0.03)] hover:shadow-[0_20px_40px_rgba(20,27,43,0.08)] transition-all duration-300">
+<div class="text-[32px] mb-6 transform group-hover:scale-110 transition-transform duration-300">🔒</div>
+<h3 class="text-[18px] font-bold text-on-surface mt-4 mb-2 tracking-tight">Data Isolated</h3>
+<p class="text-[14px] text-on-surface-variant leading-relaxed">Security first. Each bot only sees and answers from its own data silos, ensuring strict privacy across your ecosystem.</p>
+<div class="mt-6 flex items-center text-primary text-xs font-bold tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-opacity">
+                            Privacy Policy <span class="material-symbols-outlined ml-1 text-sm">security</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Section for visual completeness -->
+<section class="py-24 bg-surface-container-low">
+<div class="max-w-4xl mx-auto px-8 text-center bg-surface-container-lowest p-16 rounded-3xl border border-outline-variant/15 shadow-xl">
+<h2 class="text-3xl font-extrabold text-on-surface mb-6 tracking-tight">Ready to transform your site experience?</h2>
+<p class="text-lg text-on-surface-variant mb-10 max-w-2xl mx-auto">Deploy your first AI architect in under 2 minutes. No credit card required to start.</p>
+<div class="flex flex-col sm:flex-row gap-4 justify-center">
+<button class="bg-primary-container text-on-primary py-4 px-8 rounded-lg font-bold hover:bg-primary transition-all shadow-lg shadow-primary-container/20">Build Your First Bot</button>
+<button class="bg-surface-container-high text-primary py-4 px-8 rounded-lg font-bold hover:bg-surface-variant transition-all">Request Demo</button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-12 px-8 bg-slate-100 dark:bg-slate-900 mt-auto">
+<div class="flex flex-col md:flex-row justify-between items-center max-w-7xl mx-auto space-y-8 md:space-y-0">
+<div class="text-lg font-bold text-slate-900 dark:text-white">
+                Cognitive Architect
+            </div>
+<div class="flex space-x-8 text-sm font-inter text-slate-500 dark:text-slate-500">
+<a class="hover:text-slate-900 dark:hover:text-white transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-slate-900 dark:hover:text-white transition-colors" href="#">Terms of Service</a>
+<a class="hover:text-slate-900 dark:hover:text-white transition-colors" href="#">Cookie Policy</a>
+<a class="hover:text-slate-900 dark:hover:text-white transition-colors" href="#">Contact</a>
+</div>
+<div class="text-sm font-inter text-slate-500 dark:text-slate-500">
+                © 2024 Cognitive Architect. All rights reserved.
+            </div>
+</div>
+</footer>
+</body></html>

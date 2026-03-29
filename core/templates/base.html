@@ -1,0 +1,172 @@
+{% load static %}
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>SiteBot - The Cognitive Architect for Your Web Presence</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+          tailwind.config = {
+            darkMode: "class",
+            theme: {
+              extend: {
+                colors: {
+                  "background": "#f9f9ff",
+                  "tertiary-container": "#a44100",
+                  "tertiary-fixed": "#ffdbcc",
+                  "on-error": "#ffffff",
+                  "on-surface": "#141b2b",
+                  "surface-bright": "#f9f9ff",
+                  "primary-fixed": "#e2dfff",
+                  "tertiary-fixed-dim": "#ffb695",
+                  "on-tertiary-fixed": "#351000",
+                  "surface-container-highest": "#dce2f7",
+                  "surface-container-low": "#f1f3ff",
+                  "error": "#ba1a1a",
+                  "secondary-container": "#b6b4ff",
+                  "outline": "#777587",
+                  "on-primary-fixed-variant": "#3323cc",
+                  "on-tertiary-fixed-variant": "#7b2f00",
+                  "secondary-fixed": "#e2dfff",
+                  "surface-container": "#e9edff",
+                  "surface-dim": "#d3daef",
+                  "primary-container": "#4f46e5",
+                  "on-secondary-container": "#454386",
+                  "on-secondary-fixed-variant": "#413f82",
+                  "surface-tint": "#4d44e3",
+                  "primary-fixed-dim": "#c3c0ff",
+                  "on-secondary": "#ffffff",
+                  "on-error-container": "#93000a",
+                  "inverse-surface": "#293040",
+                  "primary": "#3525cd",
+                  "on-primary-container": "#dad7ff",
+                  "on-secondary-fixed": "#140f54",
+                  "inverse-on-surface": "#edf0ff",
+                  "on-surface-variant": "#464555",
+                  "outline-variant": "#c7c4d8",
+                  "inverse-primary": "#c3c0ff",
+                  "surface-container-lowest": "#ffffff",
+                  "on-tertiary-container": "#ffd2be",
+                  "on-primary": "#ffffff",
+                  "tertiary": "#7e3000",
+                  "secondary": "#58579b",
+                  "on-tertiary": "#ffffff",
+                  "on-primary-fixed": "#0f0069",
+                  "secondary-fixed-dim": "#c3c0ff",
+                  "surface": "#f9f9ff",
+                  "surface-container-high": "#e1e8fd",
+                  "error-container": "#ffdad6",
+                  "on-background": "#141b2b",
+                  "surface-variant": "#dce2f7"
+                },
+                fontFamily: {
+                  "headline": ["Inter"],
+                  "body": ["Inter"],
+                  "label": ["Inter"]
+                },
+                borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+              },
+            },
+          }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9f9ff;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface antialiased flex flex-col min-h-screen">
+    <nav class="fixed top-0 w-full h-[72px] z-50 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl border-b border-gray-200 dark:border-slate-800 shadow-sm dark:shadow-none">
+<div class="flex justify-between items-center px-8 max-w-7xl mx-auto w-full h-full">
+<!-- Brand Identity -->
+<div class="text-[22px] font-bold text-indigo-600 dark:text-indigo-400 flex items-center gap-2 font-headline">
+<span class="material-symbols-outlined text-[28px]" data-icon="smart_toy">smart_toy</span>
+<span>SiteBot</span>
+</div>
+<!-- Desktop Navigation Links -->
+<div class="hidden md:flex items-center gap-8 font-['Inter'] text-base font-medium tracking-tight">
+<a class="text-gray-600 dark:text-slate-400 hover:text-indigo-600 transition-colors hover:opacity-90 transition-all duration-200" href="#">Features</a>
+<a class="text-gray-600 dark:text-slate-400 hover:text-indigo-600 transition-colors hover:opacity-90 transition-all duration-200" href="#">How it Works</a>
+<a class="text-gray-600 dark:text-slate-400 hover:text-indigo-600 transition-colors hover:opacity-90 transition-all duration-200" href="#">Pricing</a>
+</div>
+<!-- Action Cluster -->
+<div class="flex items-center gap-4">
+<a href="{% url 'login' %}" class="hidden sm:block text-indigo-600 dark:text-indigo-400 font-semibold hover:opacity-90 transition-all duration-200 active:scale-95 transition-transform">Login</a>
+<a href="{% url 'signup' %}" class="bg-primary-container text-on-primary py-3 px-6 rounded-lg font-semibold hover:bg-primary transition-all duration-200 active:scale-95 transition-transform flex items-center gap-2">
+                    Get Started
+                    <span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</a>
+</div>
+</div>
+</nav>
+    
+    <main class="pt-[72px] flex-grow">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="w-full pt-20 pb-10 bg-[#111827] text-white font-['Inter'] text-sm leading-relaxed">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-12 px-8 max-w-7xl mx-auto border-b border-white/10 pb-12 mb-10">
+<!-- Column 1: Brand -->
+<div class="flex flex-col space-y-4">
+<div class="flex items-center space-x-2 text-xl font-bold text-white tracking-tight">
+<span class="material-symbols-outlined" data-icon="smart_toy">smart_toy</span>
+<span>SiteBot</span>
+</div>
+<p class="text-[#9CA3AF] text-sm max-w-xs">
+                    AI Chatbot for your business website. Built for the cognitive architect who values precision and intelligence.
+                </p>
+</div>
+<!-- Column 2: Product -->
+<div class="flex flex-col space-y-4">
+<h4 class="text-white font-semibold uppercase tracking-widest text-[10px]">Product</h4>
+<nav class="flex flex-col space-y-3">
+<a class="text-[#9CA3AF] hover:text-white transition-colors duration-200" href="#">Features</a>
+<a class="text-[#9CA3AF] hover:text-white transition-colors duration-200" href="#">Pricing</a>
+<a class="text-[#9CA3AF] hover:text-white transition-colors duration-200" href="#">Docs</a>
+</nav>
+</div>
+<!-- Column 3: Company -->
+<div class="flex flex-col space-y-4">
+<h4 class="text-white font-semibold uppercase tracking-widest text-[10px]">Company</h4>
+<nav class="flex flex-col space-y-3">
+<a class="text-[#9CA3AF] hover:text-white transition-colors duration-200" href="#">About</a>
+<a class="text-[#9CA3AF] hover:text-white transition-colors duration-200" href="#">Contact</a>
+<a class="text-[#9CA3AF] hover:text-white transition-colors duration-200" href="#">Careers</a>
+</nav>
+</div>
+<!-- Column 4: Legal -->
+<div class="flex flex-col space-y-4">
+<h4 class="text-white font-semibold uppercase tracking-widest text-[10px]">Legal</h4>
+<nav class="flex flex-col space-y-3">
+<a class="text-[#9CA3AF] hover:text-white transition-colors duration-200" href="#">Privacy</a>
+<a class="text-[#9CA3AF] hover:text-white transition-colors duration-200" href="#">Terms</a>
+<a class="text-[#9CA3AF] hover:text-white transition-colors duration-200" href="#">Security</a>
+</nav>
+</div>
+</div>
+<!-- Copyright & Social -->
+<div class="max-w-7xl mx-auto px-8 flex flex-col md:flex-row justify-between items-center opacity-80 hover:opacity-100 transition-opacity">
+<p class="text-[#9CA3AF] text-xs">
+                © 2024 SiteBot AI. Built for the cognitive architect.
+            </p>
+<div class="flex space-x-6 mt-4 md:mt-0">
+<a class="text-[#9CA3AF] hover:text-white" href="#">
+<span class="material-symbols-outlined" data-icon="public" style="font-size: 1.25rem;">public</span>
+</a>
+<a class="text-[#9CA3AF] hover:text-white" href="#">
+<span class="material-symbols-outlined" data-icon="share" style="font-size: 1.25rem;">share</span>
+</a>
+</div>
+</div>
+</footer>
+</body>
+</html>

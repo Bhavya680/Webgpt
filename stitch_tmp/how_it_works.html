@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-container": "#e9edff",
+                        "surface-tint": "#4d44e3",
+                        "tertiary-fixed-dim": "#ffb695",
+                        "secondary-fixed": "#e2dfff",
+                        "surface-dim": "#d3daef",
+                        "inverse-surface": "#293040",
+                        "surface-container-high": "#e1e8fd",
+                        "on-secondary-fixed-variant": "#413f82",
+                        "on-tertiary-fixed": "#351000",
+                        "on-error": "#ffffff",
+                        "inverse-primary": "#c3c0ff",
+                        "surface-container-highest": "#dce2f7",
+                        "outline-variant": "#c7c4d8",
+                        "inverse-on-surface": "#edf0ff",
+                        "surface-container-low": "#f1f3ff",
+                        "secondary-container": "#b6b4ff",
+                        "secondary": "#58579b",
+                        "surface-bright": "#f9f9ff",
+                        "on-primary": "#ffffff",
+                        "primary-fixed-dim": "#c3c0ff",
+                        "primary": "#3525cd",
+                        "surface-variant": "#dce2f7",
+                        "on-surface-variant": "#464555",
+                        "primary-fixed": "#e2dfff",
+                        "on-primary-container": "#dad7ff",
+                        "on-tertiary": "#ffffff",
+                        "on-surface": "#141b2b",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed": "#0f0069",
+                        "on-primary-fixed-variant": "#3323cc",
+                        "background": "#f9f9ff",
+                        "surface": "#f9f9ff",
+                        "secondary-fixed-dim": "#c3c0ff",
+                        "on-tertiary-fixed-variant": "#7b2f00",
+                        "on-error-container": "#93000a",
+                        "on-background": "#141b2b",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed": "#ffdbcc",
+                        "tertiary-container": "#a44100",
+                        "primary-container": "#4f46e5",
+                        "outline": "#777587",
+                        "tertiary": "#7e3000",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed": "#140f54",
+                        "error": "#ba1a1a",
+                        "on-secondary-container": "#454386",
+                        "on-tertiary-container": "#ffd2be"
+                    },
+                    fontFamily: {
+                        "headline": ["Inter"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-surface font-body text-on-surface antialiased">
+<!-- TopNavBar (Shared Component) -->
+<nav class="fixed top-0 w-full h-[72px] z-50 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl border-b border-gray-200 dark:border-slate-800 shadow-sm dark:shadow-none">
+<div class="flex justify-between items-center px-8 max-w-7xl mx-auto w-full h-full">
+<div class="text-[22px] font-bold text-indigo-600 dark:text-indigo-400 flex items-center gap-2">
+<span class="material-symbols-outlined" data-icon="smart_toy">smart_toy</span>
+                SiteBot
+            </div>
+<div class="hidden md:flex gap-8 items-center font-['Inter'] text-base font-medium tracking-tight">
+<a class="text-gray-600 dark:text-slate-400 hover:text-indigo-600 transition-colors" href="#">Features</a>
+<a class="text-indigo-600 dark:text-indigo-400 font-semibold border-b-2 border-indigo-600" href="#">How it Works</a>
+<a class="text-gray-600 dark:text-slate-400 hover:text-indigo-600 transition-colors" href="#">Pricing</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-gray-600 dark:text-slate-400 hover:opacity-90 transition-all duration-200 active:scale-95">Login</button>
+<button class="bg-primary-container text-on-primary px-6 py-2.5 rounded-lg font-semibold hover:opacity-90 transition-all duration-200 active:scale-95">Get Started</button>
+</div>
+</div>
+</nav>
+<main>
+<!-- Atmospheric Hero Section (Context for Flow) -->
+<section class="relative pt-32 pb-20 overflow-hidden bg-surface">
+<div class="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-[600px] h-[600px] bg-primary-fixed/30 blur-[120px] rounded-full pointer-events-none"></div>
+<div class="max-w-7xl mx-auto px-8 relative z-10">
+<div class="max-w-3xl">
+<span class="inline-block py-1 px-3 mb-6 bg-surface-container-high text-primary text-xs font-bold tracking-widest uppercase rounded">AI Automation</span>
+<h1 class="text-[56px] font-extrabold tracking-tight leading-tight text-on-surface mb-6">
+                        Build your site's <span class="text-primary">intelligence</span> in minutes.
+                    </h1>
+<p class="text-body-lg text-on-surface-variant leading-relaxed mb-10 max-w-xl">
+                        Train a custom AI chatbot using your own website content. Deliver instant, accurate support and capture leads 24/7 with zero coding required.
+                    </p>
+</div>
+</div>
+</section>
+<!-- How It Works Section -->
+<section class="bg-white py-24 relative overflow-hidden">
+<div class="max-w-7xl mx-auto px-8 text-center relative z-10">
+<h2 class="text-[36px] font-bold text-[#111827] mb-16 tracking-tight font-headline">How It Works</h2>
+<div class="flex flex-col lg:flex-row gap-8 justify-center items-start lg:items-center relative">
+<!-- Step 1 -->
+<div class="flex-shrink-0 w-full md:w-[320px] bg-[#F9FAFB] rounded-[16px] p-8 text-left transition-all duration-300 hover:shadow-xl hover:-translate-y-1 group">
+<div class="w-12 h-12 bg-[#4F46E5] text-white rounded-full flex items-center justify-center text-[20px] font-bold mb-6 ring-8 ring-indigo-50 group-hover:ring-indigo-100 transition-all">
+                            1
+                        </div>
+<h3 class="text-[20px] font-semibold text-[#111827] mb-3">Paste Your URL</h3>
+<p class="text-[16px] text-[#6B7280] leading-relaxed">
+                            Enter your website URL into the dashboard. We support single pages or entire sitemaps automatically.
+                        </p>
+</div>
+<!-- Arrow 1-2 -->
+<div class="hidden lg:flex items-center justify-center text-gray-300 pointer-events-none">
+<span class="material-symbols-outlined text-[48px]" style="font-variation-settings: 'wght' 200;">trending_flat</span>
+</div>
+<!-- Step 2 -->
+<div class="flex-shrink-0 w-full md:w-[320px] bg-[#F9FAFB] rounded-[16px] p-8 text-left transition-all duration-300 hover:shadow-xl hover:-translate-y-1 group">
+<div class="w-12 h-12 bg-[#4F46E5] text-white rounded-full flex items-center justify-center text-[20px] font-bold mb-6 ring-8 ring-indigo-50 group-hover:ring-indigo-100 transition-all">
+                            2
+                        </div>
+<h3 class="text-[20px] font-semibold text-[#111827] mb-3">We Train Your Bot</h3>
+<p class="text-[16px] text-[#6B7280] leading-relaxed">
+                            Our AI crawls your site, extracts text, and learns your content using advanced cognitive processing models.
+                        </p>
+</div>
+<!-- Arrow 2-3 -->
+<div class="hidden lg:flex items-center justify-center text-gray-300 pointer-events-none">
+<span class="material-symbols-outlined text-[48px]" style="font-variation-settings: 'wght' 200;">trending_flat</span>
+</div>
+<!-- Step 3 -->
+<div class="flex-shrink-0 w-full md:w-[320px] bg-[#F9FAFB] rounded-[16px] p-8 text-left transition-all duration-300 hover:shadow-xl hover:-translate-y-1 group">
+<div class="w-12 h-12 bg-[#4F46E5] text-white rounded-full flex items-center justify-center text-[20px] font-bold mb-6 ring-8 ring-indigo-50 group-hover:ring-indigo-100 transition-all">
+                            3
+                        </div>
+<h3 class="text-[20px] font-semibold text-[#111827] mb-3">Embed The Widget</h3>
+<p class="text-[16px] text-[#6B7280] leading-relaxed">
+                            Copy one line of JavaScript code and paste it into your website. SiteBot is compatible with all platforms.
+                        </p>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Feature Section -->
+<section class="py-24 bg-surface-container-low">
+<div class="max-w-7xl mx-auto px-8 grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+<div class="md:col-span-7">
+<h2 class="text-headline-lg font-extrabold text-on-surface mb-6 leading-tight">Ready to see SiteBot in action?</h2>
+<p class="text-body-lg text-on-surface-variant mb-8 max-w-lg">
+                        Join 2,000+ companies who have transformed their customer engagement with our AI engine.
+                    </p>
+<div class="flex flex-wrap gap-4">
+<button class="bg-primary-container text-on-primary px-8 py-4 rounded-lg font-bold shadow-lg hover:bg-primary transition-all">Start Free Trial</button>
+<button class="bg-surface-container-high text-primary px-8 py-4 rounded-lg font-bold hover:bg-surface-container-highest transition-all">View Demo</button>
+</div>
+</div>
+<div class="md:col-span-5 relative">
+<div class="bg-surface-container-lowest p-8 rounded-xl shadow-xl border border-outline-variant/15">
+<div class="flex items-center gap-3 mb-6">
+<div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="forum">forum</span>
+</div>
+<span class="font-bold">SiteBot Assistant</span>
+</div>
+<div class="space-y-4">
+<div class="bg-surface-container p-4 rounded-lg text-sm max-w-[80%]">Hi! How can I help you learn about SiteBot today?</div>
+<div class="bg-primary-container text-on-primary p-4 rounded-lg text-sm self-end ml-auto max-w-[80%]">How do I install the widget?</div>
+<div class="bg-surface-container p-4 rounded-lg text-sm max-w-[80%]">It's easy! Just copy our JS snippet into your header tag. Would you like the code now?</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer (Shared Component) -->
+<footer class="bg-slate-50 dark:bg-slate-900 w-full py-12 px-8 border-t border-gray-100">
+<div class="flex flex-col md:flex-row justify-between items-center gap-4 max-w-7xl mx-auto">
+<div class="text-lg font-bold text-indigo-600 flex items-center gap-2">
+<span class="material-symbols-outlined" data-icon="smart_toy">smart_toy</span>
+                SiteBot
+            </div>
+<p class="font-['Inter'] text-sm text-gray-500 dark:text-slate-400">
+                © 2024 SiteBot. Built by Cognitive Architects.
+            </p>
+<div class="flex gap-6">
+<a class="font-['Inter'] text-sm text-gray-500 hover:text-indigo-600 transition-all hover:underline" href="#">Privacy Policy</a>
+<a class="font-['Inter'] text-sm text-gray-500 hover:text-indigo-600 transition-all hover:underline" href="#">Terms of Service</a>
+<a class="font-['Inter'] text-sm text-gray-500 hover:text-indigo-600 transition-all hover:underline" href="#">Contact Us</a>
+</div>
+</div>
+</footer>
+</body></html>
