@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Cognitive Architect | My Bots</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    rel="stylesheet" />
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "secondary-fixed-dim": "#c3c0ff",
+            "on-primary-fixed": "#0f0069",
+            "surface-variant": "#dce2f7",
+            "primary": "#3525cd",
+            "tertiary-container": "#a44100",
+            "on-primary": "#ffffff",
+            "surface-container-lowest": "#ffffff",
+            "error": "#ba1a1a",
+            "on-primary-fixed-variant": "#3323cc",
+            "on-secondary-fixed": "#140f54",
+            "surface-container": "#e9edff",
+            "on-background": "#141b2b",
+            "inverse-primary": "#c3c0ff",
+            "tertiary-fixed": "#ffdbcc",
+            "outline-variant": "#c7c4d8",
+            "outline": "#777587",
+            "secondary": "#58579b",
+            "on-tertiary-fixed-variant": "#7b2f00",
+            "surface-tint": "#4d44e3",
+            "on-error-container": "#93000a",
+            "inverse-surface": "#293040",
+            "tertiary-fixed-dim": "#ffb695",
+            "on-secondary-container": "#454386",
+            "primary-fixed": "#e2dfff",
+            "secondary-fixed": "#e2dfff",
+            "on-tertiary": "#ffffff",
+            "on-secondary-fixed-variant": "#413f82",
+            "on-error": "#ffffff",
+            "background": "#f9f9ff",
+            "tertiary": "#7e3000",
+            "on-secondary": "#ffffff",
+            "on-tertiary-container": "#ffd2be",
+            "surface-container-high": "#e1e8fd",
+            "primary-fixed-dim": "#c3c0ff",
+            "on-tertiary-fixed": "#351000",
+            "surface-dim": "#d3daef",
+            "surface-container-low": "#f1f3ff",
+            "on-surface-variant": "#464555",
+            "surface-container-highest": "#dce2f7",
+            "inverse-on-surface": "#edf0ff",
+            "secondary-container": "#b6b4ff",
+            "primary-container": "#4f46e5",
+            "surface": "#f9f9ff",
+            "surface-bright": "#f9f9ff",
+            "on-surface": "#141b2b",
+            "on-primary-container": "#dad7ff",
+            "error-container": "#ffdad6"
+          },
+          fontFamily: {
+            "headline": ["Inter"],
+            "body": ["Inter"],
+            "label": ["Inter"]
+          },
+          borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+        },
+      },
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+  </style>
+</head>
+
+<body class="bg-surface text-on-surface overflow-hidden h-screen w-full flex">
+  <!-- SideNavBar Component -->
+  <aside
+    class="h-screen w-64 fixed left-0 top-0 border-r-0 bg-[#f9f9ff] dark:bg-slate-950 flex flex-col py-8 px-4 z-50">
+    <!-- Brand Identity -->
+    <div class="px-4 mb-10">
+      <div class="flex items-center gap-3">
+        <img alt="Logo" class="w-8 h-8 object-contain"
+          src="https://lh3.googleusercontent.com/aida/ADBb0ujf8BnKo1-DlRTjBoY5K-FpYZmBoMBY7EeXeHzIT5A7xhfhHfCfuYY8oGzuQ9Qy--i0xwkSOV0N2k0QU-7H9NIRMwzrQRp3JnDjigZYJqkXFWC4oJbQtgFVS3YC7-JOE8i_DOMB9Wx7g3cn1KYUS-LdxP96cGMZApU89vF8YQZNx_i7_liBfchzDas_Lq82s32GvWKQdBm_McmhZqyGHCgJdPj0RHWIoU49mWtRy7GpNYYGf-UW-GSiPF4" />
+        <h1 class="text-xl font-black text-[#3525cd] dark:text-[#818cf8] tracking-tighter uppercase"
+          style="font-family: Inter; font-size: 24px; letter-spacing: -1.2px; text-transform: none;">SiteBot</h1>
+      </div>
+      <p class="text-[10px] font-bold tracking-[0.2em] text-outline uppercase opacity-70">Architect v1.0</p>
+    </div>
+    <!-- Navigation Links -->
+    <nav class="flex-1 flex flex-col gap-1">
+      <!-- Active Tab: My Bots -->
+      <a class="flex items-center gap-3 px-4 py-3 rounded-lg text-[#3525cd] dark:text-white font-bold border-r-4 border-[#3525cd] bg-[#e1e8fd] dark:bg-[#3525cd]/20 transition-all scale-98 active:scale-95"
+        href="#">
+        <span class="material-symbols-outlined" data-icon="smart_toy">smart_toy</span>
+        <span class="font-['Inter'] font-medium text-sm tracking-tight">My Bots</span>
+      </a>
+      <a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-500 dark:text-slate-400 hover:text-[#3525cd] hover:bg-[#e1e8fd] dark:hover:bg-slate-800 transition-colors duration-200"
+        href="#">
+        <span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+        <span class="font-['Inter'] font-medium text-sm tracking-tight">Dashboard</span>
+      </a>
+      <a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-500 dark:text-slate-400 hover:text-[#3525cd] hover:bg-[#e1e8fd] dark:hover:bg-slate-800 transition-colors duration-200"
+        href="#">
+        <span class="material-symbols-outlined" data-icon="settings">settings</span>
+        <span class="font-['Inter'] font-medium text-sm tracking-tight">Settings</span>
+      </a>
+      <a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-500 dark:text-slate-400 hover:text-[#3525cd] hover:bg-[#e1e8fd] dark:hover:bg-slate-800 transition-colors duration-200"
+        href="#">
+        <span class="material-symbols-outlined" data-icon="description">description</span>
+        <span class="font-['Inter'] font-medium text-sm tracking-tight">Docs</span>
+      </a>
+    </nav>
+    <!-- CTA & Logout -->
+    <div class="mt-auto flex flex-col gap-4">
+      <button
+        class="w-full bg-primary-container text-on-primary py-3 px-4 rounded-lg font-bold text-sm flex items-center justify-center gap-2 shadow-sm hover:bg-primary transition-all active:scale-95"
+       >
+        <span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+        New Bot
+      </button>
+      <a class="flex items-center gap-3 px-4 py-3 rounded-lg text-error hover:bg-error-container/20 transition-colors"
+        href="#">
+        <span class="material-symbols-outlined" data-icon="logout">logout</span>
+        <span class="font-['Inter'] font-medium text-sm tracking-tight">Logout</span>
+      </a>
+    </div>
+  </aside>
+  <!-- Main Content Shell -->
+  <main class="flex-1 ml-64 flex flex-col h-full bg-surface-container-low">
+    <!-- TopNavBar Component -->
+    <header
+      class="h-16 w-full bg-[#ffffff]/80 dark:bg-slate-900/80 backdrop-blur-xl flex justify-between items-center px-8 z-40 shadow-[0px_20px_40px_rgba(20,27,43,0.06)]">
+      <div class="flex items-center gap-4">
+        <h2 class="font-['Inter'] font-semibold text-lg uppercase tracking-widest text-on-surface">Dashboard
+        </h2>
+      </div>
+      <div class="flex items-center gap-6">
+        <!-- Search (Placeholder as per shell) -->
+        <div class="hidden md:flex items-center bg-surface-container px-3 py-1.5 rounded-full">
+          <span class="material-symbols-outlined text-outline text-lg" data-icon="search">search</span>
+          <input class="bg-transparent border-none focus:ring-0 text-sm w-48 font-medium" placeholder="Search bots..."
+            type="text" />
+        </div>
+        <div class="flex items-center gap-4">
+          <button class="text-on-surface-variant hover:text-primary transition-colors">
+            <span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+          </button>
+          <button class="text-on-surface-variant hover:text-primary transition-colors">
+            <span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+          </button>
+          <div class="h-8 w-px bg-outline-variant/30"></div>
+          <div class="flex items-center gap-3 group cursor-pointer">
+            <div
+              class="w-9 h-9 rounded-full bg-primary-fixed text-primary flex items-center justify-center font-black text-xs ring-2 ring-transparent group-hover:ring-primary/20 transition-all"
+             >
+              JD
+            </div>
+            <div class="flex items-center gap-1">
+              <span class="text-sm font-bold text-on-surface group-hover:text-primary transition-colors">{{
+                request.user.username }}</span>
+              <span class="material-symbols-outlined text-xs text-outline" data-icon="expand_more"
+               >expand_more</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <!-- Content Canvas -->
+    <section class="flex-1 overflow-y-auto p-12 flex flex-col">
+      <!-- Header Section -->
+      <div class="flex justify-between items-end mb-16">
+        <div>
+          <h3 class="text-4xl font-extrabold text-on-surface tracking-tighter mb-2">My Chatbots</h3>
+          <p class="text-on-surface-variant max-w-lg font-medium">Manage and monitor your deployed cognitive
+            agents across all platforms.</p>
+        </div>
+        <button
+          onclick="document.getElementById('newBotModal').classList.remove('hidden')"
+          class="flex items-center gap-2 bg-primary-container text-on-primary px-6 py-3 rounded-lg font-bold text-sm shadow-sm hover:bg-primary transition-all active:scale-95">
+          <span class="material-symbols-outlined" data-icon="add_circle">add_circle</span>
+          New Bot
+        </button>
+      </div>
+
+      {% if not bots %}
+      <!-- Empty State Area -->
+      <div class="flex-1 flex items-center justify-center relative">
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <div class="w-[600px] h-[600px] bg-primary-fixed blur-[120px] opacity-30 rounded-full"></div>
+        </div>
+        <div class="relative z-10 w-full max-w-4xl grid grid-cols-12 gap-8">
+          <div
+            class="col-span-12 lg:col-span-8 bg-surface-container-lowest p-16 rounded-xl shadow-[0px_20px_40px_rgba(20,27,43,0.06)] text-center flex flex-col items-center border border-outline-variant/15">
+            <div class="w-24 h-24 bg-primary-fixed flex items-center justify-center rounded-2xl mb-8 rotate-3">
+              <span class="material-symbols-outlined text-primary text-5xl" data-icon="smart_toy"
+                style='font-variation-settings: "FILL" 1;'>smart_toy</span>
+            </div>
+            <h4 class="text-2xl font-black text-on-surface mb-4 tracking-tight">No chatbots yet</h4>
+            <p class="text-on-surface-variant text-lg leading-relaxed max-w-md mb-10 font-medium">
+              Your architect's desk is currently clear. Create your first AI chatbot by adding your website URL or
+              training documents.
+            </p>
+            <button
+              onclick="document.getElementById('newBotModal').classList.remove('hidden')"
+              class="bg-primary-container text-on-primary px-8 py-4 rounded-lg font-extrabold text-lg flex items-center gap-3 shadow-lg shadow-primary/20 hover:bg-primary hover:scale-[1.02] active:scale-95 transition-all">
+              <span class="material-symbols-outlined" data-icon="bolt">bolt</span>
+              Create Your First Bot
+            </button>
+          </div>
+          <div class="hidden lg:flex lg:col-span-4 flex-col gap-6">
+            <div class="bg-surface-container-highest p-8 rounded-xl border border-outline-variant/15">
+              <span
+                class="label-md inline-block mb-4 text-[10px] font-black text-primary tracking-widest uppercase bg-primary-fixed px-3 py-1 rounded-full"
+               >Quick Start</span>
+              <h5 class="text-lg font-bold text-on-surface mb-3 tracking-tight">How it works</h5>
+              <ul class="space-y-4">
+                <li class="flex gap-3 text-sm font-medium text-on-surface-variant leading-tight">
+                  <span class="text-primary font-black">01</span>
+                  Connect your data sources or enter a website URL.
+                </li>
+                <li class="flex gap-3 text-sm font-medium text-on-surface-variant leading-tight">
+                  <span class="text-primary font-black">02</span>
+                  Wait for the Architect to map the knowledge base.
+                </li>
+                <li class="flex gap-3 text-sm font-medium text-on-surface-variant leading-tight">
+                  <span class="text-primary font-black">03</span>
+                  Deploy your bot via a simple script or API.
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% else %}
+      <!-- Bot List Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {% for bot in bots %}
+        <a href="{% url 'bot_detail' bot.bot_id %}" class="bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-outline-variant/15 hover:shadow-md hover:border-primary/20 transition-all group">
+          <div class="flex items-center gap-4 mb-6">
+            <div class="w-12 h-12 bg-primary-fixed flex items-center justify-center rounded-lg group-hover:bg-primary/10 transition-colors">
+              <span class="material-symbols-outlined text-primary" data-icon="smart_toy">smart_toy</span>
+            </div>
+            <div>
+              <h4 class="font-bold text-on-surface group-hover:text-primary transition-colors">{{ bot.name }}</h4>
+              <p class="text-xs text-on-surface-variant font-medium truncate max-w-[150px]">{{ bot.url }}</p>
+            </div>
+          </div>
+          <div class="flex items-center justify-between text-xs font-bold uppercase tracking-widest text-outline">
+            <span>Status: Active</span>
+            <span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+          </div>
+        </a>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </section>
+  </main>
+
+  <!-- New Bot Modal -->
+  <div id="newBotModal" class="fixed inset-0 z-50 flex items-center justify-center hidden">
+    <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" onclick="this.parentElement.classList.add('hidden')"></div>
+    <div class="relative w-full max-w-md bg-white rounded-2xl shadow-2xl p-8 border border-gray-200">
+      <div class="flex justify-between items-center mb-6">
+        <h3 class="text-xl font-bold text-on-surface">Create New Chatbot</h3>
+        <button onclick="document.getElementById('newBotModal').classList.add('hidden')" class="text-gray-400 hover:text-gray-600 transition-colors">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <form id="newBotForm" class="space-y-6">
+        {% csrf_token %}
+        <div>
+          <label class="block text-sm font-bold text-on-surface mb-2">Bot Name</label>
+          <input type="text" name="name" required class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" placeholder="e.g. Website Guide">
+        </div>
+        <div>
+          <label class="block text-sm font-bold text-on-surface mb-2">Website URL</label>
+          <input type="url" name="url" required class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" placeholder="https://example.com">
+        </div>
+        <button type="submit" class="w-full bg-primary-container text-on-primary py-4 rounded-lg font-bold hover:bg-primary shadow-lg shadow-primary/20 transition-all transform active:scale-95">
+          Start Architect Analysis
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('newBotForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const data = {
+        name: formData.get('name'),
+        url: formData.get('url')
+      };
+
+      try {
+        const response = await fetch('/api/bots/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': formData.get('csrfmiddlewaretoken')
+          },
+          body: JSON.stringify(data)
+        });
+
+        if (response.ok) {
+          const result = await response.json();
+          // Redirect to the new bot's detail page
+          window.location.href = `/dashboard/bots/${result.bot_id}/`;
+        } else {
+          const error = await response.json();
+          alert('Error: ' + (error.error || 'Failed to create bot'));
+        }
+      } catch (err) {
+        console.error(err);
+        alert('An unexpected error occurred.');
+      }
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="min-h-screen grid grid-cols-1 md:grid-cols-2 -mt-[72px]">
+    <!-- ═══════════════════════════════════════════════════════════════════ -->
+    <!-- LEFT PANEL — Purple gradient brand                                 -->
+    <!-- ═══════════════════════════════════════════════════════════════════ -->
+    <div
+        class="hidden md:flex flex-col items-center justify-center bg-gradient-to-br from-[#4F46E5] to-[#7C3AED] relative overflow-hidden px-12 py-16">
+        <!-- Decorative background circles -->
+        <div class="absolute top-[-80px] left-[-80px] w-[300px] h-[300px] rounded-full bg-white/5"></div>
+        <div class="absolute bottom-[-60px] right-[-60px] w-[250px] h-[250px] rounded-full bg-white/5"></div>
+
+        <div
+            class="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mb-10 shadow-lg relative z-10">
+            <span class="material-symbols-outlined text-white text-[28px]" data-icon="smart_toy"
+                style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+        </div>
+
+        <h1 class="text-white text-[32px] font-bold text-center z-10 font-headline">Welcome back to SiteBot</h1>
+
+        <p class="text-white/70 text-sm text-center max-w-sm mt-5 leading-relaxed relative z-10">
+            Log in to continue building cognitive chatbots and elevating your web interaction.
+        </p>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════════ -->
+    <!-- RIGHT PANEL — Login form                                           -->
+    <!-- ═══════════════════════════════════════════════════════════════════ -->
+    <div class="flex flex-col items-center justify-center bg-white px-6 py-12 md:py-0">
+        <div class="max-w-[400px] w-full">
+            <!-- SiteBot logo -->
+            <div class="flex items-center gap-2 mb-6">
+                <span class="material-symbols-outlined text-[#4F46E5] text-[28px]" data-icon="smart_toy"
+                    style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+                <span class="text-[#4F46E5] text-xl font-bold font-headline tracking-tight">SiteBot</span>
+            </div>
+
+            <!-- Header -->
+            <h2 class="text-[#111827] text-2xl font-bold font-headline">Welcome back</h2>
+            <p class="text-[#6B7280] text-sm mt-1 mb-8">Log in to your SiteBot dashboard</p>
+
+            <!-- Error display -->
+            <div id="auth-error"
+                class="hidden text-red-500 text-sm bg-red-50 border border-red-200 rounded-lg px-4 py-3 mb-5 font-medium">
+            </div>
+
+            <!-- Login form -->
+            <form id="login-form" class="space-y-5" autocomplete="off">
+
+                <!-- Email Address -->
+                <div>
+                    <label for="email"
+                        class="block text-[10px] font-semibold text-[#6B7280] uppercase tracking-[0.12em] mb-2">Email
+                        Address</label>
+                    <input type="email" id="email" placeholder="john@company.com" required
+                        class="w-full px-4 py-3 border border-[#E5E7EB] rounded-lg text-sm text-[#111827] placeholder-[#9CA3AF] focus:outline-none focus:ring-2 focus:ring-[#4F46E5]/30 focus:border-[#4F46E5] transition-all duration-200" />
+                </div>
+
+                <!-- Password -->
+                <div>
+                    <div class="flex items-center justify-between mb-2">
+                        <label for="password"
+                            class="block text-[10px] font-semibold text-[#6B7280] uppercase tracking-[0.12em]">Password</label>
+                        <a href="#"
+                            class="text-[14px] text-[#4F46E5] hover:underline transition-colors focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-[#4F46E5] rounded">Forgot
+                            password?</a>
+                    </div>
+                    <div class="relative">
+                        <input type="password" id="password" placeholder="••••••••" required
+                            class="w-full px-4 py-3 border border-[#E5E7EB] rounded-lg text-sm text-[#111827] placeholder-[#9CA3AF] focus:outline-none focus:ring-2 focus:ring-[#4F46E5]/30 focus:border-[#4F46E5] transition-all duration-200 pr-12" />
+                        <button type="button" id="toggle-password"
+                            class="absolute right-4 top-1/2 -translate-y-1/2 text-[#9CA3AF] hover:text-[#6B7280] transition-colors"
+                            aria-label="Toggle password visibility">
+                            <span class="material-symbols-outlined text-[20px]"
+                                data-icon="visibility_off">visibility_off</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" id="submit-btn"
+                    class="w-full bg-[#4F46E5] hover:bg-[#4338CA] text-white font-medium py-3 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2 mt-2 focus:outline-none focus:ring-4 focus:ring-[#4F46E5]/30">
+                    <span>Log In &rarr;</span>
+                </button>
+            </form>
+
+            <!-- Bottom Link -->
+            <p class="text-center text-sm text-[#6B7280] mt-8">
+                Don't have an account? <a href="{% url 'signup' %}"
+                    class="text-[#4F46E5] font-medium hover:underline focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-[#4F46E5] rounded px-1">Sign
+                    up</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- Django Session Auth Integration -->
+<script type="module">
+    const loginForm = document.getElementById('login-form');
+    const submitBtn = document.getElementById('submit-btn');
+    const authError = document.getElementById('auth-error');
+
+    // Toggle Password Visibility
+    const togglePassword = document.getElementById('toggle-password');
+    const passwordInput = document.getElementById('password');
+
+    if (togglePassword && passwordInput) {
+        togglePassword.addEventListener('click', () => {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            const iconSpan = togglePassword.querySelector('span');
+            if (iconSpan) {
+                iconSpan.textContent = type === 'password' ? 'visibility_off' : 'visibility';
+                iconSpan.setAttribute('data-icon', iconSpan.textContent);
+            }
+        });
+    }
+
+    // Form Submission handler
+    loginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        // Hide previous errors
+        authError.classList.add('hidden');
+        authError.textContent = '';
+
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value;
+
+        // UI Loading state
+        const originalBtnText = submitBtn.innerHTML;
+        submitBtn.innerHTML = `
+            <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            Logging in...
+        `;
+        submitBtn.disabled = true;
+        submitBtn.classList.add('opacity-80', 'cursor-not-allowed');
+
+        try {
+            const response = await fetch('/api/auth/login/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify({ email, password })
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                window.location.href = result.redirect || '/dashboard/';
+            } else {
+                const error = await response.json();
+                throw new Error(error.error || 'Invalid credentials');
+            }
+        } catch (error) {
+            // Restore button State
+            submitBtn.innerHTML = originalBtnText;
+            submitBtn.disabled = false;
+            submitBtn.classList.remove('opacity-80', 'cursor-not-allowed');
+
+            // Show Error UI
+            authError.textContent = error.message;
+            authError.classList.remove('hidden');
+        }
+    });
+</script>
+{% endblock %}

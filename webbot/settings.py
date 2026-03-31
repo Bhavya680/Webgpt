@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'corsheaders',
     # Local
     'core',
+    'dashboard',
 ]
 
 MIDDLEWARE = [
@@ -145,3 +146,10 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ],
 }
+
+# ---------------------------------------------------------------------------
+# Remote LLM inference (Google Colab via ngrok)
+# Set COLAB_API_URL in your .env file, e.g.:
+#   COLAB_API_URL=https://xxxx-xx-xx-xx.ngrok-free.app/generate
+# ---------------------------------------------------------------------------
+COLAB_API_URL = os.getenv('COLAB_API_URL', 'https://hadley-undeclarative-gratifiedly.ngrok-free.dev/generate')
