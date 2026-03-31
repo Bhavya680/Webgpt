@@ -275,65 +275,68 @@
   </main>
 
   <!-- New Bot Modal -->
-  <div id="newBotModal" class="fixed inset-0 z-50 flex items-center justify-center hidden">
-    <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" onclick="this.parentElement.classList.add('hidden')"></div>
-    <div class="relative w-full max-w-md bg-white rounded-2xl shadow-2xl p-8 border border-gray-200">
-      <div class="flex justify-between items-center mb-6">
-        <h3 class="text-xl font-bold text-on-surface">Create New Chatbot</h3>
-        <button onclick="document.getElementById('newBotModal').classList.add('hidden')" class="text-gray-400 hover:text-gray-600 transition-colors">
-          <span class="material-symbols-outlined">close</span>
-        </button>
+  <!-- Modal Overlay -->
+  <div id="newBotModal" class="fixed inset-0 z-50 flex items-center justify-center bg-on-background/50 p-4 backdrop-blur-sm hidden">
+    <!-- Modal Container -->
+    <div class="bg-surface-container-lowest w-full max-w-[520px] rounded-2xl shadow-[0_25px_50px_rgba(20,27,43,0.25)] p-8 relative animate-in fade-in zoom-in duration-300">
+      <!-- Close Button -->
+      <button onclick="document.getElementById('newBotModal').classList.add('hidden')" class="absolute top-6 right-6 text-outline hover:text-on-surface transition-colors">
+        <span class="material-symbols-outlined text-[24px]">close</span>
+      </button>
+      <!-- Modal Header -->
+      <div class="mb-8">
+        <h2 class="text-[24px] font-bold text-on-background tracking-tight">Create New Chatbot</h2>
+        <p class="text-on-surface-variant text-sm mt-1">Configure your AI assistant in minutes.</p>
       </div>
-      <form id="newBotForm" class="space-y-6">
+      <!-- Form Elements -->
+      <form class="space-y-6" method="POST" action="{% url 'mock_create_bot' %}">
         {% csrf_token %}
-        <div>
-          <label class="block text-sm font-bold text-on-surface mb-2">Bot Name</label>
-          <input type="text" name="name" required class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" placeholder="e.g. Website Guide">
+        <!-- Bot Name -->
+        <div class="space-y-1.5">
+          <label class="block text-label-md font-bold tracking-wider uppercase text-on-surface-variant text-[11px]">Bot Name</label>
+          <input name="bot_name" required class="w-full bg-surface-container-lowest border border-outline-variant/15 rounded-lg py-3 px-4 text-on-surface placeholder:text-outline/50 focus:ring-2 focus:ring-primary/20 focus:border-primary/50 transition-all outline-none" placeholder="Acme Support Bot" type="text"/>
         </div>
-        <div>
-          <label class="block text-sm font-bold text-on-surface mb-2">Website URL</label>
-          <input type="url" name="url" required class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" placeholder="https://example.com">
+        <!-- Website URL -->
+        <div class="space-y-1.5">
+          <label class="block text-label-md font-bold tracking-wider uppercase text-on-surface-variant text-[11px]">Website URL</label>
+          <input name="website_url" required class="w-full bg-surface-container-lowest border border-outline-variant/15 rounded-lg py-3 px-4 text-on-surface placeholder:text-outline/50 focus:ring-2 focus:ring-primary/20 focus:border-primary/50 transition-all outline-none" placeholder="https://acme.com" type="url"/>
+          <p class="text-[13px] text-outline mt-1 flex items-center gap-1">
+            <span class="material-symbols-outlined text-[16px]">info</span>
+            We'll crawl this website to train your chatbot
+          </p>
         </div>
-        <button type="submit" class="w-full bg-primary-container text-on-primary py-4 rounded-lg font-bold hover:bg-primary shadow-lg shadow-primary/20 transition-all transform active:scale-95">
-          Start Architect Analysis
-        </button>
+        <!-- Welcome Message -->
+        <div class="space-y-1.5">
+          <label class="block text-label-md font-bold tracking-wider uppercase text-on-surface-variant text-[11px]">Welcome Message (optional)</label>
+          <input name="welcome_message" class="w-full bg-surface-container-lowest border border-outline-variant/15 rounded-lg py-3 px-4 text-on-surface placeholder:text-outline/50 focus:ring-2 focus:ring-primary/20 focus:border-primary/50 transition-all outline-none" placeholder="Hi! How can I help you today?" type="text"/>
+        </div>
+        <!-- Bot Color -->
+        <div class="space-y-3">
+          <label class="block text-label-md font-bold tracking-wider uppercase text-on-surface-variant text-[11px]">Bot Color</label>
+          <div class="flex items-center gap-3">
+            <button class="w-8 h-8 rounded-full bg-[#3b82f6] border-2 border-white ring-2 ring-primary ring-offset-0 transition-transform hover:scale-110 active:scale-95 shadow-sm" type="button" onclick="document.getElementById('botColorInput').value='#3b82f6';"></button>
+            <button class="w-8 h-8 rounded-full bg-[#a855f7] border-2 border-white transition-transform hover:scale-110 active:scale-95 shadow-sm" type="button" onclick="document.getElementById('botColorInput').value='#a855f7';"></button>
+            <button class="w-8 h-8 rounded-full bg-[#ef4444] border-2 border-white transition-transform hover:scale-110 active:scale-95 shadow-sm" type="button" onclick="document.getElementById('botColorInput').value='#ef4444';"></button>
+            <button class="w-8 h-8 rounded-full bg-[#22c55e] border-2 border-white transition-transform hover:scale-110 active:scale-95 shadow-sm" type="button" onclick="document.getElementById('botColorInput').value='#22c55e';"></button>
+            <button class="w-8 h-8 rounded-full bg-[#f97316] border-2 border-white transition-transform hover:scale-110 active:scale-95 shadow-sm" type="button" onclick="document.getElementById('botColorInput').value='#f97316';"></button>
+            <button class="w-8 h-8 rounded-full bg-[#111827] border-2 border-white transition-transform hover:scale-110 active:scale-95 shadow-sm" type="button" onclick="document.getElementById('botColorInput').value='#111827';"></button>
+            <button class="ml-2 text-primary font-bold text-sm hover:underline" type="button">Custom</button>
+            <input type="hidden" name="bot_color" value="#3b82f6" id="botColorInput">
+          </div>
+        </div>
+        <!-- Footer Actions -->
+        <div class="flex items-center justify-end gap-3 mt-10 pt-4">
+          <button onclick="document.getElementById('newBotModal').classList.add('hidden')" class="px-6 py-3 rounded-lg font-bold text-on-surface-variant bg-surface-container-high hover:bg-surface-variant transition-colors" type="button">
+            Cancel
+          </button>
+          <button class="px-6 py-3 rounded-lg font-bold text-on-primary bg-primary-container hover:bg-primary shadow-lg shadow-primary/20 transition-all flex items-center gap-2" type="submit">
+            Create &amp; Train Bot
+            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+          </button>
+        </div>
       </form>
     </div>
   </div>
-
-  <script>
-    document.getElementById('newBotForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const formData = new FormData(e.target);
-      const data = {
-        name: formData.get('name'),
-        url: formData.get('url')
-      };
-
-      try {
-        const response = await fetch('/api/bots/', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': formData.get('csrfmiddlewaretoken')
-          },
-          body: JSON.stringify(data)
-        });
-
-        if (response.ok) {
-          const result = await response.json();
-          // Redirect to the new bot's detail page
-          window.location.href = `/dashboard/bots/${result.bot_id}/`;
-        } else {
-          const error = await response.json();
-          alert('Error: ' + (error.error || 'Failed to create bot'));
-        }
-      } catch (err) {
-        console.error(err);
-        alert('An unexpected error occurred.');
-      }
-    });
-  </script>
 </body>
 
 </html>

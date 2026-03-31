@@ -1,113 +1,95 @@
-# 🚀 WebBot Project: Universal Setup Guide
+# 🚀 SiteBot Project Setup Guide
 
-This guide provides a professional, step-by-step walkthrough to set up the **WebBot AI Backend** on any Windows machine. Follow these steps exactly to ensure the AI models and Django server run smoothly.
+Welcome to the **SiteBot** repository! Follow these steps to get the project running on your local machine.
 
----
-
-## 📋 1. Prerequisites
-
-Before starting, ensure you have the following installed:
-*   **Python 3.10 or 3.11**: [Download from Python.org](https://www.python.org/downloads/) (Make sure to check "Add Python to PATH" during installation).
-*   **Git**: [Download from git-scm.com](https://git-scm.com/).
-*   **Disk Space**: You need at least **12GB of free space** on your C: drive for model weights and environment.
-*   **Hardware (Recommended)**: NVIDIA GPU with 8GB+ VRAM for Gemma-2B fine-tuning. If you don't have a GPU, the system will run on CPU (slower).
+## 📋 Prerequisites
+Ensure you have the following installed:
+- **Python 3.10+**
+- **Git**
+- **Virtualenv** (optional but recommended)
 
 ---
 
-## 🛠 2. Initial Setup
+## 🛠️ Step-by-Step Installation
 
-### Step A: Clone and Navigate
-Open terminal (PowerShell or CMD) and run:
-```powershell
-# Navigate to where you want the project
-cd Desktop
-git clone <repository-url>  # or copy the folder
+### 1. Clone the Repository
+Open your terminal and run:
+```bash
+git clone <repository-url>
 cd Webgpt
 ```
 
-### Step B: Create Virtual Environment
-Isolate your libraries to avoid conflicts:
-```powershell
+### 2. Create a Virtual Environment
+It's best to keep dependencies isolated:
+```bash
+# Windows
 python -m venv venv
 .\venv\Scripts\activate
-```
-*You should now see `(venv)` at the start of your terminal command line.*
 
-### Step C: Install Dependencies
-Install all required AI and Web libraries:
-```powershell
-pip install --upgrade pip
+# macOS/Linux
+python3 -m venv venv
+source venv/bin/activate
+```
+
+### 3. Install Dependencies
+```bash
 pip install -r requirements.txt
 ```
 
----
-
-## ⚙️ 3. Configuration
-
-### Step A: Environment Variables
-Create a file named `.env` in the root folder and paste this template:
+### 4. Configure Environment Variables
+Create a `.env` file in the root directory (copy from below or use the provided example):
 ```env
-SECRET_KEY=generate-a-random-string-here
+SECRET_KEY=your-random-secret-key
 DEBUG=True
-USE_FINETUNED=False
 
-# Database (Using SQLite by default)
-DB_NAME=db.sqlite3
+# Database (Uses SQLite by default, but ready for Postgres)
+DB_NAME=webbot_db
+DB_USER=postgres
+DB_PASSWORD=your-password
+DB_HOST=localhost
+DB_PORT=5432
+
+# Remote LLM Inference (Google Colab via ngrok)
+# Get the latest URL from the project owner if this one is expired
+COLAB_API_URL=https://hadley-undeclarative-gratifiedly.ngrok-free.dev/generate
+
+# HuggingFace Token (For vector embeddings)
+HF_TOKEN=your-huggingface-token
 ```
 
-### Step B: Database Migration
-Prepare the local SQLite database:
-```powershell
+### 5. Initialize the Database
+Run migrations to set up the Django tables:
+```bash
 python manage.py makemigrations
 python manage.py migrate
 ```
 
-### Step C: Create Admin User
-Run our custom script to quickly create an admin account:
-```powershell
-python scripts/create_admin.py
+### 6. Create a Demo User
+You'll need a user to access the dashboard:
+```bash
+# Create a superuser for admin access
+python manage.py createsuperuser
+
+# OR use this shortcut for the demo user
+python manage.py shell -c "from django.contrib.auth.models import User; User.objects.create_user('demouser', 'demouser@example.com', 'DemoPass123!')"
 ```
-*Default login: username: `admin` | password: `password123`*
 
----
-
-## 🚀 4. Running the Project
-
-### Start the Django Server
-```powershell
+### 7. Launch the Application
+```bash
 python manage.py runserver
 ```
-The API is now live at `http://127.0.0.1:8000/`.
+Visit `http://127.0.0.1:8000` in your browser.
 
 ---
 
-## 🧪 5. Testing & Verification
-
-We have provided built-in scripts in the `scripts/` folder to verify your setup:
-
-1.  **Health Check**: Visit `http://127.0.0.1:8000/api/health/` in your browser.
-2.  **Full Verification**: Run the automated test suite:
-    ```powershell
-    python scripts/verify_day5.py
-    ```
-3.  **RAG Sandbox**: Test the retrieval and answer engine without starting the whole server:
-    ```powershell
-    python scripts/standalone_rag_test.py
-    ```
+## 🤖 AI & RAG Configuration
+This project uses **ChromaDB** for vector storage and **Sentence Transformers** for embeddings.
+- **Inference**: The actual LLM logic is offloaded to a Google Colab notebook via the `COLAB_API_URL`.
+- **Scanning**: When you add a new bot, it will scrape the URL and build a local vector index automatically.
 
 ---
 
-## 📁 Project Structure Overview
-*   `webbot/` - Core Django configuration files.
-*   `core/` - Database models and API views.
-*   `ai_engine/` - Logic for Scraping, Embedding (ChromaDB), and LLM loading.
-*   `scripts/` - All testing and utility scripts.
-*   `local_storage/` - Where AI models and scraped data are stored.
-*   `docs/` - Documentation and planning files.
-
----
-
-## ⚠️ Troubleshooting
-*   **SSL Errors**: If the scraper fails, ensure you are using the latest `certifi` package (`pip install --upgrade certifi`).
-*   **CUDA/GPU Not Found**: If AI is slow, ensure you have torch installed with CUDA support (`pip install torch --index-url https://download.pytorch.org/whl/cu121`).
-*   **Model Crash**: Ensure you have enough disk space and RAM (8GB+ minimum).
+## 🆘 Troubleshooting
+- **Connection Refused**: Ensure the `COLAB_API_URL` is correct and the Colab instance is active.
+- **Missing Dependencies**: Run `pip install -r requirements.txt` again if you see `ImportError`.
+- **Database Errors**: If switching to Postgres, ensure your local Postgres server is running and the credentials in `.env` match.
