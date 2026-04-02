@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "tertiary-fixed-dim": "#ffb695",
+              "secondary-fixed": "#e2dfff",
+              "primary-container": "#4f46e5",
+              "outline": "#777587",
+              "on-secondary": "#ffffff",
+              "on-secondary-fixed-variant": "#413f82",
+              "on-tertiary-fixed": "#351000",
+              "on-primary-fixed": "#0f0069",
+              "inverse-surface": "#293040",
+              "outline-variant": "#c7c4d8",
+              "background": "#f9f9ff",
+              "error": "#ba1a1a",
+              "on-secondary-container": "#454386",
+              "surface-variant": "#dce2f7",
+              "inverse-primary": "#c3c0ff",
+              "on-surface": "#141b2b",
+              "surface-tint": "#4d44e3",
+              "surface-container-lowest": "#ffffff",
+              "on-tertiary-container": "#ffd2be",
+              "on-error": "#ffffff",
+              "primary": "#3525cd",
+              "on-surface-variant": "#464555",
+              "surface-dim": "#d3daef",
+              "secondary-fixed-dim": "#c3c0ff",
+              "on-error-container": "#93000a",
+              "surface-container-highest": "#dce2f7",
+              "on-primary": "#ffffff",
+              "inverse-on-surface": "#edf0ff",
+              "secondary-container": "#b6b4ff",
+              "error-container": "#ffdad6",
+              "primary-fixed": "#e2dfff",
+              "tertiary-container": "#a44100",
+              "surface-container-high": "#e1e8fd",
+              "surface": "#f9f9ff",
+              "on-tertiary": "#ffffff",
+              "on-tertiary-fixed-variant": "#7b2f00",
+              "on-secondary-fixed": "#140f54",
+              "on-primary-container": "#dad7ff",
+              "secondary": "#58579b",
+              "on-background": "#141b2b",
+              "tertiary": "#7e3000",
+              "on-primary-fixed-variant": "#3323cc",
+              "surface-bright": "#f9f9ff",
+              "primary-fixed-dim": "#c3c0ff",
+              "tertiary-fixed": "#ffdbcc",
+              "surface-container-low": "#f1f3ff",
+              "surface-container": "#e9edff"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        .tonal-layering-no-borders { border: none !important; }
+        .surface-container-low-bg-shift { background-color: #f1f3ff; }
+        .flat-no-shadows { box-shadow: none !important; }
+    </style>
+</head>
+<body class="bg-background font-body text-on-background antialiased">
+<!-- SideNavBar Integration -->
+<aside class="h-screen w-64 fixed left-0 top-0 border-r border-slate-800/50 bg-slate-950 dark:bg-black flex flex-col h-full py-8 px-4 shadow-2xl z-50 font-inter antialiased tracking-tight">
+<div class="mb-10 px-2">
+<h1 class="text-xl font-black text-white tracking-tighter uppercase"><h1 class="text-xl font-black text-primary dark:text-[#818cf8] tracking-tighter uppercase cursor-text" data-stitch-added-classes="cursor-text" spellcheck="false" style="--tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / 0.5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; --tw-text-opacity: 1; color: rgb(79, 70, 229); outline: none !important;"><span style="--tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / 0.5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; font-size: 24px; letter-spacing: -1.2px; text-transform: none;">SiteBot</span></h1></h1>
+<p class="text-xs text-indigo-400 font-bold tracking-widest uppercase mt-1" style="">Enterprise AI</p>
+</div>
+<nav class="flex-1 space-y-1">
+<!-- Active Tab: Training (closest match for training complete screen) -->
+<a class="flex items-center gap-3 px-3 py-2 text-slate-400 hover:text-slate-100 transition-colors hover:bg-slate-900/50 transition-all duration-200 rounded-lg group" href="#" style="">
+<span class="material-symbols-outlined text-indigo-500" data-icon="dashboard" style="">dashboard</span>
+<span class="font-medium" style="">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-white bg-indigo-600/10 font-semibold border-r-2 border-indigo-500 transition-all duration-200 rounded-lg group" href="#" style="">
+<span class="material-symbols-outlined text-indigo-500" data-icon="model_training" style="">model_training</span>
+<span class="font-medium" style="">Training</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-400 hover:text-slate-100 transition-colors hover:bg-slate-900/50 transition-all duration-200 rounded-lg group" href="#" style="">
+<span class="material-symbols-outlined text-indigo-500" data-icon="analytics" style="">analytics</span>
+<span class="font-medium" style="">Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-400 hover:text-slate-100 transition-colors hover:bg-slate-900/50 transition-all duration-200 rounded-lg group" href="#" style="">
+<span class="material-symbols-outlined text-indigo-500" data-icon="library_books" style="">library_books</span>
+<span class="font-medium" style="">Resources</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-400 hover:text-slate-100 transition-colors hover:bg-slate-900/50 transition-all duration-200 rounded-lg group" href="#" style="">
+<span class="material-symbols-outlined text-indigo-500" data-icon="settings" style="">settings</span>
+<span class="font-medium" style="">Settings</span>
+</a>
+</nav>
+<div class="mt-auto pt-8 border-t border-slate-800/50 space-y-1">
+<button class="w-full bg-indigo-600 text-white py-3 px-4 rounded-xl font-bold text-sm mb-6 flex items-center justify-center gap-2 hover:bg-indigo-500 transition-transform active:scale-95" style="">
+<span class="material-symbols-outlined text-sm" data-icon="add" style="">add</span>
+                New Project
+            </button>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-400 hover:text-slate-100 transition-colors" href="#" style="">
+<span class="material-symbols-outlined" data-icon="help" style="">help</span>
+<span class="text-sm" style="">Help</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-400 hover:text-slate-100 transition-colors" href="#" style="">
+<span class="material-symbols-outlined" data-icon="logout" style="">logout</span>
+<span class="text-sm" style="">Logout</span>
+</a>
+</div>
+</aside>
+<!-- TopNavBar Integration -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] h-16 z-40 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl flex items-center justify-between px-8 w-full surface-container-low-bg-shift flat-no-shadows">
+<div class="flex items-center gap-6">
+<h2 class="text-2xl font-black text-slate-900 dark:text-white tracking-tighter" style="">Training Complete!</h2>
+<nav class="hidden md:flex items-center gap-4">
+<a class="text-slate-500 font-medium hover:text-indigo-500 transition-colors" href="#" style="">Overview</a>
+<a class="text-indigo-600 border-b-2 border-indigo-600 pb-1 font-semibold" href="#" style="">History</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative group">
+<span class="material-symbols-outlined text-slate-500 p-2 rounded-full hover:bg-slate-100 cursor-pointer" data-icon="notifications" style="">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</div>
+<span class="material-symbols-outlined text-slate-500 p-2 rounded-full hover:bg-slate-100 cursor-pointer" data-icon="help_outline" style="">help_outline</span>
+<div class="flex items-center gap-3 ml-2 pl-4 border-l border-slate-200">
+<div class="text-right hidden sm:block">
+<p class="text-xs font-bold text-slate-900" style="">JD</p>
+<p class="text-[10px] text-slate-500" style="">Administrator</p>
+</div>
+<img alt="User Avatar" class="w-8 h-8 rounded-full bg-primary-fixed border-2 border-white shadow-sm" data-alt="minimalist close-up profile avatar of a professional with initials JD on a clean soft indigo background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCd_2ICcLCfmCj7hwKlBCsyhjdhbmT3HtyCoh2EnQg-1HPVeT6q8v7gcWt7e5qNUt5U1_G4Yc232HXdWOlW_KCCzpmLeR8sA6einS6lGdph8kAP1YEsyVTKFI3kqt-QkDofsP6DYvt2HXQj9Yy4RQdGDPk4o94D-X2RuYMbaUgf9lcttiGacM1hocBQfFclD-_qrKfooLcb1tOvHVqZ6QpBXx-Oltd7KAeADsU_eCqXerk5mhrCpORZ9__1OKOVFi2SF7mpFtfzVGU" style=""/>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-64 pt-16 min-h-screen relative overflow-hidden">
+<!-- Atmospheric Background Element (Context Glow) -->
+<div class="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-primary-fixed opacity-30 blur-[120px] rounded-full pointer-events-none"></div>
+<div class="absolute bottom-[-10%] left-[-5%] w-[400px] h-[400px] bg-secondary-fixed opacity-20 blur-[100px] rounded-full pointer-events-none"></div>
+<section class="max-w-6xl mx-auto px-8 py-12 relative z-10">
+<!-- Centered Success Card -->
+<div class="max-w-3xl mx-auto mt-12 bg-surface-container-lowest rounded-[24px] p-12 flex flex-col items-center shadow-[0px_20px_40px_rgba(20,27,43,0.04)] ring-1 ring-outline-variant/15">
+<!-- Success Icon -->
+<div class="w-20 h-20 bg-green-50 text-green-600 rounded-full flex items-center justify-center mb-8 ring-8 ring-green-50/50">
+<span class="material-symbols-outlined text-4xl" style='font-variation-settings: "FILL" 1;'>check_circle</span>
+</div>
+<div class="text-center mb-10">
+<h3 class="text-[32px] font-black text-on-surface tracking-tight leading-tight mb-3" style="">Your chatbot is ready!</h3>
+<p class="text-on-surface-variant font-medium text-lg" style="">Knowledge extraction and vectorization successful.</p>
+</div>
+<!-- Bot Details Container -->
+<div class="flex flex-col items-center gap-2 mb-10">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="smart_toy" style="">smart_toy</span>
+<h4 class="text-xl font-bold text-on-surface" style="">{{ bot.name }}</h4>
+</div>
+<div class="flex items-center gap-3 text-on-surface-variant/70 text-sm font-medium">
+<span class="" style="">{{ bot.url }}</span>
+<span class="w-1 h-1 bg-outline-variant rounded-full"></span>
+<span class="" style="">{{ bot.training_status.pages_scraped }} pages</span>
+<span class="w-1 h-1 bg-outline-variant rounded-full"></span>
+<span class="" style="">{{ bot.training_status.chunks_created }} chunks</span>
+</div>
+</div>
+<!-- Stats Grid (Bento Style) -->
+<div class="grid grid-cols-3 gap-6 w-full mb-12">
+<div class="bg-surface-container-low rounded-2xl p-6 text-center group hover:bg-surface-container-high transition-colors">
+<p class="text-3xl font-black text-on-surface mb-1 group-hover:scale-105 transition-transform" style="">{{ bot.training_status.pages_scraped }}</p>
+<p class="text-[10px] font-black uppercase tracking-widest text-on-surface-variant" style="">Pages Scraped</p>
+</div>
+<div class="bg-surface-container-low rounded-2xl p-6 text-center group hover:bg-surface-container-high transition-colors">
+<p class="text-3xl font-black text-on-surface mb-1 group-hover:scale-105 transition-transform" style="">{{ bot.training_status.chunks_created }}</p>
+<p class="text-[10px] font-black uppercase tracking-widest text-on-surface-variant" style="">Chunks Created</p>
+</div>
+<div class="bg-surface-container-low rounded-2xl p-6 text-center group hover:bg-surface-container-high transition-colors">
+<div class="flex items-center justify-center gap-1 mb-1 group-hover:scale-105 transition-transform">
+<p class="text-3xl font-black text-on-surface" style="">{{ bot.training_status.chunks_created }}</p>
+<span class="text-xs font-bold text-on-surface-variant/50" style="">dim</span>
+</div>
+<p class="text-[10px] font-black uppercase tracking-widest text-on-surface-variant" style="">Vectors Stored</p>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="flex flex-col sm:flex-row gap-4 w-full justify-center">
+<a href="{% url 'dashboard_index' %}" class="bg-primary-container text-on-primary py-4 px-8 rounded-xl font-bold shadow-lg shadow-primary/20 hover:bg-primary transition-all flex items-center justify-center gap-3 group" style="">
+                        Go to Bot Dashboard
+                        <span class="material-symbols-outlined text-lg group-hover:translate-x-1 transition-transform" data-icon="arrow_forward" style="">arrow_forward</span>
+</a>
+<a href="{% url 'bot_detail' bot.id %}" class="bg-surface-container-high text-primary py-4 px-8 rounded-xl font-bold hover:bg-surface-container-highest transition-all flex items-center justify-center gap-3 group" style="">
+                        Try Chat
+                        <span class="material-symbols-outlined text-lg group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform" data-icon="north_east" style="">north_east</span>
+</a>
+</div>
+</div>
+<!-- Contextual Information (Asymmetric Layout) -->
+<div class="mt-20 grid grid-cols-12 gap-8 items-start">
+<div class="col-span-12 md:col-span-7">
+<h5 class="text-[10px] font-black text-primary tracking-[0.2em] uppercase mb-4" style="">What's Next?</h5>
+<h2 class="text-3xl font-black text-on-surface tracking-tighter mb-6 leading-tight" style="">Your intelligence engine is primed and ready for deployment.</h2>
+<p class="text-on-surface-variant text-lg leading-relaxed max-w-xl" style="">
+                        The Cognitive Architect has finished processing your site's hierarchy. You can now configure response personas, set grounding thresholds, or embed the widget directly into your environment.
+                    </p>
+</div>
+<div class="col-span-12 md:col-span-5 grid grid-cols-1 gap-4">
+<div class="bg-surface-container-lowest p-6 rounded-2xl border border-outline-variant/10 flex gap-4 items-center">
+<div class="w-12 h-12 bg-primary-fixed flex items-center justify-center rounded-xl shrink-0">
+<span class="material-symbols-outlined text-primary" data-icon="code" style="">code</span>
+</div>
+<div>
+<p class="font-bold text-on-surface" style="">Get Embed Code</p>
+<p class="text-xs text-on-surface-variant" style="">Add the bot to your site in seconds.</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-2xl border border-outline-variant/10 flex gap-4 items-center">
+<div class="w-12 h-12 bg-secondary-fixed flex items-center justify-center rounded-xl shrink-0">
+<span class="material-symbols-outlined text-secondary" data-icon="tune" style="">tune</span>
+</div>
+<div>
+<p class="font-bold text-on-surface" style="">Refine Persona</p>
+<p class="text-xs text-on-surface-variant" style="">Adjust tone and response constraints.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Decorative Footer Element -->
+<footer class="mt-24 bg-surface-dim pt-12 pb-8 px-8">
+<div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 bg-slate-900 rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-xl" data-icon="hub" style="">hub</span>
+</div>
+<span class="text-lg font-black tracking-tighter text-slate-900 uppercase" style="">Cognitive Architect</span>
+</div>
+<div class="flex gap-8 text-xs font-black tracking-widest uppercase text-slate-500">
+<a class="hover:text-primary transition-colors" href="#" style="">Privacy</a>
+<a class="hover:text-primary transition-colors" href="#" style="">Terms</a>
+<a class="hover:text-primary transition-colors" href="#" style="">Documentation</a>
+</div>
+<p class="text-xs font-medium text-slate-400" style="">© 2024 SiteBot AI. v2.4.0-release</p>
+</div>
+</footer>
+</main>
+</body></html>

@@ -1,0 +1,290 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Scraping Progress - Cognitive Architect</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "secondary-fixed": "#e2dfff",
+                        "on-tertiary-fixed": "#351000",
+                        "surface-container-highest": "#dce2f7",
+                        "on-primary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-primary-container": "#dad7ff",
+                        "tertiary-container": "#a44100",
+                        "inverse-primary": "#c3c0ff",
+                        "on-tertiary-container": "#ffd2be",
+                        "on-secondary-fixed-variant": "#413f82",
+                        "on-primary-fixed-variant": "#3323cc",
+                        "tertiary-fixed": "#ffdbcc",
+                        "tertiary": "#7e3000",
+                        "primary-fixed": "#e2dfff",
+                        "surface-container-low": "#f1f3ff",
+                        "error": "#ba1a1a",
+                        "on-error-container": "#93000a",
+                        "surface-container-high": "#e1e8fd",
+                        "on-primary-fixed": "#0f0069",
+                        "surface-bright": "#f9f9ff",
+                        "on-tertiary-fixed-variant": "#7b2f00",
+                        "inverse-surface": "#293040",
+                        "secondary-container": "#b6b4ff",
+                        "on-surface-variant": "#464555",
+                        "surface-dim": "#d3daef",
+                        "primary-container": "#4f46e5",
+                        "on-secondary-container": "#454386",
+                        "on-background": "#141b2b",
+                        "tertiary-fixed-dim": "#ffb695",
+                        "primary": "#3525cd",
+                        "on-secondary": "#ffffff",
+                        "surface-container": "#e9edff",
+                        "inverse-on-surface": "#edf0ff",
+                        "on-tertiary": "#ffffff",
+                        "primary-fixed-dim": "#c3c0ff",
+                        "on-surface": "#141b2b",
+                        "on-secondary-fixed": "#140f54",
+                        "background": "#f9f9ff",
+                        "surface": "#f9f9ff",
+                        "secondary": "#58579b",
+                        "outline": "#777587",
+                        "surface-container-lowest": "#ffffff",
+                        "outline-variant": "#c7c4d8",
+                        "secondary-fixed-dim": "#c3c0ff",
+                        "surface-variant": "#dce2f7",
+                        "surface-tint": "#4d44e3",
+                        "on-error": "#ffffff"
+                    },
+                    fontFamily: {
+                        "headline": ["Inter"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .shimmer {
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            background-size: 200% 100%;
+            animation: shimmer 2s infinite linear;
+        }
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .animate-spin-custom {
+            animation: spin 1s linear infinite;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface flex min-h-screen">
+<!-- SideNavBar Component -->
+<aside class="hidden md:flex flex-col h-screen w-64 border-r border-outline-variant/15 bg-surface dark:bg-slate-950 py-6 px-4 sticky top-0 shrink-0">
+<div class="mb-10 px-2">
+<h1 class="text-xl font-black text-primary dark:text-[#818cf8] tracking-tighter uppercase" style=""><span style="font-size: 24px; letter-spacing: -1.2px; text-transform: none; background-color: rgba(255, 255, 255, 0.8);">SiteBot</span></h1>
+<p class="text-[10px] text-on-surface-variant/60 font-bold tracking-widest uppercase mt-1" style="">AI Management Platform</p>
+</div>
+<nav class="flex-1 space-y-1">
+<!-- Active Tab: My Bots -->
+<a class="flex items-center gap-3 px-3 py-2.5 text-primary font-bold border-r-4 border-primary bg-surface-container-low transition-colors duration-200" href="#" style="">
+<span class="material-symbols-outlined" data-icon="smart_toy" style="">smart_toy</span>
+<span class="text-sm tracking-wide" style="">My Bots</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors duration-200" href="#" style="">
+<span class="material-symbols-outlined" data-icon="dashboard" style="">dashboard</span>
+<span class="text-sm tracking-wide" style="">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors duration-200" href="#" style="">
+<span class="material-symbols-outlined" data-icon="settings" style="">settings</span>
+<span class="text-sm tracking-wide" style="">Settings</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors duration-200" href="#" style="">
+<span class="material-symbols-outlined" data-icon="description" style="">description</span>
+<span class="text-sm tracking-wide" style="">Docs</span>
+</a>
+</nav>
+<div class="mt-auto pt-6 border-t border-outline-variant/15">
+<button class="w-full flex items-center justify-center gap-2 bg-primary-container text-on-primary py-3 px-4 rounded-lg font-bold text-sm mb-6 active:scale-[0.98] transition-transform" style="">
+<span class="material-symbols-outlined text-sm" data-icon="add" style="">add</span>
+                New Bot
+            </button>
+<a class="flex items-center gap-3 px-3 py-2.5 text-on-surface-variant hover:text-error transition-colors duration-200" href="#" style="">
+<span class="material-symbols-outlined" data-icon="logout" style="">logout</span>
+<span class="text-sm tracking-wide" style="">Logout</span>
+</a>
+</div>
+</aside>
+<div class="flex-1 flex flex-col min-w-0">
+<!-- TopNavBar Component -->
+<header class="w-full h-16 sticky top-0 z-40 bg-surface/80 backdrop-blur-xl border-b border-outline-variant/15 flex justify-between items-center px-8 shadow-[0px_20px_40px_rgba(20,27,43,0.06)]">
+<div class="flex items-center gap-4">
+<h2 class="text-lg font-bold text-on-surface tracking-tight" style="">Training Bot: {{ bot.name }}</h2>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden sm:flex items-center bg-surface-container-low px-4 py-1.5 rounded-full border border-outline-variant/15">
+<span class="material-symbols-outlined text-on-surface-variant text-xl mr-2" data-icon="search" style="">search</span>
+<input class="bg-transparent border-none text-sm focus:ring-0 placeholder:text-on-surface-variant/50 w-48" placeholder="Search bots..." type="text">
+</div>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:text-primary transition-colors" style="">
+<span class="material-symbols-outlined" data-icon="notifications" style="">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors" style="">
+<span class="material-symbols-outlined" data-icon="help" style="">help</span>
+</button>
+<div class="h-8 w-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary font-bold text-xs" style="">
+                        JD
+                    </div>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-1 overflow-y-auto bg-[#F3F4F6] p-6 lg:p-10">
+<div class="max-w-3xl mx-auto w-full">
+<!-- Main Card -->
+<div class="bg-white border border-outline-variant/20 rounded-2xl p-8 shadow-sm">
+<!-- Header Section -->
+<div class="flex items-center gap-4 mb-10">
+<div class="w-10 h-10 flex items-center justify-center bg-primary-container/10 rounded-full" id="spinner-container">
+<span id="training-spinner" class="material-symbols-outlined text-primary animate-spin-custom" data-icon="sync" style="">sync</span>
+</div>
+<h3 id="training-status-title" class="text-2xl font-bold text-on-surface" style="">Training your chatbot...</h3>
+</div>
+<!-- Progress Bar Section -->
+<div class="mb-8">
+<div class="flex justify-between items-end mb-3">
+<div>
+<p class="text-sm font-bold text-primary uppercase tracking-widest mb-1" style="">In Progress</p>
+<p class="text-base font-medium text-on-surface-variant" style="">Scraping: <span class="text-on-surface font-semibold" style="">{{ bot.url }}</span></p>
+</div>
+<span id="progress-text" class="text-sm font-black text-primary" style="">0%</span>
+</div>
+<div class="w-full h-2.5 bg-surface-container-high rounded-full overflow-hidden">
+<div id="progress-bar-fill" class="h-full bg-primary-container shimmer rounded-full relative transition-[width] duration-500" style="width: 0%;"></div>
+</div>
+</div>
+<!-- Scraping Log List -->
+<div id="log-container" class="bg-surface-container-low border border-outline-variant/15 rounded-xl p-5 h-64 overflow-y-auto font-mono text-sm space-y-2">
+<div id="initializing-spinner" class="flex items-start gap-3 text-primary font-semibold py-1">
+<span class="material-symbols-outlined text-lg animate-spin-custom" data-icon="progress_activity" style="">progress_activity</span>
+<span class="" style="">Initializing...</span>
+</div>
+</div>
+<!-- Stats Section (Bottom) -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8 pt-8 border-t border-outline-variant/15">
+<div class="bg-surface-container-lowest border border-outline-variant/10 rounded-xl p-5 text-center transition-all hover:border-primary/20">
+<p class="text-[10px] text-on-surface-variant font-bold uppercase tracking-widest mb-1" style="">Pages found</p>
+<p id="pages-found-count" class="text-3xl font-black text-on-surface" style="">0</p>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant/10 rounded-xl p-5 text-center transition-all hover:border-primary/20">
+<p class="text-[10px] text-on-surface-variant font-bold uppercase tracking-widest mb-1" style="">Pages scraped</p>
+<p id="pages-scraped-count" class="text-3xl font-black text-primary" style="">0</p>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant/10 rounded-xl p-5 text-center transition-all hover:border-primary/20">
+<p class="text-[10px] text-on-surface-variant font-bold uppercase tracking-widest mb-1" style="">Chunks created</p>
+<p id="chunks-created-count" class="text-3xl font-black text-on-surface" style="">0</p>
+</div>
+</div>
+<!-- Context Info -->
+<div class="mt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+    <div class="flex items-center gap-3 p-4 bg-primary-container/5 rounded-lg border border-primary-container/10">
+        <span class="material-symbols-outlined text-primary" data-icon="info" style="">info</span>
+        <p class="text-xs text-on-surface-variant leading-relaxed" style="">
+            Bot training happens in real-time. Once scraping is complete, the neural engine will automatically vectorize the content for retrieval.
+        </p>
+    </div>
+    <div id="continue-section" class="hidden">
+        <a href="{% url 'dashboard_index' %}" class="bg-primary text-on-primary font-bold py-3 px-8 rounded-full shadow-lg shadow-primary/20 hover:scale-105 transition-transform inline-flex items-center gap-2">
+            Continue to Dashboard
+            <span class="material-symbols-outlined text-sm">arrow_forward</span>
+        </a>
+    </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<script>
+    const botId = "{{ bot.id }}";
+    const statusApiUrl = `/dashboard/api/bots/${botId}/status/`;
+    let pollInterval;
+    let lastMessage = "";
+
+    async function pollStatus() {
+        try {
+            const response = await fetch(statusApiUrl);
+            const data = await response.json();
+            
+            // Update Stats
+            document.getElementById('pages-found-count').innerText = data.total_pages;
+            document.getElementById('pages-scraped-count').innerText = data.pages_scraped;
+            document.getElementById('chunks-created-count').innerText = data.chunks_created;
+            
+            // Update Progress
+            document.getElementById('progress-bar-fill').style.width = data.progress + '%';
+            document.getElementById('progress-text').innerText = data.progress + '%';
+            
+            // Log Appending Logic
+            if (data.message && data.message !== lastMessage) {
+                const spinner = document.getElementById('initializing-spinner');
+                if (spinner) {
+                    spinner.remove();
+                }
+
+                const logContainer = document.getElementById('log-container');
+                const logEntry = document.createElement('div');
+                logEntry.className = 'flex items-start gap-3 text-emerald-600 font-semibold py-1 mb-2';
+                
+                const now = new Date();
+                const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+                logEntry.innerHTML = `
+                    <span class="material-symbols-outlined text-lg" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                    <span>[${timeStr}] ${data.message}</span>
+                `;
+                
+                logContainer.appendChild(logEntry);
+                lastMessage = data.message;
+                logContainer.scrollTop = logContainer.scrollHeight;
+            }
+
+            if (data.status === 'active') {
+                clearInterval(pollInterval);
+                window.location.href = "{% url 'bot_training_success' bot.id %}";
+            } else if (data.status === 'failed') {
+                clearInterval(pollInterval);
+                document.getElementById('training-status-title').innerText = "Training failed.";
+                document.getElementById('training-spinner').innerText = "error";
+                document.getElementById('training-spinner').classList.remove('animate-spin-custom');
+                document.getElementById('training-spinner').classList.add('text-error');
+            }
+        } catch (error) {
+            console.error("Error polling bot status:", error);
+        }
+    }
+
+    // Start polling every 1000ms
+    pollInterval = setInterval(pollStatus, 1000);
+    // Initial poll
+    pollStatus();
+</script>
+</body></html>

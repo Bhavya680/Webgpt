@@ -141,6 +141,7 @@ CORS_ALLOW_ALL_ORIGINS = True
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
     ],
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
@@ -152,4 +153,14 @@ REST_FRAMEWORK = {
 # Set COLAB_API_URL in your .env file, e.g.:
 #   COLAB_API_URL=https://xxxx-xx-xx-xx.ngrok-free.app/generate
 # ---------------------------------------------------------------------------
-COLAB_API_URL = os.getenv('COLAB_API_URL', 'https://hadley-undeclarative-gratifiedly.ngrok-free.dev/generate')
+COLAB_API_URL = os.getenv('COLAB_API_URL', 'https://unmoaned-monte-whisperous.ngrok-free.dev/generate')
+
+# ---------------------------------------------------------------------------
+# Celery / Redis configuration
+# ---------------------------------------------------------------------------
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = TIME_ZONE

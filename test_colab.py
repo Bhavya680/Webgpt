@@ -13,7 +13,7 @@ print(f"Testing Colab API at: {COLAB_URL}")
 # Test 1 — health check
 print("\n--- Test 1: Health Check ---")
 try:
-    r = requests.get(f"{COLAB_URL.replace('/generate', '')}/health", timeout=15)
+    r = requests.get(f"{COLAB_URL.replace('/generate', '')}/health", timeout=300)
     print(f"Status: {r.status_code}")
     print(f"Response: {r.json()}")
 except Exception as e:
@@ -33,7 +33,7 @@ try:
         COLAB_URL,
         json={"prompt": prompt},
         headers={"Content-Type": "application/json"},
-        timeout=60,
+        timeout=300,
     )
     print(f"HTTP Status: {r.status_code}")
     data = r.json()

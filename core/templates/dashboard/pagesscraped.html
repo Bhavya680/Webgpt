@@ -1,0 +1,315 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Pages Scraped - Acme Support Bot</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#3525cd",
+                        "surface": "#f9f9ff",
+                        "on-tertiary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed": "#ffdbcc",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed-dim": "#ffb695",
+                        "surface-container-highest": "#dce2f7",
+                        "on-tertiary-container": "#ffd2be",
+                        "on-primary-fixed-variant": "#3323cc",
+                        "outline-variant": "#c7c4d8",
+                        "surface-bright": "#f9f9ff",
+                        "secondary-container": "#b6b4ff",
+                        "primary-container": "#4f46e5",
+                        "on-secondary-container": "#454386",
+                        "secondary-fixed-dim": "#c3c0ff",
+                        "on-error": "#ffffff",
+                        "inverse-surface": "#293040",
+                        "background": "#f9f9ff",
+                        "surface-container-high": "#e1e8fd",
+                        "on-secondary": "#ffffff",
+                        "surface-tint": "#4d44e3",
+                        "on-secondary-fixed": "#140f54",
+                        "error": "#ba1a1a",
+                        "on-surface": "#141b2b",
+                        "secondary-fixed": "#e2dfff",
+                        "on-primary-container": "#dad7ff",
+                        "on-primary": "#ffffff",
+                        "secondary": "#58579b",
+                        "on-surface-variant": "#464555",
+                        "on-background": "#141b2b",
+                        "outline": "#777587",
+                        "surface-dim": "#d3daef",
+                        "primary-fixed": "#e2dfff",
+                        "surface-container-low": "#f1f3ff",
+                        "on-secondary-fixed-variant": "#413f82",
+                        "inverse-on-surface": "#edf0ff",
+                        "primary-fixed-dim": "#c3c0ff",
+                        "surface-variant": "#dce2f7",
+                        "inverse-primary": "#c3c0ff",
+                        "surface-container": "#e9edff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-fixed": "#351000",
+                        "on-primary-fixed": "#0f0069",
+                        "on-tertiary-fixed-variant": "#7b2f00",
+                        "tertiary-container": "#a44100",
+                        "tertiary": "#7e3000"
+                    },
+                    fontFamily: {
+                        "headline": ["Inter"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .tonal-depth-shift {
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface flex overflow-hidden">
+<!-- SIDE NAV BAR (The Anchor) -->
+<aside class="h-screen w-64 border-r border-slate-200/15 dark:border-slate-800/15 bg-slate-50 dark:bg-slate-950 flex flex-col py-6 px-4 shrink-0">
+<div class="mb-10 px-2">
+<h1 class="text-xl font-black text-indigo-700 dark:text-indigo-500 font-inter tracking-tight headline-lg extra-bold" style=""><span style="color: rgb(53, 37, 205); font-family: Inter; font-size: 24px; letter-spacing: -1.2px; background-color: rgba(255, 255, 255, 0.8);">SiteBot</span></h1>
+<p class="text-xs text-slate-500 font-medium tracking-widest uppercase mt-1" style="">Admin Console</p>
+</div>
+<nav class="flex-1 space-y-1">
+<!-- Dashboard (Inactive) -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:text-indigo-500 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors group" href="#" style="">
+<span class="material-symbols-outlined text-lg" style="">dashboard</span>
+<span class="font-medium" style="">Dashboard</span>
+</a>
+<!-- Analytics (Inactive) -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:text-indigo-500 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors group" href="#" style="">
+<span class="material-symbols-outlined text-lg" style="">analytics</span>
+<span class="font-medium" style="">Analytics</span>
+</a>
+<!-- Bots (Active Context) -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-indigo-700 dark:text-indigo-400 font-bold bg-indigo-50/50 dark:bg-indigo-900/20 scale-95 transition-all duration-200" href="#" style="">
+<span class="material-symbols-outlined text-lg" style="font-variation-settings: &quot;FILL&quot; 1;">smart_toy</span>
+<span class="font-medium" style="">Bots</span>
+</a>
+<!-- Integrations (Inactive) -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:text-indigo-500 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors group" href="#" style="">
+<span class="material-symbols-outlined text-lg" style="">extension</span>
+<span class="font-medium" style="">Integrations</span>
+</a>
+<!-- Documentation (Inactive) -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:text-indigo-500 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors group" href="#" style="">
+<span class="material-symbols-outlined text-lg" style="">description</span>
+<span class="font-medium" style="">Documentation</span>
+</a>
+</nav>
+<div class="mt-auto border-t border-slate-200/50 dark:border-slate-800/50 pt-6 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:text-indigo-500 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors group" href="#" style="">
+<span class="material-symbols-outlined text-lg" style="">help</span>
+<span class="font-medium" style="">Help</span>
+</a>
+<div class="flex items-center gap-3 px-3 py-4 mt-2">
+<div class="h-8 w-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary text-xs font-bold overflow-hidden">
+<img alt="User Profile" class="h-full w-full object-cover" data-alt="Professional headshot of a software architect with a modern urban background, soft natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC71zHsSSiyPbum7nd-PYncO2nbky7XtckVMusV0IwHLC9LhgYgitK6_zFA96yTcoh6NpHYMJU88SzSOd3mryEPK9CZ646hW2iuBoac7_A4jVh4ig2960b-sMUxZTvP9gRyjxaYjIaitOJpm3DLFbswdUpGH7gNJyjfpXtzBB6jdGPUVlYHbYN7CSzAzB4drNe54-hp9PFDLkwkWMM9XPwtceqOWr0dlXm5kzgayCkNzdqAj-73AjAsecsYnpHKUOon3do4gFdiJj0" style="">
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-semibold text-slate-900 dark:text-white truncate" style="">Alex Rivera</p>
+<p class="text-xs text-slate-500 truncate" style="">alex@acme.ai</p>
+</div>
+<button class="text-slate-400 hover:text-error transition-colors" style="">
+<span class="material-symbols-outlined text-lg" style="">logout</span>
+</button>
+</div>
+</div>
+</aside>
+<!-- MAIN CONTENT AREA -->
+<main class="flex-1 flex flex-col h-screen overflow-hidden">
+<!-- TOP NAV BAR -->
+<header class="full-width top-0 sticky z-40 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl flex justify-between items-center w-full px-8 h-16 border-b border-slate-200/15 dark:border-slate-800/15 tonal-depth-shift">
+<div class="flex items-center gap-6">
+<a class="flex items-center gap-2 text-slate-500 hover:text-indigo-600 transition-colors group" href="#" style="">
+<span class="material-symbols-outlined text-sm" style="">arrow_back</span>
+<span class="text-sm font-medium" style="">Back to Bots</span>
+</a>
+<div class="h-4 w-px bg-slate-200 dark:bg-slate-800"></div>
+<h2 class="text-lg font-bold text-slate-900 dark:text-slate-100 font-inter" style="">Acme Support Bot</h2>
+</div>
+<nav class="flex gap-8 h-full items-center font-inter body-lg medium tracking-wide">
+<a class="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 transition-all opacity-80 hover:opacity-100 duration-300" href="#" style="">Widget Embed</a>
+<a class="text-indigo-600 dark:text-indigo-400 border-b-2 border-indigo-600 dark:border-indigo-400 h-full flex items-center px-1 font-semibold transition-all opacity-100" href="#" style="">Pages Scraped</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 transition-all opacity-80 hover:opacity-100 duration-300" href="#" style="">Test Chat</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 transition-all opacity-80 hover:opacity-100 duration-300" href="#" style="">Settings</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="p-2 text-slate-500 hover:text-indigo-600 transition-colors" style="">
+<span class="material-symbols-outlined" style="">notifications</span>
+</button>
+<div class="h-8 w-8 rounded-lg bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center">
+<span class="material-symbols-outlined text-indigo-600 dark:text-indigo-400 text-sm" style="font-variation-settings: &quot;FILL&quot; 1;">smart_toy</span>
+</div>
+</div>
+</header>
+<!-- CONTENT CANVAS -->
+<section class="flex-1 overflow-y-auto p-12 bg-surface">
+<div class="max-w-6xl mx-auto">
+<!-- HEADER SECTION -->
+<div class="flex justify-between items-end mb-8">
+<div>
+<span class="text-[0.65rem] font-bold tracking-[0.1em] text-indigo-600 uppercase bg-indigo-50 px-2 py-1 rounded" style="">Source Control</span>
+<h3 class="headline-lg extra-bold text-slate-900 mt-3" style="">12 pages scraped from acme.com</h3>
+<p class="text-slate-500 body-lg mt-1" style="">Automatic indexing of your site's documentation and support hierarchy.</p>
+</div>
+<button class="bg-surface-container-high text-primary font-semibold py-3 px-6 rounded hover:bg-indigo-100 transition-all flex items-center gap-2 group" style="">
+<span class="material-symbols-outlined text-lg group-hover:rotate-180 transition-transform duration-500" style="">refresh</span>
+                        Re-scrape Site
+                    </button>
+</div>
+<!-- MAIN DATA TABLE CARD -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant/15 shadow-sm overflow-hidden">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant/10">
+<th class="py-4 px-6 text-[0.7rem] font-bold text-slate-400 uppercase tracking-widest" style="">#</th>
+<th class="py-4 px-6 text-[0.7rem] font-bold text-slate-400 uppercase tracking-widest" style="">Page URL</th>
+<th class="py-4 px-6 text-[0.7rem] font-bold text-slate-400 uppercase tracking-widest" style="">Chunks</th>
+<th class="py-4 px-6 text-[0.7rem] font-bold text-slate-400 uppercase tracking-widest text-right" style="">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100/50">
+<!-- Row 1 -->
+<tr class="bg-white hover:bg-indigo-50/30 transition-colors">
+<td class="py-4 px-6 text-slate-400 font-medium" style="">1</td>
+<td class="py-4 px-6 font-medium text-slate-700" style="">/index.html</td>
+<td class="py-4 px-6 text-slate-600" style="">5 chunks</td>
+<td class="py-4 px-6 text-right" style=""><span class="inline-flex items-center justify-center h-6 w-6 rounded-full bg-emerald-50 text-emerald-600 text-xs" style="">✅</span></td>
+</tr>
+<!-- Row 2 -->
+<tr class="bg-[#F9FAFB] hover:bg-indigo-50/30 transition-colors">
+<td class="py-4 px-6 text-slate-400 font-medium" style="">2</td>
+<td class="py-4 px-6 font-medium text-slate-700" style="">/about</td>
+<td class="py-4 px-6 text-slate-600" style="">3 chunks</td>
+<td class="py-4 px-6 text-right" style=""><span class="inline-flex items-center justify-center h-6 w-6 rounded-full bg-emerald-50 text-emerald-600 text-xs" style="">✅</span></td>
+</tr>
+<!-- Row 3 -->
+<tr class="bg-white hover:bg-indigo-50/30 transition-colors">
+<td class="py-4 px-6 text-slate-400 font-medium" style="">3</td>
+<td class="py-4 px-6 font-medium text-slate-700" style="">/services</td>
+<td class="py-4 px-6 text-slate-600" style="">6 chunks</td>
+<td class="py-4 px-6 text-right" style=""><span class="inline-flex items-center justify-center h-6 w-6 rounded-full bg-emerald-50 text-emerald-600 text-xs" style="">✅</span></td>
+</tr>
+<!-- Row 4 -->
+<tr class="bg-[#F9FAFB] hover:bg-indigo-50/30 transition-colors">
+<td class="py-4 px-6 text-slate-400 font-medium" style="">4</td>
+<td class="py-4 px-6 font-medium text-slate-700" style="">/pricing</td>
+<td class="py-4 px-6 text-slate-600" style="">4 chunks</td>
+<td class="py-4 px-6 text-right" style=""><span class="inline-flex items-center justify-center h-6 w-6 rounded-full bg-emerald-50 text-emerald-600 text-xs" style="">✅</span></td>
+</tr>
+<!-- Row 5 -->
+<tr class="bg-white hover:bg-indigo-50/30 transition-colors">
+<td class="py-4 px-6 text-slate-400 font-medium" style="">5</td>
+<td class="py-4 px-6 font-medium text-slate-700" style="">/contact</td>
+<td class="py-4 px-6 text-slate-600" style="">2 chunks</td>
+<td class="py-4 px-6 text-right" style=""><span class="inline-flex items-center justify-center h-6 w-6 rounded-full bg-emerald-50 text-emerald-600 text-xs" style="">✅</span></td>
+</tr>
+<!-- Row 6 -->
+<tr class="bg-[#F9FAFB] hover:bg-indigo-50/30 transition-colors">
+<td class="py-4 px-6 text-slate-400 font-medium" style="">6</td>
+<td class="py-4 px-6 font-medium text-slate-700" style="">/blog</td>
+<td class="py-4 px-6 text-slate-600" style="">8 chunks</td>
+<td class="py-4 px-6 text-right" style=""><span class="inline-flex items-center justify-center h-6 w-6 rounded-full bg-emerald-50 text-emerald-600 text-xs" style="">✅</span></td>
+</tr>
+<!-- Row 7 -->
+<tr class="bg-white hover:bg-indigo-50/30 transition-colors">
+<td class="py-4 px-6 text-slate-400 font-medium" style="">7</td>
+<td class="py-4 px-6 font-medium text-slate-700" style="">/blog/post-1</td>
+<td class="py-4 px-6 text-slate-600" style="">4 chunks</td>
+<td class="py-4 px-6 text-right" style=""><span class="inline-flex items-center justify-center h-6 w-6 rounded-full bg-emerald-50 text-emerald-600 text-xs" style="">✅</span></td>
+</tr>
+<!-- Row 8 -->
+<tr class="bg-[#F9FAFB] hover:bg-indigo-50/30 transition-colors">
+<td class="py-4 px-6 text-slate-400 font-medium" style="">8</td>
+<td class="py-4 px-6 font-medium text-slate-700" style="">/blog/post-2</td>
+<td class="py-4 px-6 text-slate-600" style="">5 chunks</td>
+<td class="py-4 px-6 text-right" style=""><span class="inline-flex items-center justify-center h-6 w-6 rounded-full bg-emerald-50 text-emerald-600 text-xs" style="">✅</span></td>
+</tr>
+<!-- Row 9 -->
+<tr class="bg-white hover:bg-indigo-50/30 transition-colors">
+<td class="py-4 px-6 text-slate-400 font-medium" style="">9</td>
+<td class="py-4 px-6 font-medium text-slate-700" style="">/faq</td>
+<td class="py-4 px-6 text-slate-600" style="">4 chunks</td>
+<td class="py-4 px-6 text-right" style=""><span class="inline-flex items-center justify-center h-6 w-6 rounded-full bg-emerald-50 text-emerald-600 text-xs" style="">✅</span></td>
+</tr>
+<!-- Row 10 -->
+<tr class="bg-[#F9FAFB] hover:bg-indigo-50/30 transition-colors">
+<td class="py-4 px-6 text-slate-400 font-medium" style="">10</td>
+<td class="py-4 px-6 font-medium text-slate-700" style="">/terms</td>
+<td class="py-4 px-6 text-slate-600" style="">3 chunks</td>
+<td class="py-4 px-6 text-right" style=""><span class="inline-flex items-center justify-center h-6 w-6 rounded-full bg-emerald-50 text-emerald-600 text-xs" style="">✅</span></td>
+</tr>
+<!-- Row 11 -->
+<tr class="bg-white hover:bg-indigo-50/30 transition-colors">
+<td class="py-4 px-6 text-slate-400 font-medium" style="">11</td>
+<td class="py-4 px-6 font-medium text-slate-700" style="">/privacy</td>
+<td class="py-4 px-6 text-slate-600" style="">2 chunks</td>
+<td class="py-4 px-6 text-right" style=""><span class="inline-flex items-center justify-center h-6 w-6 rounded-full bg-emerald-50 text-emerald-600 text-xs" style="">✅</span></td>
+</tr>
+<!-- Row 12 -->
+<tr class="bg-[#F9FAFB] hover:bg-indigo-50/30 transition-colors border-b border-transparent">
+<td class="py-4 px-6 text-slate-400 font-medium" style="">12</td>
+<td class="py-4 px-6 font-medium text-slate-700" style="">/careers</td>
+<td class="py-4 px-6 text-slate-600" style="">1 chunk</td>
+<td class="py-4 px-6 text-right" style=""><span class="inline-flex items-center justify-center h-6 w-6 rounded-full bg-emerald-50 text-emerald-600 text-xs" style="">✅</span></td>
+</tr>
+</tbody>
+</table>
+<!-- FOOTER SECTION -->
+<div class="px-8 py-6 bg-slate-50 flex justify-between items-center">
+<div class="flex items-center gap-2 text-slate-500 text-sm">
+<span class="font-bold text-indigo-600" style="">Total: 47 chunks</span>
+<span class="h-1 w-1 rounded-full bg-slate-300"></span>
+<span class="" style="">Last scraped: March 15, 2026</span>
+</div>
+<div class="flex gap-2">
+<button class="p-2 rounded hover:bg-slate-200 transition-colors text-slate-400" style="">
+<span class="material-symbols-outlined text-lg" style="">chevron_left</span>
+</button>
+<div class="flex items-center px-4 text-xs font-bold text-indigo-600 bg-indigo-50 rounded" style="">Page 1 of 1</div>
+<button class="p-2 rounded hover:bg-slate-200 transition-colors text-slate-400 opacity-50 cursor-not-allowed" style="">
+<span class="material-symbols-outlined text-lg" style="">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- ANALYTICS ASIDE (Editorial Style) -->
+<div class="mt-12 grid grid-cols-3 gap-8">
+<div class="p-8 rounded-xl bg-surface-container-low border border-outline-variant/10">
+<span class="material-symbols-outlined text-primary mb-4" style="">data_thresholding</span>
+<h4 class="title-md font-bold text-slate-900" style="">Intelligence Depth</h4>
+<p class="text-slate-500 text-sm mt-2 leading-relaxed" style="">Each chunk represents a vectorized semantic unit used for LLM context retrieval.</p>
+</div>
+<div class="p-8 rounded-xl bg-surface-container-low border border-outline-variant/10">
+<span class="material-symbols-outlined text-primary mb-4" style="">speed</span>
+<h4 class="title-md font-bold text-slate-900" style="">Processing Speed</h4>
+<p class="text-slate-500 text-sm mt-2 leading-relaxed" style="">The entire site was scraped and indexed in 4.2 seconds using our neural crawler.</p>
+</div>
+<div class="p-8 rounded-xl bg-surface-container-low border border-outline-variant/10">
+<span class="material-symbols-outlined text-primary mb-4" style="">security</span>
+<h4 class="title-md font-bold text-slate-900" style="">Content Integrity</h4>
+<p class="text-slate-500 text-sm mt-2 leading-relaxed" style="">No broken links found. The bot has a 100% accurate map of the directory.</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+</body></html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SiteBot</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-variant": "#dce2f7",
+                        "primary-fixed": "#e2dfff",
+                        "tertiary": "#7e3000",
+                        "on-tertiary-container": "#ffd2be",
+                        "inverse-surface": "#293040",
+                        "primary-fixed-dim": "#c3c0ff",
+                        "on-error": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "on-secondary-container": "#454386",
+                        "on-surface-variant": "#464555",
+                        "on-secondary": "#ffffff",
+                        "surface-container-low": "#f1f3ff",
+                        "secondary-fixed-dim": "#c3c0ff",
+                        "secondary-fixed": "#e2dfff",
+                        "on-primary-container": "#dad7ff",
+                        "tertiary-fixed-dim": "#ffb695",
+                        "surface-tint": "#4d44e3",
+                        "on-tertiary": "#ffffff",
+                        "secondary": "#58579b",
+                        "on-surface": "#141b2b",
+                        "background": "#f9f9ff",
+                        "tertiary-fixed": "#ffdbcc",
+                        "inverse-on-surface": "#edf0ff",
+                        "on-secondary-fixed-variant": "#413f82",
+                        "primary": "#3525cd",
+                        "on-primary": "#ffffff",
+                        "primary-container": "#4f46e5",
+                        "outline-variant": "#c7c4d8",
+                        "on-primary-fixed": "#0f0069",
+                        "surface": "#f9f9ff",
+                        "error-container": "#ffdad6",
+                        "error": "#ba1a1a",
+                        "surface-container-high": "#e1e8fd",
+                        "on-tertiary-fixed-variant": "#7b2f00",
+                        "surface-container-highest": "#dce2f7",
+                        "on-primary-fixed-variant": "#3323cc",
+                        "outline": "#777587",
+                        "inverse-primary": "#c3c0ff",
+                        "on-tertiary-fixed": "#351000",
+                        "surface-container": "#e9edff",
+                        "surface-dim": "#d3daef",
+                        "on-secondary-fixed": "#140f54",
+                        "surface-bright": "#f9f9ff",
+                        "secondary-container": "#b6b4ff",
+                        "on-background": "#141b2b",
+                        "tertiary-container": "#a44100",
+                        "surface-container-lowest": "#ffffff"
+                    },
+                    fontFamily: {
+                        "headline": ["Inter"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex">
+<!-- SideNavBar -->
+<aside class="bg-slate-950 dark:bg-black h-screen w-64 fixed left-0 top-0 border-r border-slate-800/50 shadow-2xl shadow-black/50 flex flex-col py-8 z-50">
+    <div class="px-6 mb-10">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-lg bg-indigo-600 flex items-center justify-center text-white shadow-lg">
+                <img alt="SiteBot Logo" class="w-full h-full object-contain p-1.5" src="https://lh3.googleusercontent.com/aida/ADBb0ujf8BnKo1-DlRTjBoY5K-FpYZmBoMBY7EeXeHzIT5A7xhfhHfCfuYY8oGzuQ9Qy--i0xwkSOV0N2k0QU-7H9NIRMwzrQRp3JnDjigZYJqkXFWC4oJbQtgFVS3YC7-JOE8i_DOMB9Wx7g3cn1KYUS-LdxP96cGMZApU89vF8YQZNx_i7_liBfchzDas_Lq82s32GvWKQdBm_McmhZqyGHCgJdPj0RHWIoU49mWtRy7GpNYYGf-UW-GSiPF4"/>
+            </div>
+            <div>
+                <h1 class="text-2xl font-black text-white tracking-tighter">SiteBot</h1>
+                <p class="text-[10px] uppercase tracking-widest text-indigo-400 font-bold">AI Engine</p>
+            </div>
+        </div>
+    </div>
+    <nav class="flex-1 space-y-1">
+        <a class="bg-indigo-600/10 text-indigo-400 border-r-4 border-indigo-500 px-6 py-3 flex items-center gap-3 font-medium transition-all duration-200" href="{% url 'dashboard_index' %}">
+            <span class="material-symbols-outlined">dashboard</span>
+            <span>Dashboard</span>
+        </a>
+        <a class="text-slate-400 hover:text-white hover:bg-slate-900/50 px-6 py-3 flex items-center gap-3 transition-all duration-200" href="#">
+            <span class="material-symbols-outlined">bar_chart</span>
+            <span>Analytics</span>
+        </a>
+        <a class="text-slate-400 hover:text-white hover:bg-slate-900/50 px-6 py-3 flex items-center gap-3 transition-all duration-200" href="#">
+            <span class="material-symbols-outlined">robot_2</span>
+            <span>Automations</span>
+        </a>
+        <a class="text-slate-400 hover:text-white hover:bg-slate-900/50 px-6 py-3 flex items-center gap-3 transition-all duration-200" href="#">
+            <span class="material-symbols-outlined">settings</span>
+            <span>Settings</span>
+        </a>
+    </nav>
+    <div class="px-6 mt-auto">
+        <button class="w-full text-slate-400 hover:text-white hover:bg-slate-900/50 px-4 py-3 flex items-center gap-3 transition-all duration-200 rounded-lg">
+            <span class="material-symbols-outlined">logout</span>
+            <span>Logout</span>
+        </button>
+    </div>
+</aside>
+
+<!-- Main Content Area -->
+<main class="flex-1 ml-64 min-h-screen flex flex-col">
+    <!-- TopNavBar -->
+    <header class="fixed top-0 right-0 left-64 h-16 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl z-40 flex justify-between items-center px-8 w-auto">
+        {% block header_content %}{% endblock %}
+    </header>
+
+    {% block content %}{% endblock %}
+</main>
+</body>
+</html>

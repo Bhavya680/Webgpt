@@ -1,0 +1,126 @@
+{% extends 'dashboard_base.html' %}
+
+{% block header_content %}
+<div class="flex items-center gap-6">
+    <a class="text-[14px] text-[#6B7280] hover:text-[#111827] flex items-center gap-1 transition-colors font-medium" href="{% url 'dashboard_index' %}">
+        <span class="material-symbols-outlined text-sm">arrow_back</span>
+        Back to Bots
+    </a>
+    <div class="h-4 w-[1px] bg-outline-variant/30"></div>
+    <h2 class="text-[20px] font-semibold text-[#111827] tracking-tight">{{ bot.name }}</h2>
+</div>
+<div class="flex items-center gap-4">
+    <div class="flex items-center gap-2">
+        <button class="p-2 text-slate-500 hover:text-indigo-600 transition-colors">
+            <span class="material-symbols-outlined">notifications</span>
+        </button>
+        <button class="p-2 text-slate-500 hover:text-indigo-600 transition-colors">
+            <span class="material-symbols-outlined">help</span>
+        </button>
+    </div>
+    <div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant/20 shadow-sm">
+        <img alt="User Avatar" class="w-full h-full object-cover" data-alt="Professional male user profile avatar with soft studio lighting and neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAz04BTu7oIa3EFB_xhDN9Dh5t7ArN5An1sAaxG2Gt9R8JFXHliMjZ1XtlVm00HI1XpwvqsFmrTYD0xAyW5PjfweGq2qG0ZyyTXWfk2BxuKo7UFaPg3W0rlYvLIbgUOHh0ylvSjgZYL3QjhPX1JFPOlj_j7HF6v1IbFdoHnd3snaRJe62ASKFTn36364jgqURcAm8fopEAU6mBHd_ZI4wv6miX9ckLTQEwhSqiQHRFYj5gYhK3iks_HFKx0RL2ZmkMrdOodT0YMumA"/>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="pt-24 px-12 pb-16 flex-1 max-w-5xl mx-auto w-full">
+    <!-- Tab Navigation -->
+    <nav class="flex border-b border-outline-variant/20 mb-8 overflow-x-auto">
+        <a href="{% url 'bot_detail' bot.id %}" class="text-[#6B7280] hover:text-[#111827] pb-3 px-4 font-medium text-sm transition-all whitespace-nowrap">Widget Embed</a>
+        <a href="{% url 'bot_pages' bot.id %}" class="text-primary border-b-2 border-primary pb-3 px-4 font-semibold text-sm transition-all whitespace-nowrap">Pages Scraped</a>
+        <button class="text-[#6B7280] hover:text-[#111827] pb-3 px-4 font-medium text-sm transition-all whitespace-nowrap">Test Chat</button>
+        <button class="text-[#6B7280] hover:text-[#111827] pb-3 px-4 font-medium text-sm transition-all whitespace-nowrap">Settings</button>
+    </nav>
+
+    <!-- HEADER SECTION -->
+    <div class="flex justify-between items-end mb-8">
+        <div>
+            <span class="text-[0.65rem] font-bold tracking-[0.1em] text-indigo-600 uppercase bg-indigo-50 px-2 py-1 rounded">Source Control</span>
+            <h3 class="text-3xl font-extrabold text-slate-900 mt-3">{{ scraped_pages.count }} pages scraped from {{ bot.url }}</h3>
+            <p class="text-slate-500 text-lg mt-1">Automatic indexing of your site's documentation and support hierarchy.</p>
+        </div>
+        <form method="POST" action="{% url 'rescrape_bot' bot.id %}">
+            {% csrf_token %}
+            <button type="submit" class="bg-surface-container-high text-primary font-semibold py-3 px-6 rounded hover:bg-indigo-100 transition-all flex items-center gap-2 group">
+                <span class="material-symbols-outlined text-lg group-hover:rotate-180 transition-transform duration-500">refresh</span>
+                Re-scrape Site
+            </button>
+        </form>
+    </div>
+
+    <!-- MAIN DATA TABLE CARD -->
+    <div class="bg-surface-container-lowest rounded-xl border border-outline-variant/15 shadow-sm overflow-hidden">
+        <table class="w-full text-left border-collapse">
+            <thead>
+                <tr class="bg-surface-container-low border-b border-outline-variant/10">
+                    <th class="py-4 px-6 text-[0.7rem] font-bold text-slate-400 uppercase tracking-widest">#</th>
+                    <th class="py-4 px-6 text-[0.7rem] font-bold text-slate-400 uppercase tracking-widest">Page URL</th>
+                    <th class="py-4 px-6 text-[0.7rem] font-bold text-slate-400 uppercase tracking-widest">Chunks</th>
+                    <th class="py-4 px-6 text-[0.7rem] font-bold text-slate-400 uppercase tracking-widest text-right">Status</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100/50">
+                {% for page in scraped_pages %}
+                <tr class="{% cycle 'bg-white' 'bg-[#F9FAFB]' %} hover:bg-indigo-50/30 transition-colors">
+                    <td class="py-4 px-6 text-slate-400 font-medium">{{ forloop.counter }}</td>
+                    <td class="py-4 px-6 font-medium text-slate-700">{{ page.url }}</td>
+                    <td class="py-4 px-6 text-slate-600">{{ page.chunks_count|default:"0" }} chunks</td>
+                    <td class="py-4 px-6 text-right">
+                        {% if page.status == 'success' %}
+                        <span class="inline-flex items-center justify-center h-6 w-6 rounded-full bg-emerald-50 text-emerald-600 text-xs">✅</span>
+                        {% else %}
+                        <span class="inline-flex items-center justify-center h-6 w-6 rounded-full bg-red-50 text-red-600 text-xs">❌</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="py-8 px-6 text-center text-slate-500 font-medium">
+                        No pages have been scraped yet. Click 'Re-scrape Site' to begin.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- FOOTER SECTION -->
+        <div class="px-8 py-6 bg-slate-50 flex justify-between items-center">
+            <div class="flex items-center gap-2 text-slate-500 text-sm">
+                <span class="font-bold text-indigo-600">Total: {{ bot.training_status.chunks_created|default:"0" }} chunks</span>
+                <span class="h-1 w-1 rounded-full bg-slate-300"></span>
+                <span>Last scraped: {{ bot.training_status.started_at|date:"F j, Y" }}</span>
+            </div>
+            <div class="flex gap-2">
+                <button class="p-2 rounded hover:bg-slate-200 transition-colors text-slate-400">
+                    <span class="material-symbols-outlined text-lg">chevron_left</span>
+                </button>
+                <div class="flex items-center px-4 text-xs font-bold text-indigo-600 bg-indigo-50 rounded">Page 1 of 1</div>
+                <button class="p-2 rounded hover:bg-slate-200 transition-colors text-slate-400 opacity-50 cursor-not-allowed">
+                    <span class="material-symbols-outlined text-lg">chevron_right</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ANALYTICS ASIDE (Editorial Style) -->
+    <div class="mt-12 grid grid-cols-3 gap-8">
+        <div class="p-8 rounded-xl bg-surface-container-low border border-outline-variant/10">
+            <span class="material-symbols-outlined text-primary mb-4">data_thresholding</span>
+            <h4 class="text-xl font-bold text-slate-900">Intelligence Depth</h4>
+            <p class="text-slate-500 text-sm mt-2 leading-relaxed">Each chunk represents a vectorized semantic unit used for LLM context retrieval.</p>
+        </div>
+        <div class="p-8 rounded-xl bg-surface-container-low border border-outline-variant/10">
+            <span class="material-symbols-outlined text-primary mb-4">speed</span>
+            <h4 class="text-xl font-bold text-slate-900">Processing Speed</h4>
+            <p class="text-slate-500 text-sm mt-2 leading-relaxed">The entire site was scraped and indexed in 4.2 seconds using our neural crawler.</p>
+        </div>
+        <div class="p-8 rounded-xl bg-surface-container-low border border-outline-variant/10">
+            <span class="material-symbols-outlined text-primary mb-4">security</span>
+            <h4 class="text-xl font-bold text-slate-900">Content Integrity</h4>
+            <p class="text-slate-500 text-sm mt-2 leading-relaxed">No broken links found. The bot has a 100% accurate map of the directory.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SiteBot - My Bots Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary-fixed-dim": "#c3c0ff",
+              "outline-variant": "#c7c4d8",
+              "secondary-fixed": "#e2dfff",
+              "secondary-fixed-dim": "#c3c0ff",
+              "on-secondary-container": "#454386",
+              "on-tertiary-container": "#ffd2be",
+              "error-container": "#ffdad6",
+              "inverse-primary": "#c3c0ff",
+              "on-primary": "#ffffff",
+              "on-primary-container": "#dad7ff",
+              "primary-fixed": "#e2dfff",
+              "inverse-surface": "#293040",
+              "error": "#ba1a1a",
+              "surface-bright": "#f9f9ff",
+              "surface-container-high": "#e1e8fd",
+              "on-surface-variant": "#464555",
+              "surface-container": "#e9edff",
+              "tertiary-container": "#a44100",
+              "on-primary-fixed-variant": "#3323cc",
+              "on-primary-fixed": "#0f0069",
+              "surface": "#f9f9ff",
+              "background": "#f9f9ff",
+              "tertiary": "#7e3000",
+              "surface-variant": "#dce2f7",
+              "on-error": "#ffffff",
+              "tertiary-fixed": "#ffdbcc",
+              "on-secondary-fixed": "#140f54",
+              "surface-container-low": "#f1f3ff",
+              "on-tertiary": "#ffffff",
+              "on-background": "#141b2b",
+              "on-secondary-fixed-variant": "#413f82",
+              "on-error-container": "#93000a",
+              "tertiary-fixed-dim": "#ffb695",
+              "surface-tint": "#4d44e3",
+              "surface-dim": "#d3daef",
+              "on-tertiary-fixed": "#351000",
+              "secondary": "#58579b",
+              "surface-container-lowest": "#ffffff",
+              "inverse-on-surface": "#edf0ff",
+              "primary-container": "#4f46e5",
+              "secondary-container": "#b6b4ff",
+              "on-tertiary-fixed-variant": "#7b2f00",
+              "on-secondary": "#ffffff",
+              "surface-container-highest": "#dce2f7",
+              "primary": "#3525cd",
+              "outline": "#777587",
+              "on-surface": "#141b2b"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-surface text-on-background antialiased overflow-x-hidden">
+<!-- Shared SideNavBar Component -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-slate-900 dark:bg-slate-950 shadow-2xl z-50 flex flex-col py-6 px-4">
+<div class="mb-10 px-2 flex items-center gap-3">
+<div class="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-black text-xl tracking-tighter shadow-lg shadow-indigo-500/20">
+                S
+            </div>
+<div>
+<h1 class="text-2xl font-black text-white tracking-tighter leading-none">SiteBot</h1>
+<p class="text-[10px] uppercase tracking-[0.1em] text-slate-500 font-bold mt-1">AI Automation</p>
+</div>
+</div>
+<nav class="flex-1 space-y-1.5">
+<!-- Active State: My Bots -->
+<a class="flex items-center gap-3 px-3 py-2.5 text-white bg-indigo-600/20 rounded-lg font-bold transition-all duration-200 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined text-indigo-400" data-icon="robot_2">robot_2</span>
+<span class="font-inter tracking-tight text-sm">My Bots</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-400 hover:text-slate-100 hover:bg-slate-800 rounded-lg font-medium transition-all duration-200 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-inter tracking-tight text-sm">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-400 hover:text-slate-100 hover:bg-slate-800 rounded-lg font-medium transition-all duration-200 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-inter tracking-tight text-sm">Settings</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-400 hover:text-slate-100 hover:bg-slate-800 rounded-lg font-medium transition-all duration-200 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span class="font-inter tracking-tight text-sm">Docs</span>
+</a>
+</nav>
+<div class="pt-6 mt-auto border-t border-slate-800/50">
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-400 hover:text-slate-100 hover:bg-slate-800 rounded-lg font-medium transition-all duration-200 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span class="font-inter tracking-tight text-sm">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 min-h-screen">
+<!-- Shared TopNavBar Component -->
+<header class="sticky top-0 right-0 z-40 bg-white/80 backdrop-blur-xl border-b border-slate-200/15 shadow-sm flex justify-between items-center h-16 px-8">
+<div class="flex items-center gap-4">
+<h2 class="font-inter text-sm font-semibold text-indigo-600">Dashboard</h2>
+<div class="h-4 w-[1px] bg-slate-200"></div>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-slate-400 text-[18px]" data-icon="search">search</span>
+<input class="bg-surface-container-low border-none rounded-full pl-9 pr-4 py-1.5 text-sm w-64 focus:ring-2 focus:ring-primary/20 placeholder:text-slate-400 transition-all" placeholder="Search bots..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-4">
+<button class="text-slate-600 hover:text-indigo-500 transition-colors active:opacity-80">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="text-slate-600 hover:text-indigo-500 transition-colors active:opacity-80">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+</button>
+</div>
+<div class="flex items-center gap-3 pl-4 border-l border-slate-200">
+<div class="text-right">
+<p class="text-xs font-bold text-on-surface">JD</p>
+<p class="text-[10px] text-slate-500">Administrator</p>
+</div>
+<img alt="User Avatar JD" class="w-10 h-10 rounded-full border-2 border-primary/10 object-cover" data-alt="Close-up portrait of a professional man with short dark hair and a confident expression in a clean studio setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3ZaP4RQJ7Icyq17Ta1GP-zBefGoVSCK5RHPuMevcPUP4LJ80gAYUHPoCSHDqsunCI8-w6E_WLLibyjNOg-iQZpUfPTJnh1lFiBQo800JQA45k42MzPvUyPFSZ8MGlvQ3jzbejelJh5U7YWv-o6TQ-ercpf9OlXGEcL0piesMMZkymKxZOMIZouBceOgODLBA1iskepgolLuuYSj8Bw88UNHpCSzDkmLx4WsOCHfyA533Yg7P9VVo6sWcHg1gkFMd51aX6V3uKXIY"/>
+</div>
+</div>
+</header>
+<!-- Dashboard Content -->
+<div class="p-12 max-w-7xl mx-auto">
+<!-- Contextual Background Glow -->
+<div class="fixed top-[-10%] right-[-5%] w-[600px] h-[600px] bg-primary-fixed opacity-20 blur-[120px] rounded-full -z-10 pointer-events-none"></div>
+<!-- Page Header -->
+<section class="flex justify-between items-end mb-12">
+<div>
+<span class="label-md text-[10px] font-bold text-primary tracking-widest uppercase block mb-2">Workspace Overview</span>
+<h1 class="text-display-lg font-extrabold tracking-tight text-on-surface leading-tight">My Chatbots (3)</h1>
+</div>
+<button class="bg-primary-container text-on-primary py-3 px-8 rounded-lg font-semibold flex items-center gap-2 shadow-lg shadow-primary/20 hover:bg-primary transition-all duration-300 active:scale-[0.98]">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+                    New Bot
+                </button>
+</section>
+<!-- Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+<!-- Card 1: Acme Support -->
+<div class="relative w-full max-w-[360px] h-[280px] bg-white rounded-[16px] p-6 flex flex-col border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 group">
+<div class="absolute top-6 right-6 px-3 py-1 rounded-full bg-emerald-50 text-emerald-600 text-[11px] font-bold flex items-center gap-1.5 border border-emerald-100">
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                        Active
+                    </div>
+<div class="mb-6">
+<div class="w-12 h-12 bg-indigo-50 rounded-xl flex items-center justify-center text-indigo-600 mb-4">
+<span class="material-symbols-outlined" data-icon="business">business</span>
+</div>
+<h3 class="text-xl font-bold text-on-surface mb-1">Acme Support</h3>
+<p class="text-sm text-slate-500 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="link">link</span>
+                            acme.com
+                        </p>
+</div>
+<div class="mt-auto space-y-4">
+<div class="flex items-center gap-2 text-slate-600 text-sm">
+<span class="material-symbols-outlined text-slate-400 text-[18px]" data-icon="description">description</span>
+                            12 pages scraped
+                        </div>
+<button class="w-full py-2.5 px-4 bg-surface-container-high text-primary font-bold rounded-lg hover:bg-primary hover:text-white transition-all flex items-center justify-center gap-2">
+                            Manage
+                            <span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Card 2: Pizza Palace -->
+<div class="relative w-full max-w-[360px] h-[280px] bg-white rounded-[16px] p-6 flex flex-col border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 group">
+<div class="absolute top-6 right-6 px-3 py-1 rounded-full bg-emerald-50 text-emerald-600 text-[11px] font-bold flex items-center gap-1.5 border border-emerald-100">
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                        Active
+                    </div>
+<div class="mb-6">
+<div class="w-12 h-12 bg-orange-50 rounded-xl flex items-center justify-center text-orange-600 mb-4">
+<span class="material-symbols-outlined" data-icon="local_pizza">local_pizza</span>
+</div>
+<h3 class="text-xl font-bold text-on-surface mb-1">Pizza Palace</h3>
+<p class="text-sm text-slate-500 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="link">link</span>
+                            pizza.com
+                        </p>
+</div>
+<div class="mt-auto space-y-4">
+<div class="flex items-center gap-2 text-slate-600 text-sm">
+<span class="material-symbols-outlined text-slate-400 text-[18px]" data-icon="description">description</span>
+                            8 pages scraped
+                        </div>
+<button class="w-full py-2.5 px-4 bg-surface-container-high text-primary font-bold rounded-lg hover:bg-primary hover:text-white transition-all flex items-center justify-center gap-2">
+                            Manage
+                            <span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Card 3: Dental Clinic -->
+<div class="relative w-full max-w-[360px] h-[280px] bg-white rounded-[16px] p-6 flex flex-col border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 group">
+<div class="absolute top-6 right-6 px-3 py-1 rounded-full bg-amber-50 text-amber-600 text-[11px] font-bold flex items-center gap-1.5 border border-amber-100">
+<span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+                        Training
+                    </div>
+<div class="mb-6">
+<div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600 mb-4">
+<span class="material-symbols-outlined" data-icon="dentistry">dentistry</span>
+</div>
+<h3 class="text-xl font-bold text-on-surface mb-1">Dental Clinic</h3>
+<p class="text-sm text-slate-500 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="link">link</span>
+                            dental.co
+                        </p>
+</div>
+<div class="mt-auto space-y-4">
+<div class="space-y-2">
+<div class="flex justify-between items-center text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+<span class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[14px]" data-icon="settings">settings</span>
+                                    Training model...
+                                </span>
+<span>60%</span>
+</div>
+<div class="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
+<div class="h-full bg-indigo-500 rounded-full animate-[pulse_2s_infinite]" style="width: 60%"></div>
+</div>
+</div>
+<button class="w-full py-2.5 px-4 bg-surface-container-highest text-primary font-bold rounded-lg hover:bg-primary hover:text-white transition-all flex items-center justify-center gap-2">
+                            View Status
+                            <span class="material-symbols-outlined text-[18px]" data-icon="visibility">visibility</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Bento Styled Secondary Section -->
+<section class="mt-20">
+<div class="flex items-center gap-4 mb-8">
+<h2 class="text-2xl font-black tracking-tight text-on-surface">System Insights</h2>
+<div class="flex-1 h-[1px] bg-slate-200"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6 h-[400px]">
+<div class="md:col-span-8 bg-surface-container-low rounded-xl p-8 flex flex-col justify-between overflow-hidden relative group">
+<div class="relative z-10">
+<h3 class="text-headline-lg font-extrabold text-on-surface mb-2">Automate at scale</h3>
+<p class="text-body-lg text-slate-600 max-w-md">Connect your custom trained bots to Slack, Discord, or your custom CRM with our high-speed API.</p>
+</div>
+<div class="flex gap-4 relative z-10">
+<div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center">
+<span class="material-symbols-outlined text-indigo-600" data-icon="api">api</span>
+</div>
+<span class="text-sm font-bold">API Documentation</span>
+</div>
+<div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center">
+<span class="material-symbols-outlined text-indigo-600" data-icon="hub">hub</span>
+</div>
+<span class="text-sm font-bold">Integrations</span>
+</div>
+</div>
+<img alt="AI data visualization" class="absolute right-0 bottom-0 w-1/2 h-full object-cover opacity-40 group-hover:opacity-60 transition-opacity" data-alt="Abstract 3D render of neural network connections with glowing indigo particles and deep blue depth of field background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqCY00QidHHRNKP5OWUuKjD3-PuLyN-Fq4XputGe6sKxv785FWWNTo5DUXWZPE6E_TAa5J9BnFHcxv-v0rTIDEW6AjFZS_J3HuHzZkQ681VrlmpRIlciZaBhytUjDUUOVoPbvJosnET5Ug3JUBEob0yNXdGANQezLZJ9O6Nq6seE9TMgyoEtumbf_cbVVig9Xyi23zfXvHw7zet77cQAdP7ZPH0FHwkRbqv1OY__m2Kv6By--kiwJG6RXMMQ5ZAHA6pVsM1i5nYnY"/>
+</div>
+<div class="md:col-span-4 bg-primary text-white rounded-xl p-8 flex flex-col justify-between relative overflow-hidden">
+<div class="relative z-10">
+<span class="label-md text-primary-fixed-dim tracking-[0.2em] font-bold">TRIAL PLAN</span>
+<h3 class="text-2xl font-bold mt-4">84% Usage</h3>
+<p class="text-indigo-100 text-sm mt-2">You've used 4,200 of 5,000 monthly messages.</p>
+</div>
+<button class="relative z-10 bg-white text-primary px-6 py-3 rounded-lg font-bold text-sm w-full hover:bg-secondary-fixed transition-colors">
+                            Upgrade Pro
+                        </button>
+<div class="absolute bottom-0 left-0 w-full h-1 bg-white/20">
+<div class="h-full bg-white w-[84%]"></div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+</body></html>

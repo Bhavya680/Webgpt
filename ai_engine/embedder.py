@@ -17,8 +17,8 @@ CHROMA_DIR = os.path.join(PROJECT_ROOT, "chroma_db")
 
 EMBEDDING_MODEL = "all-MiniLM-L6-v2"
 
-CHUNK_SIZE = 2500
-CHUNK_OVERLAP = 250
+CHUNK_SIZE = 600
+CHUNK_OVERLAP = 150
 
 
 # ── Singleton model cache ──────────────────────────────────────────
@@ -48,7 +48,17 @@ def chunk_text(text: str) -> list[str]:
     return chunks
 
 
-def embed_and_store(text: str, collection_name: str) -> None:
+def clear_collection(collection_name: str) -> None:
+    """Deletes an entire collection to prepare for a fresh scrape."""
+    client = chromadb.PersistentClient(path=CHROMA_DIR)
+    try:
+        client.delete_collection(collection_name)
+        print(f"[embedder] Cleared existing collection '{collection_name}'")
+    except Exception:
+        pass
+
+
+def embed_and_store(text: str, collection_name: str, source_url: str = "") -> int:
     """Chunk the text, embed it, and store vectors in ChromaDB.
 
     Parameters
@@ -57,12 +67,22 @@ def embed_and_store(text: str, collection_name: str) -> None:
         The cleaned text to embed.
     collection_name : str
         The ChromaDB collection name — typically str(bot.bot_id).
+    source_url : str
+        The source URL to tag these vectors with.
+
+    Returns
+    -------
+    int
+        The number of chunks embedded.
     """
     if not text or not text.strip():
         print("[embedder] No text to embed — skipping.")
-        return
+        return 0
 
     chunks = chunk_text(text)
+    if not chunks:
+        return 0
+        
     model = _get_embedding_model()
 
     print(f"[embedder] Embedding {len(chunks)} chunk(s) ...")
@@ -72,19 +92,15 @@ def embed_and_store(text: str, collection_name: str) -> None:
     # Store in ChromaDB
     client = chromadb.PersistentClient(path=CHROMA_DIR)
 
-    # Delete existing collection if present (re-scrape scenario)
-    try:
-        client.delete_collection(collection_name)
-    except Exception:
-        pass
-
+    # Note: Collection clearing is now handled externally via clear_collection()
     collection = client.get_or_create_collection(
         name=collection_name,
         metadata={"hnsw:space": "cosine"},
     )
 
-    ids = [f"chunk_{i}" for i in range(len(chunks))]
-    metadatas = [{"chunk_index": i} for i in range(len(chunks))]
+    import uuid
+    ids = [f"chunk_{uuid.uuid4().hex[:8]}" for _ in chunks]
+    metadatas = [{"source": source_url, "chunk_index": i} for i in range(len(chunks))]
 
     collection.upsert(
         ids=ids,
@@ -93,3 +109,4 @@ def embed_and_store(text: str, collection_name: str) -> None:
         metadatas=metadatas,
     )
     print(f"[embedder] Stored {len(chunks)} vector(s) in collection '{collection_name}'")
+    return len(chunks)

@@ -188,7 +188,7 @@
       <!-- Header Section -->
       <div class="flex justify-between items-end mb-16">
         <div>
-          <h3 class="text-4xl font-extrabold text-on-surface tracking-tighter mb-2">My Chatbots</h3>
+          <h3 class="text-4xl font-extrabold text-on-surface tracking-tighter mb-2">My Chatbots {% if bots %}({{ bots.count }}){% endif %}</h3>
           <p class="text-on-surface-variant max-w-lg font-medium">Manage and monitor your deployed cognitive
             agents across all platforms.</p>
         </div>
@@ -251,25 +251,109 @@
       </div>
       {% else %}
       <!-- Bot List Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
         {% for bot in bots %}
-        <a href="{% url 'bot_detail' bot.bot_id %}" class="bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-outline-variant/15 hover:shadow-md hover:border-primary/20 transition-all group">
-          <div class="flex items-center gap-4 mb-6">
-            <div class="w-12 h-12 bg-primary-fixed flex items-center justify-center rounded-lg group-hover:bg-primary/10 transition-colors">
-              <span class="material-symbols-outlined text-primary" data-icon="smart_toy">smart_toy</span>
+        <div class="relative w-full max-w-[360px] h-[280px] bg-white rounded-[16px] p-6 flex flex-col border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 group">
+            {% if bot.status == 'active' %}
+            <div class="absolute top-6 right-6 px-3 py-1 rounded-full bg-emerald-50 text-emerald-600 text-[11px] font-bold flex items-center gap-1.5 border border-emerald-100">
+                <span class="w-2 h-2 rounded-full bg-emerald-500"></span> Active
             </div>
-            <div>
-              <h4 class="font-bold text-on-surface group-hover:text-primary transition-colors">{{ bot.name }}</h4>
-              <p class="text-xs text-on-surface-variant font-medium truncate max-w-[150px]">{{ bot.url }}</p>
+            {% elif bot.status == 'training' %}
+            <div class="absolute top-6 right-6 px-3 py-1 rounded-full bg-amber-50 text-amber-600 text-[11px] font-bold flex items-center gap-1.5 border border-amber-100">
+                <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span> Training
             </div>
-          </div>
-          <div class="flex items-center justify-between text-xs font-bold uppercase tracking-widest text-outline">
-            <span>Status: Active</span>
-            <span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
-          </div>
-        </a>
+            {% else %}
+            <div class="absolute top-6 right-6 px-3 py-1 rounded-full bg-slate-50 text-slate-600 text-[11px] font-bold flex items-center gap-1.5 border border-slate-200">
+                <span class="w-2 h-2 rounded-full bg-slate-500"></span> Pending
+            </div>
+            {% endif %}
+
+            <div class="mb-6">
+                <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4 bg-[{{ bot.config.bot_color|default:'#4f46e5' }}]/10 text-[{{ bot.config.bot_color|default:'#4f46e5' }}]">
+                    <span class="material-symbols-outlined" data-icon="smart_toy">smart_toy</span>
+                </div>
+                <h3 class="text-xl font-bold text-on-surface mb-1 truncate">{{ bot.name }}</h3>
+                <p class="text-sm text-slate-500 flex items-center gap-1 overflow-hidden">
+                    <span class="material-symbols-outlined text-[14px]" data-icon="link">link</span>
+                    <span class="truncate">{{ bot.url }}</span>
+                </p>
+            </div>
+
+            <div class="mt-auto space-y-4">
+                {% if bot.status == 'training' %}
+                <div class="space-y-2">
+                    <div class="flex justify-between items-center text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+                        <span class="flex items-center gap-1.5">
+                            <span class="material-symbols-outlined text-[14px]" data-icon="settings">settings</span>
+                            Training model...
+                        </span>
+                    </div>
+                    <div class="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                        <div class="h-full bg-indigo-500 rounded-full animate-[pulse_2s_infinite]" style="width: 100%"></div>
+                    </div>
+                </div>
+                <a href="{% url 'bot_training' bot.id %}" class="w-full py-2.5 px-4 bg-surface-container-highest text-primary font-bold rounded-lg hover:bg-primary hover:text-white transition-all flex items-center justify-center gap-2">
+                    View Status
+                    <span class="material-symbols-outlined text-[18px]" data-icon="visibility">visibility</span>
+                </a>
+                {% else %}
+                <div class="flex items-center gap-2 text-slate-600 text-sm">
+                    <span class="material-symbols-outlined text-slate-400 text-[18px]" data-icon="description">description</span>
+                    {{ bot.training_status.pages_scraped|default:0 }} pages scraped
+                </div>
+                <a href="{% url 'bot_detail' bot.id %}" class="w-full py-2.5 px-4 bg-surface-container-high text-primary font-bold rounded-lg hover:bg-primary hover:text-white transition-all flex items-center justify-center gap-2 group-hover:bg-primary group-hover:text-white">
+                    Manage
+                    <span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform" data-icon="arrow_forward">arrow_forward</span>
+                </a>
+                {% endif %}
+            </div>
+        </div>
         {% endfor %}
       </div>
+
+      <!-- Bento Styled Secondary Section -->
+      <section class="mt-20">
+        <div class="flex items-center gap-4 mb-8">
+          <h2 class="text-2xl font-black tracking-tight text-on-surface">System Insights</h2>
+          <div class="flex-1 h-[1px] bg-slate-200"></div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 h-[400px]">
+          <div class="md:col-span-8 bg-surface-container-low rounded-xl p-8 flex flex-col justify-between overflow-hidden relative group">
+            <div class="relative z-10">
+              <h3 class="text-headline-lg font-extrabold text-on-surface mb-2">Automate at scale</h3>
+              <p class="text-body-lg text-slate-600 max-w-md">Connect your custom trained bots to Slack, Discord, or your custom CRM with our high-speed API.</p>
+            </div>
+            <div class="flex gap-4 relative z-10">
+              <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 flex items-center gap-3 w-max">
+                <div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center">
+                  <span class="material-symbols-outlined text-indigo-600" data-icon="api">api</span>
+                </div>
+                <span class="text-sm font-bold">API Documentation</span>
+              </div>
+              <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 flex items-center gap-3 w-max">
+                <div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center">
+                  <span class="material-symbols-outlined text-indigo-600" data-icon="hub">hub</span>
+                </div>
+                <span class="text-sm font-bold">Integrations</span>
+              </div>
+            </div>
+            <img alt="AI data visualization" class="absolute right-0 bottom-0 w-1/2 h-full object-cover opacity-40 group-hover:opacity-60 transition-opacity" data-alt="" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqCY00QidHHRNKP5OWUuKjD3-PuLyN-Fq4XputGe6sKxv785FWWNTo5DUXWZPE6E_TAa5J9BnFHcxv-v0rTIDEW6AjFZS_J3HuHzZkQ681VrlmpRIlciZaBhytUjDUUOVoPbvJosnET5Ug3JUBEob0yNXdGANQezLZJ9O6Nq6seE9TMgyoEtumbf_cbVVig9Xyi23zfXvHw7zet77cQAdP7ZPH0FHwkRbqv1OY__m2Kv6By--kiwJG6RXMMQ5ZAHA6pVsM1i5nYnY" />
+          </div>
+          <div class="md:col-span-4 bg-primary text-white rounded-xl p-8 flex flex-col justify-between relative overflow-hidden">
+            <div class="relative z-10">
+              <span class="label-md text-primary-fixed-dim font-bold tracking-[0.2em] text-xs uppercase">TRIAL PLAN</span>
+              <h3 class="text-2xl font-bold mt-4">84% Usage</h3>
+              <p class="text-indigo-100 text-sm mt-2">You've used 4,200 of 5,000 monthly messages.</p>
+            </div>
+            <button class="relative z-10 bg-white text-primary px-6 py-3 rounded-lg font-bold text-sm w-full hover:bg-secondary-fixed transition-colors">
+              Upgrade Pro
+            </button>
+            <div class="absolute bottom-0 left-0 w-full h-1 bg-white/20">
+              <div class="h-full bg-white w-[84%]"></div>
+            </div>
+          </div>
+        </div>
+      </section>
       {% endif %}
     </section>
   </main>
@@ -289,7 +373,7 @@
         <p class="text-on-surface-variant text-sm mt-1">Configure your AI assistant in minutes.</p>
       </div>
       <!-- Form Elements -->
-      <form class="space-y-6" method="POST" action="{% url 'mock_create_bot' %}">
+      <form class="space-y-6" method="POST" action="{% url 'create_bot' %}">
         {% csrf_token %}
         <!-- Bot Name -->
         <div class="space-y-1.5">

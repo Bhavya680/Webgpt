@@ -1,240 +1,162 @@
-{% extends 'base.html' %}
+{% extends 'dashboard_base.html' %}
+
+{% block header_content %}
+<div class="flex items-center gap-6">
+    <a class="text-[14px] text-[#6B7280] hover:text-[#111827] flex items-center gap-1 transition-colors font-medium" href="{% url 'dashboard_index' %}">
+        <span class="material-symbols-outlined text-sm">arrow_back</span>
+        Back to Bots
+    </a>
+    <div class="h-4 w-[1px] bg-outline-variant/30"></div>
+    <h2 class="text-[20px] font-semibold text-[#111827] tracking-tight">{{ bot.name }}</h2>
+</div>
+<div class="flex items-center gap-4">
+    <div class="flex items-center gap-2">
+        <button class="p-2 text-slate-500 hover:text-indigo-600 transition-colors">
+            <span class="material-symbols-outlined">notifications</span>
+        </button>
+        <button class="p-2 text-slate-500 hover:text-indigo-600 transition-colors">
+            <span class="material-symbols-outlined">help</span>
+        </button>
+    </div>
+    <div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant/20 shadow-sm">
+        <img alt="User Avatar" class="w-full h-full object-cover" data-alt="Professional male user profile avatar with soft studio lighting and neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAz04BTu7oIa3EFB_xhDN9Dh5t7ArN5An1sAaxG2Gt9R8JFXHliMjZ1XtlVm00HI1XpwvqsFmrTYD0xAyW5PjfweGq2qG0ZyyTXWfk2BxuKo7UFaPg3W0rlYvLIbgUOHh0ylvSjgZYL3QjhPX1JFPOlj_j7HF6v1IbFdoHnd3snaRJe62ASKFTn36364jgqURcAm8fopEAU6mBHd_ZI4wv6miX9ckLTQEwhSqiQHRFYj5gYhK3iks_HFKx0RL2ZmkMrdOodT0YMumA"/>
+    </div>
+</div>
+{% endblock %}
 
 {% block content %}
-<div class="px-8 max-w-7xl mx-auto w-full py-8" x-data="{ activeTab: 'test-chat' }">
-    <div class="mb-8">
-        <a href="{% url 'dashboard_index' %}" class="text-sm font-semibold text-gray-500 hover:text-gray-900 transition-colors flex items-center gap-1">
-            <span class="material-symbols-outlined text-sm">arrow_back</span>
-            Back to Bots
-        </a>
-    </div>
+<div class="pt-24 px-12 pb-16 flex-1 max-w-5xl mx-auto w-full">
+    <!-- Tab Navigation -->
+    <nav class="flex border-b border-outline-variant/20 mb-8 overflow-x-auto">
+        <a href="{% url 'bot_detail' bot.id %}" class="text-primary border-b-2 border-primary pb-3 px-4 font-semibold text-sm transition-all whitespace-nowrap">Widget Embed</a>
+        <a href="{% url 'bot_pages' bot.id %}" class="text-[#6B7280] hover:text-[#111827] pb-3 px-4 font-medium text-sm transition-all whitespace-nowrap">Pages Scraped</a>
+        <button class="text-[#6B7280] hover:text-[#111827] pb-3 px-4 font-medium text-sm transition-all whitespace-nowrap">Test Chat</button>
+        <button class="text-[#6B7280] hover:text-[#111827] pb-3 px-4 font-medium text-sm transition-all whitespace-nowrap">Settings</button>
+    </nav>
 
-    <div class="mb-8 flex justify-between items-end">
-        <div>
-            <h1 class="text-3xl font-extrabold text-[#0f0069] dark:text-white tracking-tight">{{ bot.name }}</h1>
-            <p class="text-sm text-gray-500 font-medium mt-1">{{ bot.url }}</p>
+    <!-- Main Card -->
+    <section class="bg-surface-container-lowest border border-outline-variant/20 rounded-2xl p-8 shadow-sm">
+        <div class="mb-8">
+            <h3 class="text-[20px] font-bold text-on-background mb-2 tracking-tight">Add this to your website</h3>
+            <p class="text-[15px] text-on-surface-variant max-w-2xl leading-relaxed">Copy and paste this code snippet before the <code class="bg-surface-container-low px-1 rounded text-primary font-mono text-sm">&lt;/body&gt;</code> tag of your website to enable the chat widget.</p>
         </div>
-        <div class="flex gap-3">
-             <span class="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">Active</span>
-        </div>
-    </div>
 
-    <!-- Tabbed Navigation -->
-    <div class="border-b border-gray-200 flex gap-8 mb-8">
-        <button 
-            @click="activeTab = 'widget'"
-            :class="activeTab === 'widget' ? 'text-[#4F46E5] border-b-2 border-[#4F46E5]' : 'text-gray-500 hover:text-gray-900 border-b-2 border-transparent'"
-            class="pb-4 text-sm font-semibold focus:outline-none transition-all">
-            Widget Embed
-        </button>
-        <button 
-            @click="activeTab = 'pages'"
-            :class="activeTab === 'pages' ? 'text-[#4F46E5] border-b-2 border-[#4F46E5]' : 'text-gray-500 hover:text-gray-900 border-b-2 border-transparent'"
-            class="pb-4 text-sm font-semibold focus:outline-none transition-all">
-            Pages Scraped
-        </button>
-        <button 
-            @click="activeTab = 'test-chat'"
-            :class="activeTab === 'test-chat' ? 'text-[#4F46E5] border-b-2 border-[#4F46E5]' : 'text-gray-500 hover:text-gray-900 border-b-2 border-transparent'"
-            class="pb-4 text-sm font-semibold focus:outline-none transition-all">
-            Test Chat
-        </button>
-        <button 
-            @click="activeTab = 'settings'"
-            :class="activeTab === 'settings' ? 'text-[#4F46E5] border-b-2 border-[#4F46E5]' : 'text-gray-500 hover:text-gray-900 border-b-2 border-transparent'"
-            class="pb-4 text-sm font-semibold focus:outline-none transition-all">
-            Settings
-        </button>
-    </div>
-
-    <!-- Main Content Container -->
-    <div class="bg-white rounded-xl shadow-sm border border-gray-200 min-h-[500px] overflow-hidden">
-        
-        <!-- Tab: Widget Embed -->
-        <div x-show="activeTab === 'widget'" class="p-8 animate-in fade-in duration-300">
-            <h3 class="text-xl font-bold mb-4 text-[#111827]">Embed Your Chatbot</h3>
-            <p class="text-gray-600 mb-6 text-sm">Add this snippet to the <code>&lt;body&gt;</code> of your website to deploy the chatbot widget.</p>
-            
-            <div class="bg-gray-900 text-gray-300 p-6 rounded-lg relative group">
-                <pre class="text-xs overflow-x-auto"><code>&lt;script src="https://sitebot.ai/widget.js" 
-        data-bot-id="{{ bot.bot_id }}" 
-        async&gt;&lt;/script&gt;</code></pre>
-                <button onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText)" class="absolute top-4 right-4 bg-white/10 hover:bg-white/20 p-2 rounded transition-colors">
-                    <span class="material-symbols-outlined text-sm">content_copy</span>
-                </button>
+        <!-- Code Snippet Box -->
+        <div class="relative group">
+            <div class="bg-[#1E1E2E] rounded-xl p-8 w-full font-mono text-sm overflow-x-auto shadow-inner border border-slate-800">
+                <pre class="text-slate-300" id="widget-snippet"><code><span class="text-pink-400">&lt;script</span> <span class="text-green-300">src</span>=<span class="text-yellow-300">"https://sitebot.com/widget.js"</span> <span class="text-green-300">data-bot-id</span>=<span class="text-yellow-300">"{{ bot.id }}"</span><span class="text-pink-400">&gt;&lt;/script&gt;</span></code></pre>
             </div>
+            <button onclick="copySnippet(this)" class="absolute top-4 right-4 bg-[#374151] hover:bg-slate-600 text-white px-4 py-2 rounded-lg text-[13px] font-medium flex items-center gap-2 transition-all active:scale-95 shadow-lg">
+                <span class="material-symbols-outlined text-[18px]">content_copy</span>
+                <span>Copy Code</span>
+            </button>
         </div>
 
-        <!-- Tab: Pages Scraped -->
-        <div x-show="activeTab === 'pages'" class="p-8 animate-in fade-in duration-300">
-            <div class="flex justify-between items-center mb-6">
-                <h3 class="text-xl font-bold text-[#111827]">Processed Knowledge</h3>
-                <button class="text-sm font-bold text-primary flex items-center gap-1 hover:underline">
-                    <span class="material-symbols-outlined text-sm">refresh</span> Refresh
-                </button>
+        <!-- Live Preview Section -->
+        <div class="mt-12">
+            <div class="flex items-center justify-between mb-4">
+                <h4 class="text-[16px] font-semibold text-on-background">Preview:</h4>
+                <span class="text-xs font-bold uppercase tracking-widest text-slate-400 bg-slate-100 px-2 py-1 rounded">Live Preview</span>
             </div>
-            <div class="overflow-hidden border border-gray-100 rounded-lg">
-                <table class="min-w-full divide-y divide-gray-100">
-                    <thead class="bg-gray-50">
-                        <tr>
-                            <th class="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">URL</th>
-                            <th class="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Status</th>
-                            <th class="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Date</th>
-                        </tr>
-                    </thead>
-                    <tbody class="bg-white divide-y divide-gray-100">
-                        {% for page in bot.pages.all %}
-                        <tr>
-                            <td class="px-6 py-4 text-sm text-gray-900 truncate max-w-xs">{{ page.url }}</td>
-                            <td class="px-6 py-4">
-                                <span class="px-2 py-1 text-[10px] font-black uppercase rounded-full 
-                                    {% if page.status == 'success' %}bg-green-100 text-green-700{% elif page.status == 'failed' %}bg-red-100 text-red-700{% else %}bg-blue-100 text-blue-700{% endif %}">
-                                    {{ page.status }}
-                                </span>
-                            </td>
-                            <td class="px-6 py-4 text-xs text-gray-500">{{ page.scraped_at|date:"M d, Y" }}</td>
-                        </tr>
-                        {% empty %}
-                        <tr>
-                            <td colspan="3" class="px-6 py-12 text-center text-gray-400 text-sm italic">
-                                No pages handled by the Architect yet.
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
 
-        <!-- Tab: Test Chat -->
-        <div x-show="activeTab === 'test-chat'" class="h-[600px] flex flex-col animate-in fade-in duration-300">
-            <!-- Chat Messages Area -->
-            <div id="chat-messages" class="flex-1 overflow-y-auto p-8 space-y-6 bg-gray-50">
-                <div class="flex gap-4 max-w-2xl">
-                    <div class="w-8 h-8 rounded-lg bg-primary-container flex items-center justify-center flex-shrink-0">
-                        <span class="material-symbols-outlined text-on-primary text-sm">smart_toy</span>
+            <!-- Mockup Container -->
+            <div class="w-full h-[380px] bg-surface-container-low border border-outline-variant/20 rounded-xl relative overflow-hidden shadow-inner">
+                <!-- Browser Bar -->
+                <div class="h-10 bg-slate-200/50 backdrop-blur-md flex items-center px-4 gap-2 border-b border-outline-variant/10">
+                    <div class="flex gap-1.5">
+                        <div class="w-3 h-3 rounded-full bg-red-400/80"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-400/80"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-400/80"></div>
                     </div>
-                    <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 text-sm leading-relaxed text-gray-700">
-                        Hello! I'm trained on your website data. How can I help you today?
+                    <div class="mx-auto bg-white/60 rounded-md h-5 w-1/2 flex items-center px-3">
+                        <div class="w-2 h-2 rounded-full bg-slate-300 mr-2"></div>
+                        <div class="h-1.5 w-24 bg-slate-200 rounded"></div>
+                    </div>
+                </div>
+
+                <!-- Mock Content -->
+                <div class="p-8 space-y-4 opacity-40">
+                    <div class="h-8 w-1/3 bg-slate-300 rounded-lg"></div>
+                    <div class="space-y-2">
+                        <div class="h-4 w-full bg-slate-200 rounded"></div>
+                        <div class="h-4 w-5/6 bg-slate-200 rounded"></div>
+                        <div class="h-4 w-4/6 bg-slate-200 rounded"></div>
+                    </div>
+                    <div class="pt-4 grid grid-cols-3 gap-4">
+                        <div class="h-24 bg-slate-200 rounded-lg"></div>
+                        <div class="h-24 bg-slate-200 rounded-lg"></div>
+                        <div class="h-24 bg-slate-200 rounded-lg"></div>
+                    </div>
+                </div>
+
+                <!-- Floating Chat Widget -->
+                <div class="absolute bottom-6 right-6 group cursor-pointer">
+                    <div class="relative">
+                        <!-- Tooltip/Prompt -->
+                        <div class="absolute bottom-full right-0 mb-4 w-48 bg-white p-3 rounded-xl shadow-xl border border-outline-variant/10 transform transition-all group-hover:-translate-y-1">
+                            <p class="text-[12px] font-semibold text-on-background">Hi there! 👋 How can we help you today?</p>
+                            <div class="absolute -bottom-1.5 right-6 w-3 h-3 bg-white rotate-45 border-b border-r border-outline-variant/10"></div>
+                        </div>
+
+                        <!-- FAB -->
+                        <div class="w-[56px] h-[56px] bg-primary-container rounded-full flex items-center justify-center shadow-2xl transition-transform hover:scale-110 active:scale-95">
+                            <span class="text-[24px]">💬</span>
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <!-- Input Area -->
-            <div class="p-6 bg-white border-t border-gray-100">
-                <form id="bot-chat-form" class="flex gap-4">
-                    {% csrf_token %}
-                    <input type="hidden" name="bot_id" value="{{ bot.bot_id }}">
-                    <input type="text" name="message" required 
-                        placeholder="Type a message to test the architect..."
-                        class="flex-1 px-4 py-3 rounded-xl border border-gray-200 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all">
-                    <button type="submit" class="bg-primary-container text-on-primary px-6 py-3 rounded-xl font-bold hover:bg-primary transition-all active:scale-95 flex items-center gap-2">
-                        <span>Send</span>
-                        <span class="material-symbols-outlined text-sm">send</span>
-                    </button>
-                </form>
-            </div>
         </div>
+    </section>
 
-        <!-- Tab: Settings -->
-        <div x-show="activeTab === 'settings'" class="p-8 animate-in fade-in duration-300 gap-10 flex flex-col">
-            <section>
-                <h3 class="text-lg font-bold mb-4 text-[#111827]">General Settings</h3>
-                <div class="max-w-md space-y-4">
+    <!-- Secondary Guidance Section (Asymmetric Editorial Style) -->
+    <div class="mt-12 grid grid-cols-12 gap-8 items-start">
+        <div class="col-span-12 md:col-span-7">
+            <h5 class="text-xl font-bold mb-4">Installation Tips</h5>
+            <div class="space-y-6">
+                <div class="flex gap-4">
+                    <div class="w-10 h-10 shrink-0 bg-primary-fixed rounded-lg flex items-center justify-center text-primary font-bold">1</div>
                     <div>
-                        <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Bot Name</label>
-                        <input type="text" value="{{ bot.name }}" class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-primary outline-none">
+                        <h6 class="font-semibold mb-1">Verify Domain</h6>
+                        <p class="text-sm text-on-surface-variant leading-relaxed">Ensure your domain is whitelisted in the Bot Settings to prevent unauthorized usage of your widget.</p>
                     </div>
-                    <button class="bg-primary text-white px-6 py-3 rounded-lg font-bold text-sm">Save Changes</button>
                 </div>
-            </section>
-            
-            <hr class="border-gray-100">
-
-            <section>
-                <h3 class="text-lg font-bold mb-4 text-red-600">Danger Zone</h3>
-                <p class="text-sm text-gray-500 mb-6">Once you delete a bot, there is no going back. Please be certain.</p>
-                <button class="bg-white border border-red-200 text-red-600 px-6 py-3 rounded-lg font-bold text-sm hover:bg-red-50 transition-colors">
-                    Delete this Bot
-                </button>
-            </section>
+                <div class="flex gap-4">
+                    <div class="w-10 h-10 shrink-0 bg-primary-fixed rounded-lg flex items-center justify-center text-primary font-bold">2</div>
+                    <div>
+                        <h6 class="font-semibold mb-1">Z-Index Handling</h6>
+                        <p class="text-sm text-on-surface-variant leading-relaxed">The widget is set to z-index 9999 by default. If it overlaps with your navigation, adjust it in the Custom CSS tab.</p>
+                    </div>
+                </div>
+            </div>
         </div>
 
+        <div class="col-span-12 md:col-span-5 bg-surface-container-high rounded-2xl p-6 border border-outline-variant/10">
+            <div class="flex items-center gap-2 mb-4 text-primary">
+                <span class="material-symbols-outlined">lightbulb</span>
+                <span class="text-sm font-bold uppercase tracking-wider">Expert Tip</span>
+            </div>
+            <p class="text-sm italic leading-relaxed text-on-surface-variant">
+                "For the best performance, we recommend placing the script at the very end of your body tag. This ensures your main page content loads first for a faster perceived speed."
+            </p>
+        </div>
     </div>
 </div>
 
-<!-- Alpine.js for Tab switching (Minimal for mockup but functional) -->
-<script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-
 <script>
-    document.getElementById('bot-chat-form').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const formData = new FormData(e.target);
-        const chatArea = document.getElementById('chat-messages');
-        const userMsg = formData.get('message');
-        
-        // Append user message
-        const userDiv = document.createElement('div');
-        userDiv.className = 'flex gap-4 max-w-2xl flex-row-reverse ml-auto';
-        userDiv.innerHTML = `
-            <div class="w-8 h-8 rounded-lg bg-gray-200 flex items-center justify-center flex-shrink-0">
-                <span class="material-symbols-outlined text-gray-600 text-sm">person</span>
-            </div>
-            <div class="bg-primary text-white p-4 rounded-2xl shadow-sm text-sm leading-relaxed">
-                ${userMsg}
-            </div>
-        `;
-        chatArea.appendChild(userDiv);
-        e.target.reset();
-        chatArea.scrollTop = chatArea.scrollHeight;
-
-        // Append loading indicator
-        const loadingDiv = document.createElement('div');
-        loadingDiv.className = 'flex gap-4 max-w-2xl loading-msg';
-        loadingDiv.innerHTML = `
-            <div class="w-8 h-8 rounded-lg bg-primary-container flex items-center justify-center flex-shrink-0">
-                <span class="material-symbols-outlined text-on-primary text-sm animate-pulse">smart_toy</span>
-            </div>
-            <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 text-sm italic text-gray-400">
-                Thinking...
-            </div>
-        `;
-        chatArea.appendChild(loadingDiv);
-        chatArea.scrollTop = chatArea.scrollHeight;
-
-        try {
-            const response = await fetch('/api/chat/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': formData.get('csrfmiddlewaretoken')
-                },
-                body: JSON.stringify({
-                    message: userMsg,
-                    bot_id: formData.get('bot_id')
-                })
-            });
-
-            const result = await response.json();
-            chatArea.querySelector('.loading-msg').remove();
-
-            const botDiv = document.createElement('div');
-            botDiv.className = 'flex gap-4 max-w-2xl';
-            botDiv.innerHTML = `
-                <div class="w-8 h-8 rounded-lg bg-primary-container flex items-center justify-center flex-shrink-0">
-                    <span class="material-symbols-outlined text-on-primary text-sm">smart_toy</span>
-                </div>
-                <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 text-sm leading-relaxed text-gray-700">
-                    ${result.answer || 'Something went wrong.'}
-                </div>
-            `;
-            chatArea.appendChild(botDiv);
-            chatArea.scrollTop = chatArea.scrollHeight;
-
-        } catch (err) {
-            chatArea.querySelector('.loading-msg').remove();
-            alert('Failed to connect to assistant');
+function copySnippet(btnElement) {
+    const code = document.getElementById('widget-snippet').innerText;
+    navigator.clipboard.writeText(code).then(() => {
+        const span = btnElement.querySelector('span:nth-child(2)');
+        if (span) {
+            const originalText = span.innerText;
+            span.innerText = 'Copied!';
+            setTimeout(() => {
+                span.innerText = originalText;
+            }, 2000);
         }
+    }).catch(err => {
+        console.error('Failed to copy!', err);
     });
+}
 </script>
 {% endblock %}

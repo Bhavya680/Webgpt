@@ -44,11 +44,11 @@ _embedder = SentenceTransformer('all-MiniLM-L6-v2')
 # ---------------------------------------------------------------------------
 # Helper: RAG retrieval  (ChromaDB stays 100 % local)
 # ---------------------------------------------------------------------------
-def _retrieve_context(question: str, bot_id: str, n_results: int = 3) -> list[str]:
+def _retrieve_context(question: str, bot_id: str, n_results: int = 5) -> list[str]:
     """
     Query the bot's ChromaDB collection and return up to *n_results* text chunks.
-    Returns an empty list when the collection does not exist or is empty.
     """
+    # ... code continues ...
     client = chromadb.PersistentClient(path='./chroma_db/')
     try:
         collection = client.get_collection(name=bot_id)
@@ -65,6 +65,14 @@ def _retrieve_context(question: str, bot_id: str, n_results: int = 3) -> list[st
         if results and results.get("documents")
         else []
     )
+    
+    # DEBUG: See what the bot is actually looking at
+    print(f"\n[RAG DEBUG] Question: '{question}'")
+    print(f"[RAG DEBUG] Retrieved {len(documents)} chunks:")
+    for i, doc in enumerate(documents):
+        preview = doc.replace('\n', ' ')[:80]
+        print(f"  {i+1}. {preview}...")
+        
     return documents
 
 
@@ -72,13 +80,17 @@ def _retrieve_context(question: str, bot_id: str, n_results: int = 3) -> list[st
 # Helper: prompt construction
 # ---------------------------------------------------------------------------
 def _build_prompt(question: str, chunks: list[str]) -> str:
-    """Build a Gemma-style instruction prompt from the retrieved RAG chunks."""
+    """Build a Gemma-style instruction prompt for precision RAG."""
     chunks_block = "\n\n".join(chunks)
+    # Final sanitization
+    clean_chunks = chunks_block.replace('Â£', '£').replace('Â', '')
     return (
         "<start_of_turn>user\n"
-        "You are a helpful assistant. Answer using ONLY the context below.\n"
-        "If the answer is not in the context, say: I don't have that information.\n\n"
-        f"Context:\n{chunks_block}\n\n"
+        "SYSTEM INSTRUCTIONS:\n"
+        "1. Answer directly and concisely. START YOUR ANSWER with either YES or NO if appropriate.\n"
+        "2. For COMPARISONS, state both values and give a clear conclusion.\n"
+        "3. LOGIC: 5 stars is the HIGHEST rating. 1 star is the LOWEST.\n\n"
+        f"Context:\n{clean_chunks}\n\n"
         f"Question: {question}\n"
         "<end_of_turn>\n"
         "<start_of_turn>model\n"
@@ -92,7 +104,7 @@ _OFFLINE_MSG = (
     "The AI server is currently offline or booting up. "
     "Please try again in a minute."
 )
-_TIMEOUT_SECONDS = 15
+_TIMEOUT_SECONDS = 300
 
 
 def _call_colab_api(prompt: str) -> tuple[str, int]:
@@ -120,6 +132,14 @@ def _call_colab_api(prompt: str) -> tuple[str, int]:
         resp.raise_for_status()
         data = resp.json()
         answer = data.get("answer", "No answer returned by the AI server.")
+        
+        # SMART ENFORCEMENT: Allow exactly two sentences so logic/conclusions aren't cut off.
+        sentences = answer.split(". ")
+        if len(sentences) > 2:
+            answer = ". ".join(sentences[:2]).strip() + "."
+        elif "\n" in answer:
+            answer = answer.split("\n")[0]
+            
         return answer, 200
 
     except requests.exceptions.RequestException as exc:
