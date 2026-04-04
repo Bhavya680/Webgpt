@@ -185,6 +185,18 @@
     </header>
     <!-- Content Canvas -->
     <section class="flex-1 overflow-y-auto p-12 flex flex-col">
+      <!-- Render Django Messages if any -->
+      {% if messages %}
+        <div class="mb-8 space-y-2 max-w-4xl" id="django-messages">
+            {% for message in messages %}
+                <div class="p-4 rounded-lg flex items-center gap-3 transition-all duration-500 {% if message.tags == 'success' %}bg-emerald-50 text-emerald-800 border border-emerald-200{% else %}bg-indigo-50 text-indigo-800 border border-indigo-200{% endif %}">
+                    <span class="material-symbols-outlined text-[20px]">{% if message.tags == 'success' %}check_circle{% else %}info{% endif %}</span>
+                    <span class="text-sm font-semibold">{{ message }}</span>
+                </div>
+            {% endfor %}
+        </div>
+      {% endif %}
+      
       <!-- Header Section -->
       <div class="flex justify-between items-end mb-16">
         <div>
@@ -421,6 +433,20 @@
       </form>
     </div>
   </div>
+  <script>
+    // Auto-dismiss messages after 3 seconds
+    document.addEventListener('DOMContentLoaded', function() {
+      const messagesContainer = document.getElementById('django-messages');
+      if (messagesContainer) {
+        setTimeout(function() {
+          messagesContainer.style.opacity = '0';
+          setTimeout(function() {
+            messagesContainer.remove();
+          }, 500); // Wait for fade-out
+        }, 3000); // 3 seconds
+      }
+    });
+  </script>
 </body>
 
 </html>

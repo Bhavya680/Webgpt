@@ -45,7 +45,8 @@ class ScrapedPage(models.Model):
 
 class BotConfig(models.Model):
     bot = models.OneToOneField(Bot, on_delete=models.CASCADE, related_name='config')
-    bot_color = models.CharField(max_length=20, default='#3b82f6')
+    bot_color = models.CharField(max_length=20, default='#4F46E5')
+    position = models.CharField(max_length=10, default='right')
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

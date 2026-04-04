@@ -1,5 +1,6 @@
 import time
 from celery import shared_task
+from django.utils import timezone
 from core.models import Bot, TrainingStatus, ScrapedPage
 
 @shared_task
@@ -110,6 +111,7 @@ def train_bot_task(bot_id, website_url):
     bot.save()
     
     status.status_message = "Knowledge extraction successful."
+    status.completed_at = timezone.now()
     status.save()
     
     print("[CELERY] Training Complete.")

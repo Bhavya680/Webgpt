@@ -30,8 +30,8 @@
     <nav class="flex border-b border-outline-variant/20 mb-8 overflow-x-auto">
         <a href="{% url 'bot_detail' bot.id %}" class="text-[#6B7280] hover:text-[#111827] pb-3 px-4 font-medium text-sm transition-all whitespace-nowrap">Widget Embed</a>
         <a href="{% url 'bot_pages' bot.id %}" class="text-primary border-b-2 border-primary pb-3 px-4 font-semibold text-sm transition-all whitespace-nowrap">Pages Scraped</a>
-        <button class="text-[#6B7280] hover:text-[#111827] pb-3 px-4 font-medium text-sm transition-all whitespace-nowrap">Test Chat</button>
-        <button class="text-[#6B7280] hover:text-[#111827] pb-3 px-4 font-medium text-sm transition-all whitespace-nowrap">Settings</button>
+        <a href="{% url 'bot_chat' bot.id %}" class="text-[#6B7280] hover:text-[#111827] pb-3 px-4 font-medium text-sm transition-all whitespace-nowrap">Test Chat</a>
+        <a href="{% url 'bot_settings' bot.id %}" class="text-[#6B7280] hover:text-[#111827] pb-3 px-4 font-medium text-sm transition-all whitespace-nowrap">Settings</a>
     </nav>
 
     <!-- HEADER SECTION -->

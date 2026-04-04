@@ -1,0 +1,233 @@
+{% extends 'dashboard_base.html' %}
+
+{% block header_content %}
+<div class="flex items-center gap-6">
+    <a class="text-[14px] text-[#6B7280] hover:text-[#111827] flex items-center gap-1 transition-colors font-medium" href="{% url 'dashboard_index' %}">
+        <span class="material-symbols-outlined text-sm">arrow_back</span>
+        Back to Bots
+    </a>
+    <div class="h-4 w-[1px] bg-outline-variant/30"></div>
+    <h2 class="text-[20px] font-semibold text-[#111827] tracking-tight">{{ bot.name }}</h2>
+</div>
+<div class="flex items-center gap-4">
+    <div class="flex items-center gap-2">
+        <button class="p-2 text-slate-500 hover:text-indigo-600 transition-colors">
+            <span class="material-symbols-outlined">notifications</span>
+        </button>
+        <button class="p-2 text-slate-500 hover:text-indigo-600 transition-colors">
+            <span class="material-symbols-outlined">help</span>
+        </button>
+    </div>
+    <div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant/20 shadow-sm">
+        <img alt="User Avatar" class="w-full h-full object-cover" data-alt="Professional male user profile avatar with soft studio lighting and neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAz04BTu7oIa3EFB_xhDN9Dh5t7ArN5An1sAaxG2Gt9R8JFXHliMjZ1XtlVm00HI1XpwvqsFmrTYD0xAyW5PjfweGq2qG0ZyyTXWfk2BxuKo7UFaPg3W0rlYvLIbgUOHh0ylvSjgZYL3QjhPX1JFPOlj_j7HF6v1IbFdoHnd3snaRJe62ASKFTn36364jgqURcAm8fopEAU6mBHd_ZI4wv6miX9ckLTQEwhSqiQHRFYj5gYhK3iks_HFKx0RL2ZmkMrdOodT0YMumA"/>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    :root {
+        --primary-custom: {{ bot.config.bot_color|default:'#4F46E5' }};
+    }
+    .custom-bg-primary { background-color: var(--primary-custom) !important; }
+    .custom-text-primary { color: var(--primary-custom) !important; }
+    .custom-border-primary { border-color: var(--primary-custom) !important; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="pt-24 px-12 pb-16 flex-1 max-w-5xl mx-auto w-full">
+    <!-- Tab Navigation -->
+    <nav class="flex border-b border-outline-variant/20 mb-8 overflow-x-auto">
+        <a href="{% url 'bot_detail' bot.id %}" class="text-[#6B7280] hover:text-[#111827] pb-3 px-4 font-medium text-sm transition-all whitespace-nowrap">Widget Embed</a>
+        <a href="{% url 'bot_pages' bot.id %}" class="text-[#6B7280] hover:text-[#111827] pb-3 px-4 font-medium text-sm transition-all whitespace-nowrap">Pages Scraped</a>
+        <a href="{% url 'bot_chat' bot.id %}" class="text-primary border-b-2 border-primary pb-3 px-4 font-semibold text-sm transition-all whitespace-nowrap">Test Chat</a>
+        <a href="{% url 'bot_settings' bot.id %}" class="text-[#6B7280] hover:text-[#111827] pb-3 px-4 font-medium text-sm transition-all whitespace-nowrap">Settings</a>
+    </nav>
+    
+    <!-- Page Canvas -->
+    <section class="max-w-7xl mx-auto w-full relative">
+        <!-- Background Decorative Glow -->
+        <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-primary-fixed opacity-20 blur-[120px] rounded-full -z-10 cursor-events-none pointer-events-none"></div>
+        
+        <!-- Main Test Card -->
+        <div class="bg-surface-container-lowest rounded-[16px] shadow-sm border border-outline-variant/15 overflow-hidden">
+            <div class="p-8 border-b border-surface-container-low">
+                <h3 class="text-[20px] font-extrabold tracking-tight text-on-surface">Test your chatbot</h3>
+                <p class="text-[15px] text-on-surface-variant mt-1">Ask questions as if you were a visitor to ensure your bot is trained correctly.</p>
+            </div>
+            <div class="p-8 flex justify-center bg-surface-container-low/30">
+                <!-- Chat Interface -->
+                <div class="w-full max-w-[600px] h-[600px] bg-surface-container-lowest border border-outline-variant/20 rounded-[12px] shadow-lg flex flex-col overflow-hidden">
+                    <!-- Chat Message Area -->
+                    <div id="chat-history" class="flex-1 overflow-y-auto p-6 space-y-6 bg-slate-50/50">
+                        <!-- Initial Bot Message -->
+                        <div class="flex items-start gap-3">
+                            <div class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center custom-text-primary shadow-sm border border-indigo-100 flex-shrink-0">
+                                <span class="material-symbols-outlined text-[18px]">smart_toy</span>
+                            </div>
+                            <div class="max-w-[80%] bg-white border border-indigo-50 rounded-2xl rounded-tl-none p-4 shadow-sm">
+                                <p class="text-[14px] text-on-surface leading-relaxed">{{ bot.welcome_message|default:"Hi! How can I help you today?" }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Chat Input Area -->
+                    <div class="p-4 bg-white border-t border-indigo-50/50">
+                        <div class="flex items-center gap-3 bg-surface-container-low rounded-xl px-4 py-2 ring-1 ring-outline-variant/10 focus-within:ring-primary/50 transition-all">
+                            {% csrf_token %}
+                            <input id="chat-input" class="flex-1 bg-transparent border-none focus:ring-0 text-[14px] text-on-surface placeholder:text-slate-400 py-2" placeholder="Type your message..." type="text"/>
+                            <button id="send-button" class="bg-indigo-600 text-white p-2 rounded-lg flex items-center justify-center hover:bg-indigo-700 transition-all active:scale-95 shadow-md flex-shrink-0">
+                                <span class="material-symbols-outlined text-[20px]">send</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Footer/Status Info (Asymmetric Element) -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 p-8 border-t border-surface-container-low">
+                <div class="space-y-1">
+                    <span class="text-[10px] font-bold uppercase tracking-widest text-primary-container">Bot Health</span>
+                    <div class="flex items-center gap-2 text-[14px] font-semibold text-on-surface">
+                        <span class="w-2 h-2 rounded-full {% if bot.status == 'active' %}bg-emerald-500{% else %}bg-amber-500{% endif %}"></span>
+                        {% if bot.status == 'active' %}Active &amp; Responding{% else %}Training / Unready{% endif %}
+                    </div>
+                </div>
+                <div class="space-y-1">
+                    <span class="text-[10px] font-bold uppercase tracking-widest text-primary-container">Response Source</span>
+                    <div class="flex items-center gap-2 text-[14px] font-semibold text-on-surface">
+                        <span class="material-symbols-outlined text-[16px]">article</span>
+                        Knowledge Base ({{ bot.pages.count }} Pages)
+                    </div>
+                </div>
+                <div class="space-y-1">
+                    <span class="text-[10px] font-bold uppercase tracking-widest text-primary-container">Last Trained</span>
+                    <div class="flex items-center gap-2 text-[14px] font-semibold text-on-surface">
+                        <span class="material-symbols-outlined text-[16px]">schedule</span>
+                        {{ bot.training_status.completed_at|date:"M j, Y, P"|default:"Never" }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const chatInput = document.getElementById('chat-input');
+    const sendBtn = document.getElementById('send-button');
+    const chatHistory = document.getElementById('chat-history');
+    
+    // Read the CSRF token from the DOM 
+    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    
+    function appendUserMessage(messageText) {
+        const div = document.createElement('div');
+        div.className = 'flex items-start gap-3 flex-row-reverse';
+        div.innerHTML = `
+            <div class="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center text-white shadow-md flex-shrink-0">
+                <span class="material-symbols-outlined text-[18px]">person</span>
+            </div>
+            <div class="max-w-[80%] bg-indigo-600 text-white rounded-2xl rounded-tr-none p-4 shadow-sm">
+                <p class="text-[14px] leading-relaxed">${messageText.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</p>
+            </div>
+        `;
+        chatHistory.appendChild(div);
+        autoScroll();
+    }
+    
+    function appendBotTypingBubble() {
+        const div = document.createElement('div');
+        div.id = 'typing-indicator';
+        div.className = 'flex items-start gap-3';
+        div.innerHTML = `
+            <div class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center text-primary shadow-sm border border-indigo-100 flex-shrink-0">
+                <span class="material-symbols-outlined text-[18px]">smart_toy</span>
+            </div>
+            <div class="max-w-[80%] bg-white border border-indigo-50 rounded-2xl rounded-tl-none p-4 shadow-sm flex items-center gap-1">
+                <span class="text-[14px] text-slate-500 font-medium italic">Typing...</span>
+            </div>
+        `;
+        chatHistory.appendChild(div);
+        autoScroll();
+    }
+    
+    function removeBotTypingBubble() {
+        const indicator = document.getElementById('typing-indicator');
+        if (indicator) indicator.remove();
+    }
+    
+    function appendBotMessage(messageText, isError=false) {
+        let textColorClass = isError ? 'text-error font-medium' : 'text-on-surface';
+        
+        const div = document.createElement('div');
+        div.className = 'flex items-start gap-3';
+        div.innerHTML = `
+            <div class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center ${isError ? 'text-error' : 'text-primary'} shadow-sm border ${isError ? 'border-error/20' : 'border-indigo-100'} flex-shrink-0">
+                <span class="material-symbols-outlined text-[18px]">${isError ? 'warning' : 'smart_toy'}</span>
+            </div>
+            <div class="max-w-[80%] bg-white border ${isError ? 'border-error/20 bg-error-container/10' : 'border-indigo-50'} rounded-2xl rounded-tl-none p-4 shadow-sm">
+                <p class="text-[14px] ${textColorClass} leading-relaxed">${messageText.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\\n/g, "<br>")}</p>
+            </div>
+        `;
+        chatHistory.appendChild(div);
+        autoScroll();
+    }
+
+    function autoScroll() {
+        chatHistory.scrollTop = chatHistory.scrollHeight;
+    }
+    
+    async function sendMessage() {
+        const msg = chatInput.value.trim();
+        if (!msg) return;
+        
+        chatInput.value = '';
+        chatInput.disabled = true;
+        sendBtn.disabled = true;
+        
+        appendUserMessage(msg);
+        appendBotTypingBubble();
+        
+        try {
+            const response = await fetch("{% url 'bot_chat_api' bot.id %}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken
+                },
+                body: JSON.stringify({ message: msg })
+            });
+            
+            removeBotTypingBubble();
+            
+            const data = await response.json();
+            
+            if (!response.ok) {
+                appendBotMessage(data.error || 'System error: Unable to reach the AI engine.', true);
+            } else {
+                appendBotMessage(data.answer);
+            }
+            
+        } catch (error) {
+            removeBotTypingBubble();
+            appendBotMessage('System error: Unable to reach the AI engine.', true);
+        } finally {
+            chatInput.disabled = false;
+            sendBtn.disabled = false;
+            chatInput.focus();
+        }
+    }
+    
+    sendBtn.addEventListener('click', sendMessage);
+    
+    chatInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            sendMessage();
+        }
+    });
+});
+</script>
+{% endblock %}

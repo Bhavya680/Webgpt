@@ -1,9 +1,14 @@
+import json
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
+from django.views.decorators.clickjacking import xframe_options_exempt
+from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 import uuid
 from core.models import Bot, BotConfig, TrainingStatus
+from core.views import _retrieve_context, _build_prompt, _call_colab_api
 from .tasks import train_bot_task
 
 @login_required
@@ -87,5 +92,80 @@ def rescrape_bot(request, bot_id):
     status.completed_at = None
     status.save()
     
-    train_bot_task.delay(bot.id, bot.url)
-    return redirect('bot_training', bot_id=bot.id)
+@login_required
+def bot_chat_view(request, bot_id):
+    bot = get_object_or_404(Bot, id=bot_id, user=request.user)
+    return render(request, 'dashboard/bot_chat.html', {'bot': bot})
+
+@csrf_exempt
+@require_POST
+def bot_chat_api(request, bot_id):
+    bot = get_object_or_404(Bot, id=bot_id)
+    
+    try:
+        data = json.loads(request.body)
+        message = data.get('message', '')
+        
+        if not message:
+            return JsonResponse({'error': 'Message is required'}, status=400)
+            
+        chunks = _retrieve_context(message, str(bot.bot_id))
+        
+        if not chunks:
+            return JsonResponse({
+                'answer': "I don't have enough information yet. Please wait for the website to finish processing.",
+                'status': 'success'
+            })
+            
+        prompt = _build_prompt(message, chunks)
+        answer, http_status = _call_colab_api(prompt)
+        
+        if http_status != 200:
+            return JsonResponse({'error': answer}, status=http_status)
+            
+        return JsonResponse({'answer': answer, 'status': 'success'})
+        
+    except json.JSONDecodeError:
+        return JsonResponse({'error': 'Invalid JSON'}, status=400)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+
+@login_required
+def bot_settings_view(request, bot_id):
+    bot = get_object_or_404(Bot, id=bot_id, user=request.user)
+    
+    if request.method == 'POST':
+        bot_name = request.POST.get('bot_name')
+        if bot_name:
+            bot.name = bot_name
+            
+        welcome_msg = request.POST.get('welcome_message')
+        if welcome_msg is not None:
+            bot.welcome_message = welcome_msg
+            
+        bot.save()
+            
+        bot.config.bot_color = request.POST.get('primary_color', bot.config.bot_color)
+        
+        position = request.POST.get('position')
+        if position in ['right', 'left']:
+            bot.config.position = position
+            
+        bot.config.save()
+        messages.success(request, 'Bot settings updated successfully!')
+        return redirect('bot_settings', bot_id=bot.id)
+        
+    return render(request, 'dashboard/bot_settings.html', {'bot': bot})
+
+@login_required
+@require_POST
+def bot_delete_view(request, bot_id):
+    bot = get_object_or_404(Bot, id=bot_id, user=request.user)
+    bot.delete()
+    messages.success(request, 'Bot deleted successfully.')
+    return redirect('dashboard_index')
+
+@xframe_options_exempt
+def bot_widget_view(request, bot_id):
+    bot = get_object_or_404(Bot, id=bot_id)
+    return render(request, 'dashboard/widget.html', {'bot': bot})

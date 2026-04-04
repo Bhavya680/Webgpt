@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Bot Settings | Cognitive Bot</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-bright": "#f9f9ff",
+                        "tertiary-fixed": "#ffdbcc",
+                        "on-surface-variant": "#464555",
+                        "outline-variant": "#c7c4d8",
+                        "primary": "#3525cd",
+                        "surface-container-lowest": "#ffffff",
+                        "outline": "#777587",
+                        "on-primary-fixed": "#0f0069",
+                        "on-primary-fixed-variant": "#3323cc",
+                        "on-tertiary-fixed": "#351000",
+                        "surface-container": "#e9edff",
+                        "primary-fixed-dim": "#c3c0ff",
+                        "on-tertiary-container": "#ffd2be",
+                        "tertiary-fixed-dim": "#ffb695",
+                        "surface-tint": "#4d44e3",
+                        "surface": "#f9f9ff",
+                        "surface-dim": "#d3daef",
+                        "surface-container-low": "#f1f3ff",
+                        "surface-container-highest": "#dce2f7",
+                        "on-background": "#141b2b",
+                        "on-error": "#ffffff",
+                        "on-surface": "#141b2b",
+                        "error": "#ba1a1a",
+                        "inverse-surface": "#293040",
+                        "on-secondary-fixed": "#140f54",
+                        "on-secondary-container": "#454386",
+                        "inverse-primary": "#c3c0ff",
+                        "secondary-container": "#b6b4ff",
+                        "on-error-container": "#93000a",
+                        "surface-container-high": "#e1e8fd",
+                        "on-tertiary-fixed-variant": "#7b2f00",
+                        "on-primary-container": "#dad7ff",
+                        "on-primary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "surface-variant": "#dce2f7",
+                        "secondary-fixed-dim": "#c3c0ff",
+                        "tertiary": "#7e3000",
+                        "tertiary-container": "#a44100",
+                        "on-secondary-fixed-variant": "#413f82",
+                        "error-container": "#ffdad6",
+                        "secondary-fixed": "#e2dfff",
+                        "on-secondary": "#ffffff",
+                        "secondary": "#58579b",
+                        "primary-fixed": "#e2dfff",
+                        "background": "#f9f9ff",
+                        "primary-container": "#4f46e5",
+                        "inverse-on-surface": "#edf0ff"
+                    },
+                    fontFamily: {
+                        "headline": ["Inter"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface antialiased">
+<!-- SideNavBar Component -->
+<aside class="fixed left-0 top-0 h-full flex flex-col h-screen w-64 border-r-0 bg-slate-900 dark:bg-black font-inter antialiased shadow-2xl shadow-indigo-900/20 z-50">
+<div class="p-6">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 bg-indigo-500 rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-sm" data-icon="smart_toy" style="">smart_toy</span>
+</div>
+<div>
+<h1 class="text-xl font-black text-white tracking-tighter" style=""><span style="color: #3b82f6; font-family: Inter; font-size: 24px; letter-spacing: -1.2px;">SiteBot</span></h1>
+<p class="text-[10px] text-slate-500 font-bold tracking-widest uppercase" style="">v2.4.0</p>
+</div>
+</div>
+<button class="mt-8 w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-lg flex items-center justify-center gap-2 transition-all" style="">
+<span class="material-symbols-outlined text-sm" data-icon="add" style="">add</span>
+<span class="text-xs uppercase tracking-widest" style="">New Bot</span>
+</button>
+</div>
+<nav class="flex-1 mt-4 overflow-y-auto">
+<div class="flex flex-col">
+<a class="text-slate-400 hover:text-white py-3 px-6 transition-colors hover:bg-slate-800/50 flex items-center gap-3" href="#" style="">
+<span class="material-symbols-outlined" data-icon="dashboard" style="">dashboard</span>
+<span class="text-xs font-semibold tracking-widest uppercase" style="">Dashboard</span>
+</a>
+<a class="text-white bg-indigo-600/10 border-l-4 border-indigo-500 py-3 px-6 translate-x-1 transition-transform flex items-center gap-3" href="#" style="">
+<span class="material-symbols-outlined" data-icon="smart_toy" style="">smart_toy</span>
+<span class="text-xs font-semibold tracking-widest uppercase" style="">Bot Activity</span>
+</a>
+<a class="text-slate-400 hover:text-white py-3 px-6 transition-colors hover:bg-slate-800/50 flex items-center gap-3" href="#" style="">
+<span class="material-symbols-outlined" data-icon="monitoring" style="">monitoring</span>
+<span class="text-xs font-semibold tracking-widest uppercase" style="">Analytics</span>
+</a>
+<a class="text-slate-400 hover:text-white py-3 px-6 transition-colors hover:bg-slate-800/50 flex items-center gap-3" href="#" style="">
+<span class="material-symbols-outlined" data-icon="api" style="">api</span>
+<span class="text-xs font-semibold tracking-widest uppercase" style="">Integration</span>
+</a>
+<a class="text-slate-400 hover:text-white py-3 px-6 transition-colors hover:bg-slate-800/50 flex items-center gap-3" href="#" style="">
+<span class="material-symbols-outlined" data-icon="security" style="">security</span>
+<span class="text-xs font-semibold tracking-widest uppercase" style="">Security</span>
+</a>
+<a class="text-slate-400 hover:text-white py-3 px-6 transition-colors hover:bg-slate-800/50 flex items-center gap-3" href="#" style="">
+<span class="material-symbols-outlined" data-icon="settings" style="">settings</span>
+<span class="text-xs font-semibold tracking-widest uppercase" style="">Settings</span>
+</a>
+</div>
+</nav>
+<div class="p-6 border-t border-slate-800">
+<div class="flex flex-col gap-1">
+<a class="text-slate-500 hover:text-white py-2 flex items-center gap-3 transition-colors" href="#" style="">
+<span class="material-symbols-outlined text-sm" data-icon="help" style="">help</span>
+<span class="text-xs font-semibold tracking-widest uppercase" style="">Help Center</span>
+</a>
+<a class="text-slate-500 hover:text-white py-2 flex items-center gap-3 transition-colors" href="#" style="">
+<span class="material-symbols-outlined text-sm" data-icon="logout" style="">logout</span>
+<span class="text-xs font-semibold tracking-widest uppercase" style="">Sign Out</span>
+</a>
+</div>
+</div>
+</aside>
+<div class="ml-64 min-h-screen flex flex-col">
+<!-- TopNavBar Component -->
+<header class="ml-0 flex justify-between items-center h-16 px-8 sticky top-0 z-40 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl bg-surface-container-low">
+<div class="flex items-center gap-4">
+<a class="text-slate-500 hover:text-indigo-600 transition-colors flex items-center gap-2 text-sm font-medium" href="#" style="">
+<span class="material-symbols-outlined text-base" data-icon="arrow_back" style="">arrow_back</span>
+                    Back to Bots
+                </a>
+<div class="h-4 w-[1px] bg-slate-200"></div>
+<h2 class="headline-lg font-extrabold Inter text-on-surface" style="">Acme Support Bot</h2>
+</div>
+<div class="flex items-center gap-6">
+<nav class="flex gap-6">
+<a class="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 label-md tracking-wider transition-opacity hover:opacity-80" href="#" style="">Profile</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 label-md tracking-wider transition-opacity hover:opacity-80" href="#" style="">Security</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 label-md tracking-wider transition-opacity hover:opacity-80" href="#" style="">API Keys</a>
+</nav>
+<div class="flex items-center gap-3">
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-slate-100 transition-colors scale-95 active:transition-all" style="">
+<span class="material-symbols-outlined text-slate-600" data-icon="notifications" style="">notifications</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-slate-100 transition-colors scale-95 active:transition-all" style="">
+<span class="material-symbols-outlined text-slate-600" data-icon="settings_suggest" style="">settings_suggest</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-slate-200">
+<img alt="User Avatar" class="w-full h-full object-cover" data-alt="professional portrait of a tech company executive with soft office lighting background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXpOy3fU2ex2x8ua0u18QQ7Yn2dRjP5m3Yv4IDb7JJeHQZD5M3vFRnmkfmtY1ZVk2sfXgVGajcwVy655FKDqycORzsrs3x4D5mLL6MJFXggILVpA9cES1bcZgd65louDKZsam8KcUWdGYchLHx3KyvJZPT3xitZBciDtl8t6W4T2oYt85wkPIMbWjZlPL2fVLbhYNgQqwC756LsOBHYkiGp4M8VoB8wsGAUnM73W2dwyKwJvkvvu2L4pyLq4CGlaJiTtcdIsOnYmU" style=""/>
+</div>
+</div>
+</div>
+</header>
+<!-- Secondary Sub-Navigation -->
+<div class="px-8 bg-surface border-b border-surface-container-high">
+<nav class="flex gap-8">
+<a class="py-4 text-slate-500 hover:text-slate-900 font-medium text-sm transition-colors border-b-2 border-transparent" href="#" style="">Widget Embed</a>
+<a class="py-4 text-slate-500 hover:text-slate-900 font-medium text-sm transition-colors border-b-2 border-transparent" href="#" style="">Pages Scraped</a>
+<a class="py-4 text-slate-500 hover:text-slate-900 font-medium text-sm transition-colors border-b-2 border-transparent" href="#" style="">Test Chat</a>
+<a class="py-4 text-primary border-b-2 border-primary pb-3 px-4 font-medium text-sm" href="#" style="">Settings</a>
+</nav>
+</div>
+<!-- Main Content Area -->
+<main class="flex-1 p-8">
+<div class="max-w-3xl mx-auto w-full mt-8 bg-surface-container-lowest border border-outline-variant/15 rounded-2xl p-8 shadow-sm">
+<!-- Bot Configuration Form -->
+<section>
+<h3 class="text-[20px] font-bold text-on-surface mb-8" style="">Bot Configuration</h3>
+<form class="space-y-8">
+<!-- Bot Name -->
+<div class="space-y-2">
+<label class="label-md tracking-widest text-on-surface-variant uppercase font-bold" for="bot-name" style="">Bot Name</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant/15 rounded-lg py-3 px-4 focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all outline-none" id="bot-name" type="text" value="Acme Support Bot"/>
+</div>
+<!-- Welcome Message -->
+<div class="space-y-2">
+<label class="label-md tracking-widest text-on-surface-variant uppercase font-bold" for="welcome-msg" style="">Welcome Message</label>
+<textarea class="w-full h-[100px] bg-surface-container-lowest border border-outline-variant/15 rounded-lg py-3 px-4 focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all outline-none resize-none" id="welcome-msg">Hi! I'm here to help you with any questions about Acme products and services.</textarea>
+</div>
+<!-- Widget Color Swatches -->
+<div class="space-y-3">
+<label class="label-md tracking-widest text-on-surface-variant uppercase font-bold" style="">Widget Color</label>
+<div class="flex gap-4">
+<!-- Blue (Active) -->
+<button class="w-10 h-10 rounded-full bg-[#4F46E5] ring-2 ring-offset-2 ring-primary flex items-center justify-center" style="" type="button">
+<span class="material-symbols-outlined text-white text-base" data-icon="check" style="">check</span>
+</button>
+<!-- Purple -->
+<button class="w-10 h-10 rounded-full bg-[#9333EA] hover:scale-110 transition-transform" style="" type="button"></button>
+<!-- Red -->
+<button class="w-10 h-10 rounded-full bg-[#EF4444] hover:scale-110 transition-transform" style="" type="button"></button>
+<!-- Green -->
+<button class="w-10 h-10 rounded-full bg-[#22C55E] hover:scale-110 transition-transform" style="" type="button"></button>
+<!-- Orange -->
+<button class="w-10 h-10 rounded-full bg-[#F59E0B] hover:scale-110 transition-transform" style="" type="button"></button>
+<!-- Black -->
+<button class="w-10 h-10 rounded-full bg-[#18181B] hover:scale-110 transition-transform" style="" type="button"></button>
+</div>
+</div>
+<!-- Widget Position -->
+<div class="space-y-3">
+<label class="label-md tracking-widest text-on-surface-variant uppercase font-bold" style="">Widget Position</label>
+<div class="flex gap-6">
+<label class="flex items-center gap-3 cursor-pointer group" style="">
+<input checked="" class="w-4 h-4 text-primary focus:ring-primary border-outline-variant/15" name="position" type="radio"/>
+<span class="text-sm font-medium text-on-surface group-hover:text-primary transition-colors" style="">Bottom Right</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group" style="">
+<input class="w-4 h-4 text-primary focus:ring-primary border-outline-variant/15" name="position" type="radio"/>
+<span class="text-sm font-medium text-on-surface group-hover:text-primary transition-colors" style="">Bottom Left</span>
+</label>
+</div>
+</div>
+<!-- Action Divider -->
+<div class="pt-4 border-t border-surface-container-high flex justify-end">
+<button class="bg-primary-container hover:bg-primary text-on-primary font-bold py-3 px-8 rounded-lg transition-all shadow-lg shadow-primary/20" style="" type="button">
+                                Save Changes
+                            </button>
+</div>
+</form>
+</section>
+<!-- Danger Zone Section -->
+<section class="mt-12 pt-8 border-t border-surface-container-high">
+<h3 class="text-[18px] font-bold text-error mb-4" style="">Danger Zone</h3>
+<div class="bg-[#FEF2F2] border border-[#FCA5A5] rounded-xl p-6 flex justify-between items-center">
+<div>
+<p class="font-semibold text-on-surface" style="">Delete this bot</p>
+<p class="text-error text-sm mt-1" style="">This action cannot be undone.</p>
+</div>
+<button class="bg-error hover:bg-red-700 text-white font-bold py-2.5 px-6 rounded-lg transition-all" style="" type="button">
+                            Delete
+                        </button>
+</div>
+</section>
+</div>
+<!-- Contextual Note (Design System Detail) -->
+<div class="max-w-3xl mx-auto mt-12 mb-12 flex gap-4 items-start p-6 rounded-2xl bg-surface-container-low border border-outline-variant/10">
+<span class="material-symbols-outlined text-primary-fixed-dim" data-icon="info" style="">info</span>
+<div>
+<h4 class="text-sm font-bold tracking-tight text-on-surface" style="">Need help configuring your bot?</h4>
+<p class="text-sm text-on-surface-variant leading-relaxed mt-1" style="">Changes made to these settings will reflect instantly across all embedded widgets. If you're encountering display issues, check your CSS overrides in the Integration tab.</p>
+</div>
+</div>
+</main>
+</div>
+</body></html>

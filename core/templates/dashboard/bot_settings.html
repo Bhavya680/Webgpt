@@ -1,0 +1,182 @@
+{% extends 'dashboard_base.html' %}
+
+{% block header_content %}
+<div class="flex items-center gap-6">
+    <a class="text-[14px] text-[#6B7280] hover:text-[#111827] flex items-center gap-1 transition-colors font-medium" href="{% url 'dashboard_index' %}">
+        <span class="material-symbols-outlined text-sm">arrow_back</span>
+        Back to Bots
+    </a>
+    <div class="h-4 w-[1px] bg-outline-variant/30"></div>
+    <h2 class="text-[20px] font-semibold text-[#111827] tracking-tight">{{ bot.name }}</h2>
+</div>
+<div class="flex items-center gap-4">
+    <div class="flex items-center gap-2">
+        <button class="p-2 text-slate-500 hover:text-indigo-600 transition-colors">
+            <span class="material-symbols-outlined">notifications</span>
+        </button>
+        <button class="p-2 text-slate-500 hover:text-indigo-600 transition-colors">
+            <span class="material-symbols-outlined">help</span>
+        </button>
+    </div>
+    <div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant/20 shadow-sm">
+        <img alt="User Avatar" class="w-full h-full object-cover" data-alt="Professional male user profile avatar with soft studio lighting and neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAz04BTu7oIa3EFB_xhDN9Dh5t7ArN5An1sAaxG2Gt9R8JFXHliMjZ1XtlVm00HI1XpwvqsFmrTYD0xAyW5PjfweGq2qG0ZyyTXWfk2BxuKo7UFaPg3W0rlYvLIbgUOHh0ylvSjgZYL3QjhPX1JFPOlj_j7HF6v1IbFdoHnd3snaRJe62ASKFTn36364jgqURcAm8fopEAU6mBHd_ZI4wv6miX9ckLTQEwhSqiQHRFYj5gYhK3iks_HFKx0RL2ZmkMrdOodT0YMumA"/>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="pt-24 px-12 pb-16 flex-1 max-w-5xl mx-auto w-full">
+    <!-- Tab Navigation -->
+    <nav class="flex border-b border-outline-variant/20 mb-8 overflow-x-auto">
+        <a href="{% url 'bot_detail' bot.id %}" class="text-[#6B7280] hover:text-[#111827] pb-3 px-4 font-medium text-sm transition-all whitespace-nowrap">Widget Embed</a>
+        <a href="{% url 'bot_pages' bot.id %}" class="text-[#6B7280] hover:text-[#111827] pb-3 px-4 font-medium text-sm transition-all whitespace-nowrap">Pages Scraped</a>
+        <a href="{% url 'bot_chat' bot.id %}" class="text-[#6B7280] hover:text-[#111827] pb-3 px-4 font-medium text-sm transition-all whitespace-nowrap">Test Chat</a>
+        <a href="{% url 'bot_settings' bot.id %}" class="text-primary border-b-2 border-primary pb-3 px-4 font-semibold text-sm transition-all whitespace-nowrap">Settings</a>
+    </nav>
+    
+    <!-- Render Django Messages if any -->
+    {% if messages %}
+        <div class="mb-8 space-y-2" id="django-messages">
+            {% for message in messages %}
+                <div class="p-4 rounded-lg flex items-center gap-3 transition-all duration-500 {% if message.tags == 'success' %}bg-emerald-50 text-emerald-800 border border-emerald-200{% else %}bg-indigo-50 text-indigo-800 border border-indigo-200{% endif %}">
+                    <span class="material-symbols-outlined text-[20px]">{% if message.tags == 'success' %}check_circle{% else %}info{% endif %}</span>
+                    <span class="text-sm font-semibold">{{ message }}</span>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <div class="bg-surface-container-lowest border border-outline-variant/15 rounded-2xl p-8 shadow-sm">
+        <!-- Bot Configuration Form -->
+        <section>
+            <h3 class="text-[20px] font-bold text-on-surface mb-8">Bot Configuration</h3>
+            <form method="POST" action="{% url 'bot_settings' bot.id %}" class="space-y-8">
+                {% csrf_token %}
+                <input type="hidden" name="primary_color" id="color-input" value="{{ bot.config.bot_color|default:'#4F46E5' }}">
+                
+                <!-- Bot Name -->
+                <div class="space-y-2">
+                    <label class="label-md tracking-widest text-on-surface-variant uppercase font-bold" for="bot-name">Bot Name</label>
+                    <input name="bot_name" class="w-full bg-surface-container-lowest border border-outline-variant/15 rounded-lg py-3 px-4 focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all outline-none" id="bot-name" type="text" value="{{ bot.name }}"/>
+                </div>
+                
+                <!-- Welcome Message -->
+                <div class="space-y-2">
+                    <label class="label-md tracking-widest text-on-surface-variant uppercase font-bold" for="welcome-msg">Welcome Message</label>
+                    <textarea name="welcome_message" class="w-full h-[100px] bg-surface-container-lowest border border-outline-variant/15 rounded-lg py-3 px-4 focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all outline-none resize-none" id="welcome-msg">{{ bot.welcome_message|default:'' }}</textarea>
+                </div>
+                
+                <!-- Widget Color Swatches -->
+                <div class="space-y-3">
+                    <label class="label-md tracking-widest text-on-surface-variant uppercase font-bold">Widget Color</label>
+                    <div class="flex gap-4" id="color-picker-container">
+                        <button class="color-btn w-10 h-10 rounded-full bg-[#4F46E5] flex items-center justify-center transition-transform hover:scale-110" data-color="#4F46E5" type="button"></button>
+                        <button class="color-btn w-10 h-10 rounded-full bg-[#9333EA] flex items-center justify-center transition-transform hover:scale-110" data-color="#9333EA" type="button"></button>
+                        <button class="color-btn w-10 h-10 rounded-full bg-[#EF4444] flex items-center justify-center transition-transform hover:scale-110" data-color="#EF4444" type="button"></button>
+                        <button class="color-btn w-10 h-10 rounded-full bg-[#22C55E] flex items-center justify-center transition-transform hover:scale-110" data-color="#22C55E" type="button"></button>
+                        <button class="color-btn w-10 h-10 rounded-full bg-[#F59E0B] flex items-center justify-center transition-transform hover:scale-110" data-color="#F59E0B" type="button"></button>
+                        <button class="color-btn w-10 h-10 rounded-full bg-[#18181B] flex items-center justify-center transition-transform hover:scale-110" data-color="#18181B" type="button"></button>
+                    </div>
+                </div>
+                
+                <!-- Widget Position -->
+                <div class="space-y-3">
+                    <label class="label-md tracking-widest text-on-surface-variant uppercase font-bold">Widget Position</label>
+                    <div class="flex gap-6">
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input class="w-4 h-4 text-primary focus:ring-primary border-outline-variant/15" name="position" value="right" type="radio" {% if bot.config.position == 'right' or not bot.config.position %}checked{% endif %}/>
+                            <span class="text-sm font-medium text-on-surface group-hover:text-primary transition-colors">Bottom Right</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input class="w-4 h-4 text-primary focus:ring-primary border-outline-variant/15" name="position" value="left" type="radio" {% if bot.config.position == 'left' %}checked{% endif %}/>
+                            <span class="text-sm font-medium text-on-surface group-hover:text-primary transition-colors">Bottom Left</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Action Divider -->
+                <div class="pt-4 border-t border-surface-container-high flex justify-end">
+                    <button type="submit" class="bg-primary-container hover:bg-primary text-on-primary font-bold py-3 px-8 rounded-lg transition-all shadow-lg shadow-primary/20">
+                        Save Changes
+                    </button>
+                </div>
+            </form>
+        </section>
+        
+        <!-- Danger Zone Section -->
+        <section class="mt-12 pt-8 border-t border-surface-container-high">
+            <h3 class="text-[18px] font-bold text-error mb-4">Danger Zone</h3>
+            <div class="bg-[#FEF2F2] border border-[#FCA5A5] rounded-xl p-6 flex justify-between items-center">
+                <div>
+                    <p class="font-semibold text-on-surface">Delete this bot</p>
+                    <p class="text-error text-sm mt-1">This action cannot be undone.</p>
+                </div>
+                <form method="POST" action="{% url 'bot_delete' bot.id %}" onsubmit="return confirm('Are you absolutely sure you want to delete this bot? This cannot be undone.');">
+                    {% csrf_token %}
+                    <button type="submit" class="bg-error hover:bg-red-700 text-white font-bold py-2.5 px-6 rounded-lg transition-all">
+                        Delete
+                    </button>
+                </form>
+            </div>
+        </section>
+    </div>
+    
+    <!-- Contextual Note -->
+    <div class="mb-12 flex gap-4 items-start p-6 rounded-2xl bg-surface-container-low border border-outline-variant/10 mt-12">
+        <span class="material-symbols-outlined text-primary-fixed-dim">info</span>
+        <div>
+            <h4 class="text-sm font-bold tracking-tight text-on-surface">Need help configuring your bot?</h4>
+            <p class="text-sm text-on-surface-variant leading-relaxed mt-1">Changes made to these settings will reflect instantly across all embedded widgets. If you're encountering display issues, check your CSS overrides in the Integration tab.</p>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const colorInput = document.getElementById('color-input');
+    const colorBtns = document.querySelectorAll('.color-btn');
+    
+    const checkIconHTML = '<span class="material-symbols-outlined text-white text-base">check</span>';
+    const activeClasses = ['ring-2', 'ring-offset-2', 'ring-primary'];
+    
+    function updateColorUI(selectedColor) {
+        // Case insensitive comparison just in case
+        const targetColor = selectedColor.toLowerCase();
+        
+        colorBtns.forEach(btn => {
+            const btnColor = btn.dataset.color.toLowerCase();
+            if (btnColor === targetColor) {
+                btn.innerHTML = checkIconHTML;
+                btn.classList.add(...activeClasses);
+            } else {
+                btn.innerHTML = '';
+                btn.classList.remove(...activeClasses);
+            }
+        });
+    }
+    
+    // Initialize color on load
+    updateColorUI(colorInput.value);
+    
+    // Setup click listeners
+    colorBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const newColor = this.dataset.color;
+            colorInput.value = newColor;
+            updateColorUI(newColor);
+        });
+    });
+
+    // Auto-dismiss messages after 3 seconds
+    const messagesContainer = document.getElementById('django-messages');
+    if (messagesContainer) {
+        setTimeout(function() {
+            messagesContainer.style.opacity = '0';
+            setTimeout(function() {
+                messagesContainer.remove();
+            }, 500); 
+        }, 3000); 
+    }
+});
+</script>
+{% endblock %}
