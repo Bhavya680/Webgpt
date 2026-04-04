@@ -105,16 +105,19 @@
             <span class="material-symbols-outlined">robot_2</span>
             <span>Automations</span>
         </a>
-        <a class="text-slate-400 hover:text-white hover:bg-slate-900/50 px-6 py-3 flex items-center gap-3 transition-all duration-200" href="#">
+        <a class="text-slate-400 hover:text-white hover:bg-slate-900/50 px-6 py-3 flex items-center gap-3 transition-all duration-200" href="{% url 'profile_settings' %}">
             <span class="material-symbols-outlined">settings</span>
             <span>Settings</span>
         </a>
     </nav>
     <div class="px-6 mt-auto">
-        <button class="w-full text-slate-400 hover:text-white hover:bg-slate-900/50 px-4 py-3 flex items-center gap-3 transition-all duration-200 rounded-lg">
-            <span class="material-symbols-outlined">logout</span>
-            <span>Logout</span>
-        </button>
+        <form method="POST" action="{% url 'dashboard_logout' %}">
+            {% csrf_token %}
+            <button type="submit" class="w-full text-slate-400 hover:text-red-400 hover:bg-red-900/20 px-4 py-3 flex items-center gap-3 transition-all duration-200 rounded-lg">
+                <span class="material-symbols-outlined">logout</span>
+                <span>Logout</span>
+            </button>
+        </form>
     </div>
 </aside>
 

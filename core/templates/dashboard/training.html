@@ -149,9 +149,9 @@
 <button class="text-on-surface-variant hover:text-primary transition-colors" style="">
 <span class="material-symbols-outlined" data-icon="help" style="">help</span>
 </button>
-<div class="h-8 w-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary font-bold text-xs" style="">
-                        JD
-                    </div>
+                    <a href="{% url 'profile_settings' %}" class="h-8 w-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary font-bold text-xs ring-2 ring-primary/20 transition-transform hover:scale-105">
+                        {% if request.user.first_name %}{{ request.user.first_name|first|upper }}{% elif request.user.is_authenticated %}{{ request.user.email|first|upper }}{% else %}?{% endif %}
+                    </a>
 </div>
 </div>
 </header>

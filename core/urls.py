@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import (
     CreateBotView, BotStatusView, ChatView, HealthCheckView,
-    APILoginView, APISignupView
+    APILoginView, APISignupView, SyncFirebaseUserView
 )
 
 urlpatterns = [
@@ -14,4 +14,5 @@ urlpatterns = [
     # Auth API
     path('auth/login/', APILoginView.as_view(), name='api_login'),
     path('auth/signup/', APISignupView.as_view(), name='api_signup'),
+    path('auth/sync/', SyncFirebaseUserView.as_view(), name='sync_firebase_user'),
 ]

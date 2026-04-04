@@ -2,6 +2,7 @@ import json
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import update_session_auth_hash, logout
 from django.views.decorators.http import require_POST
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.views.decorators.csrf import csrf_exempt
@@ -92,6 +93,11 @@ def rescrape_bot(request, bot_id):
     status.completed_at = None
     status.save()
     
+    # Trigger background task
+    train_bot_task.delay(bot.id, bot.url)
+    
+    return redirect('bot_training', bot_id=bot.id)
+    
 @login_required
 def bot_chat_view(request, bot_id):
     bot = get_object_or_404(Bot, id=bot_id, user=request.user)
@@ -169,3 +175,58 @@ def bot_delete_view(request, bot_id):
 def bot_widget_view(request, bot_id):
     bot = get_object_or_404(Bot, id=bot_id)
     return render(request, 'dashboard/widget.html', {'bot': bot})
+
+
+@login_required
+def profile_settings_view(request):
+    """User profile settings — updates name, email, and password."""
+    user = request.user
+
+    if request.method == 'POST':
+        first_name = request.POST.get('first_name', '').strip()
+        last_name = request.POST.get('last_name', '').strip()
+        email = request.POST.get('email', '').strip()
+        current_password = request.POST.get('current_password', '')
+        new_password = request.POST.get('new_password', '')
+
+        # Update name fields
+        if first_name:
+            user.first_name = first_name
+        if last_name is not None:
+            user.last_name = last_name
+
+        # Update email & keep username in sync
+        if email and email != user.email:
+            from django.contrib.auth.models import User as AuthUser
+            if AuthUser.objects.filter(email=email).exclude(pk=user.pk).exists():
+                messages.error(request, 'That email address is already in use.')
+                return redirect('profile_settings')
+            user.email = email
+            user.username = email   # username == email convention enforced at signup
+
+        # Change password (only if both fields provided and current is correct)
+        if current_password and new_password:
+            if user.check_password(current_password):
+                user.set_password(new_password)
+                update_session_auth_hash(request, user)  # keep session alive
+                messages.success(request, 'Password updated successfully.')
+            else:
+                messages.error(request, 'Current password is incorrect.')
+                user.save()
+                return redirect('profile_settings')
+
+        user.save()
+        messages.success(request, 'Profile updated successfully.')
+        return redirect('profile_settings')
+
+    total_bots = Bot.objects.filter(user=user).count()
+    return render(request, 'dashboard/profile.html', {
+        'user': user,
+        'total_bots': total_bots,
+    })
+
+
+def user_logout_view(request):
+    """Logs the user out of the Django session and redirects to login."""
+    logout(request)
+    return redirect('login')

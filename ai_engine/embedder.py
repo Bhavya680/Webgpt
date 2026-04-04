@@ -36,16 +36,39 @@ def _get_embedding_model() -> SentenceTransformer:
 
 
 def chunk_text(text: str) -> list[str]:
-    """Split *text* into overlapping chunks."""
+    """Split *text* into chunks using semantic-tag-aware boundaries.
+    
+    Priority split points:
+      1. '### ITEM POINT' boundaries (each item = one chunk)
+      2. Semantic block tags ([NAVIGATION_MENU], [PRODUCT_GRID], ## TABLE)
+      3. Fallback to RecursiveCharacterTextSplitter for remaining content
+    """
+    # First try: split on semantic boundaries
+    semantic_separators = [
+        '### ITEM POINT',      # Product/item blocks
+        '[ROW]',               # Descriptive row blocks
+        '[SITE_NAVIGATION]',   # Navigation blocks
+        '[/SITE_NAVIGATION]',
+        '## DATA TABLE',       # Data table heading
+        '## RAW PAGE CONTENT', # Raw text section
+        '[FOOTER]',            # Footer
+        '[/FOOTER]',
+    ]
+    
     splitter = RecursiveCharacterTextSplitter(
         chunk_size=CHUNK_SIZE,
         chunk_overlap=CHUNK_OVERLAP,
         length_function=len,
-        separators=["\n\n", "\n", ". ", " ", ""],
+        separators=semantic_separators + ["\n\n", "\n", ". ", " ", ""],
     )
     chunks = splitter.split_text(text)
+    
+    # Filter out tiny/empty chunks
+    chunks = [c.strip() for c in chunks if c.strip() and len(c.strip()) > 20]
+    
     print(f"[embedder] Split text into {len(chunks)} chunk(s)")
     return chunks
+
 
 
 def clear_collection(collection_name: str) -> None:

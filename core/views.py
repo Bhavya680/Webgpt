@@ -28,6 +28,9 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+import os
+os.environ["TRANSFORMERS_OFFLINE"] = "1"
+
 import chromadb
 from sentence_transformers import SentenceTransformer
 
@@ -36,15 +39,22 @@ from .models import Bot, ScrapedPage
 logger = logging.getLogger(__name__)
 
 # ---------------------------------------------------------------------------
-# Shared sentence-transformer embedder (loaded once at module level)
+# Shared sentence-transformer embedder (Loaded on first use)
 # ---------------------------------------------------------------------------
-_embedder = SentenceTransformer('all-MiniLM-L6-v2')
+_embedder = None
+
+def _get_embedder():
+    global _embedder
+    if _embedder is None:
+        logger.info("[views] Initializing SentenceTransformer (Lazy Load)...")
+        _embedder = SentenceTransformer('all-MiniLM-L6-v2')
+    return _embedder
 
 
 # ---------------------------------------------------------------------------
 # Helper: RAG retrieval  (ChromaDB stays 100 % local)
 # ---------------------------------------------------------------------------
-def _retrieve_context(question: str, bot_id: str, n_results: int = 5) -> list[str]:
+def _retrieve_context(question: str, bot_id: str, n_results: int = 15) -> list[str]:
     """
     Query the bot's ChromaDB collection and return up to *n_results* text chunks.
     """
@@ -57,7 +67,7 @@ def _retrieve_context(question: str, bot_id: str, n_results: int = 5) -> list[st
     except Exception:
         return []
 
-    q_embedding = _embedder.encode([question], convert_to_numpy=True)[0].tolist()
+    q_embedding = _get_embedder().encode([question], convert_to_numpy=True)[0].tolist()
     results = collection.query(query_embeddings=[q_embedding], n_results=n_results)
 
     documents = (
@@ -80,21 +90,26 @@ def _retrieve_context(question: str, bot_id: str, n_results: int = 5) -> list[st
 # Helper: prompt construction
 # ---------------------------------------------------------------------------
 def _build_prompt(question: str, chunks: list[str]) -> str:
-    """Build a Gemma-style instruction prompt for precision RAG."""
-    chunks_block = "\n\n".join(chunks)
-    # Final sanitization
-    clean_chunks = chunks_block.replace('Â£', '£').replace('Â', '')
+    """Build a simplified task-oriented prompt for smaller LLMs like Gemma-2B."""
+    context_block = "\n\n".join(chunks)
+    
     return (
         "<start_of_turn>user\n"
-        "SYSTEM INSTRUCTIONS:\n"
-        "1. Answer directly and concisely. START YOUR ANSWER with either YES or NO if appropriate.\n"
-        "2. For COMPARISONS, state both values and give a clear conclusion.\n"
-        "3. LOGIC: 5 stars is the HIGHEST rating. 1 star is the LOWEST.\n\n"
-        f"Context:\n{clean_chunks}\n\n"
-        f"Question: {question}\n"
+        "INSTRUCTIONS:\n"
+        "You are a helpful web assistant. Use the extracted data below to answer the user question.\n"
+        "The data contains [ROW] items and [SITE_NAVIGATION] lists.\n"
+        "1. Scan the [ROW] labels (e.g., 'Wins: 47', 'Year: 1990') to find the exact answer.\n"
+        "2. If the user asks for a LIST (e.g., 'Top 5'), provide a numbered list.\n"
+        "3. Answer in natural language (sentences). Do NOT just repeat the raw data.\n"
+        "4. If the data is not in the context, say 'I cannot find that specific information in my current knowledge base.'\n\n"
+        "=== EXTRACTED CONTEXT ===\n"
+        f"{context_block}\n"
+        "=== END CONTEXT ===\n\n"
+        f"User Question: {question}\n"
         "<end_of_turn>\n"
         "<start_of_turn>model\n"
     )
+
 
 
 # ---------------------------------------------------------------------------
@@ -132,15 +147,7 @@ def _call_colab_api(prompt: str) -> tuple[str, int]:
         resp.raise_for_status()
         data = resp.json()
         answer = data.get("answer", "No answer returned by the AI server.")
-        
-        # SMART ENFORCEMENT: Allow exactly two sentences so logic/conclusions aren't cut off.
-        sentences = answer.split(". ")
-        if len(sentences) > 2:
-            answer = ". ".join(sentences[:2]).strip() + "."
-        elif "\n" in answer:
-            answer = answer.split("\n")[0]
-            
-        return answer, 200
+        return answer.strip(), 200
 
     except requests.exceptions.RequestException as exc:
         logger.warning("Colab API unreachable: %s", exc)
@@ -292,8 +299,13 @@ class BotStatusView(APIView):
         )
 
 
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
+from django.views.decorators.http import require_POST as _require_POST
+from django.http import JsonResponse as _JsonResponse
+import json as _json
 
 # ... existing code ...
 
@@ -349,6 +361,64 @@ class APISignupView(APIView):
             return Response({'message': 'User created', 'redirect': '/dashboard/'}, status=status.HTTP_201_CREATED)
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+@method_decorator(csrf_exempt, name='dispatch')
+class SyncFirebaseUserView(APIView):
+    """
+    POST /api/auth/sync/
+    Called from the frontend AFTER Firebase authenticates the user.
+    Creates (or fetches) a matching Django User and logs them into the
+    Django session so that request.user is available in all views.
+    """
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        try:
+            email = request.data.get('email', '').strip().lower()
+            firebase_uid = request.data.get('firebase_uid', '').strip()
+            display_name = request.data.get('display_name', '').strip()
+
+            if not email:
+                return Response({'error': 'email is required'}, status=status.HTTP_400_BAD_REQUEST)
+
+            # Use email as the username — guaranteed unique in Firebase
+            user, created = User.objects.get_or_create(
+                username=email,
+                defaults={'email': email}
+            )
+
+            # Keep email in sync (in case it was updated)
+            if user.email != email:
+                user.email = email
+
+            # Populate first_name from Firebase display_name if not already set
+            if display_name and not user.first_name:
+                parts = display_name.split(' ', 1)
+                user.first_name = parts[0]
+                if len(parts) > 1:
+                    user.last_name = parts[1]
+
+            # Ensure the user has a password set (unusable is fine — Firebase owns auth)
+            if not user.has_usable_password():
+                user.set_unusable_password()
+
+            user.save()
+
+            # Establish the Django session
+            user.backend = 'django.contrib.auth.backends.ModelBackend'
+            login(request, user)
+
+            return Response({
+                'status': 'success',
+                'created': created,
+                'username': user.username,
+                'email': user.email,
+            }, status=status.HTTP_200_OK)
+
+        except Exception as exc:
+            logger.error('[SyncFirebaseUserView] error: %s', exc)
+            return Response({'error': str(exc)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 class HealthCheckView(APIView):

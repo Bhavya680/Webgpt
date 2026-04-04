@@ -118,7 +118,7 @@
         <span class="font-['Inter'] font-medium text-sm tracking-tight">Dashboard</span>
       </a>
       <a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-500 dark:text-slate-400 hover:text-[#3525cd] hover:bg-[#e1e8fd] dark:hover:bg-slate-800 transition-colors duration-200"
-        href="#">
+        href="{% url 'profile_settings' %}">
         <span class="material-symbols-outlined" data-icon="settings">settings</span>
         <span class="font-['Inter'] font-medium text-sm tracking-tight">Settings</span>
       </a>
@@ -136,11 +136,13 @@
         <span class="material-symbols-outlined text-sm" data-icon="add">add</span>
         New Bot
       </button>
-      <a class="flex items-center gap-3 px-4 py-3 rounded-lg text-error hover:bg-error-container/20 transition-colors"
-        href="#">
-        <span class="material-symbols-outlined" data-icon="logout">logout</span>
-        <span class="font-['Inter'] font-medium text-sm tracking-tight">Logout</span>
-      </a>
+      <form method="POST" action="{% url 'dashboard_logout' %}">
+        {% csrf_token %}
+        <button type="submit" class="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-error hover:bg-error-container/20 transition-colors">
+          <span class="material-symbols-outlined" data-icon="logout">logout</span>
+          <span class="font-['Inter'] font-medium text-sm tracking-tight">Logout</span>
+        </button>
+      </form>
     </div>
   </aside>
   <!-- Main Content Shell -->
@@ -168,17 +170,20 @@
           </button>
           <div class="h-8 w-px bg-outline-variant/30"></div>
           <div class="flex items-center gap-3 group cursor-pointer">
+            <a href="{% url 'profile_settings' %}" class="flex items-center gap-3 group">
             <div
               class="w-9 h-9 rounded-full bg-primary-fixed text-primary flex items-center justify-center font-black text-xs ring-2 ring-transparent group-hover:ring-primary/20 transition-all"
              >
-              JD
+              {% if request.user.first_name %}{{ request.user.first_name|first|upper }}{% elif request.user.is_authenticated %}{{ request.user.email|first|upper }}{% else %}?{% endif %}
             </div>
             <div class="flex items-center gap-1">
-              <span class="text-sm font-bold text-on-surface group-hover:text-primary transition-colors">{{
-                request.user.username }}</span>
+              <span class="text-sm font-bold text-on-surface group-hover:text-primary transition-colors">
+                {% if request.user.get_full_name %}{{ request.user.get_full_name }}{% elif request.user.is_authenticated %}{{ request.user.email }}{% else %}Guest{% endif %}
+              </span>
               <span class="material-symbols-outlined text-xs text-outline" data-icon="expand_more"
                >expand_more</span>
             </div>
+            </a>
           </div>
         </div>
       </div>

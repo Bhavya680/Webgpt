@@ -15,4 +15,7 @@ urlpatterns = [
     path('bots/<uuid:bot_id>/settings/', views.bot_settings_view, name='bot_settings'),
     path('bots/<uuid:bot_id>/delete/', views.bot_delete_view, name='bot_delete'),
     path('bots/<uuid:bot_id>/widget/', views.bot_widget_view, name='bot_widget'),
+    # User profile & session
+    path('profile/', views.profile_settings_view, name='profile_settings'),
+    path('logout/', views.user_logout_view, name='dashboard_logout'),
 ]

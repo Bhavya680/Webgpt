@@ -18,9 +18,9 @@
             <span class="material-symbols-outlined">help</span>
         </button>
     </div>
-    <div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant/20 shadow-sm">
-        <img alt="User Avatar" class="w-full h-full object-cover" data-alt="Professional male user profile avatar with soft studio lighting and neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAz04BTu7oIa3EFB_xhDN9Dh5t7ArN5An1sAaxG2Gt9R8JFXHliMjZ1XtlVm00HI1XpwvqsFmrTYD0xAyW5PjfweGq2qG0ZyyTXWfk2BxuKo7UFaPg3W0rlYvLIbgUOHh0ylvSjgZYL3QjhPX1JFPOlj_j7HF6v1IbFdoHnd3snaRJe62ASKFTn36364jgqURcAm8fopEAU6mBHd_ZI4wv6miX9ckLTQEwhSqiQHRFYj5gYhK3iks_HFKx0RL2ZmkMrdOodT0YMumA"/>
-    </div>
+    <a href="{% url 'profile_settings' %}" class="w-8 h-8 rounded-full overflow-hidden bg-indigo-600 flex items-center justify-center shadow-sm ring-2 ring-indigo-100 text-white font-bold text-xs transition-transform hover:scale-105">
+        {% if request.user.first_name %}{{ request.user.first_name|first|upper }}{% elif request.user.is_authenticated %}{{ request.user.email|first|upper }}{% else %}?{% endif %}
+    </a>
 </div>
 {% endblock %}
 

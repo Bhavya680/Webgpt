@@ -148,10 +148,12 @@
 <span class="material-symbols-outlined text-slate-500 p-2 rounded-full hover:bg-slate-100 cursor-pointer" data-icon="help_outline" style="">help_outline</span>
 <div class="flex items-center gap-3 ml-2 pl-4 border-l border-slate-200">
 <div class="text-right hidden sm:block">
-<p class="text-xs font-bold text-slate-900" style="">JD</p>
+<p class="text-xs font-bold text-slate-900" style="">{% if request.user.get_full_name %}{{ request.user.get_full_name }}{% else %}{{ request.user.email }}{% endif %}</p>
 <p class="text-[10px] text-slate-500" style="">Administrator</p>
 </div>
-<img alt="User Avatar" class="w-8 h-8 rounded-full bg-primary-fixed border-2 border-white shadow-sm" data-alt="minimalist close-up profile avatar of a professional with initials JD on a clean soft indigo background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCd_2ICcLCfmCj7hwKlBCsyhjdhbmT3HtyCoh2EnQg-1HPVeT6q8v7gcWt7e5qNUt5U1_G4Yc232HXdWOlW_KCCzpmLeR8sA6einS6lGdph8kAP1YEsyVTKFI3kqt-QkDofsP6DYvt2HXQj9Yy4RQdGDPk4o94D-X2RuYMbaUgf9lcttiGacM1hocBQfFclD-_qrKfooLcb1tOvHVqZ6QpBXx-Oltd7KAeADsU_eCqXerk5mhrCpORZ9__1OKOVFi2SF7mpFtfzVGU" style=""/>
+<a href="{% url 'profile_settings' %}" class="w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center text-primary font-bold text-xs border-2 border-white shadow-sm transition-transform hover:scale-105">
+    {% if request.user.first_name %}{{ request.user.first_name|first|upper }}{% elif request.user.is_authenticated %}{{ request.user.email|first|upper }}{% else %}?{% endif %}
+</a>
 </div>
 </div>
 </header>

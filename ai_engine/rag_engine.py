@@ -18,7 +18,7 @@ def get_answer(question: str, bot_id: str) -> str:
     
     results = collection.query(
         query_embeddings=[q_embedding],
-        n_results=3
+        n_results=15
     )
     
     documents = results["documents"][0] if results and "documents" in results and results["documents"] else []
