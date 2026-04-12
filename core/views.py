@@ -76,36 +76,47 @@ def _retrieve_context(question: str, bot_id: str, n_results: int = 15) -> list[s
         else []
     )
     
+    metadatas = (
+        results["metadatas"][0]
+        if results and results.get("metadatas")
+        else []
+    )
+    
+    # Inject source URL into the document text so the LLM has context
+    enhanced_documents = []
+    for doc, meta in zip(documents, metadatas):
+        source = meta.get("source", "Unknown Source")
+        enhanced_documents.append(f"[Source: {source}]\n{doc}")
+
     # DEBUG: See what the bot is actually looking at
     print(f"\n[RAG DEBUG] Question: '{question}'")
-    print(f"[RAG DEBUG] Retrieved {len(documents)} chunks:")
-    for i, doc in enumerate(documents):
+    print(f"[RAG DEBUG] Retrieved {len(enhanced_documents)} chunks:")
+    for i, doc in enumerate(enhanced_documents):
         preview = doc.replace('\n', ' ')[:80]
         print(f"  {i+1}. {preview}...")
         
-    return documents
+    return enhanced_documents
 
 
 # ---------------------------------------------------------------------------
 # Helper: prompt construction
 # ---------------------------------------------------------------------------
+import re
+
 def _build_prompt(question: str, chunks: list[str]) -> str:
     """Build a simplified task-oriented prompt for smaller LLMs like Gemma-2B."""
     context_block = "\n\n".join(chunks)
     
     return (
         "<start_of_turn>user\n"
-        "INSTRUCTIONS:\n"
-        "You are a helpful web assistant. Use the extracted data below to answer the user question.\n"
-        "The data contains [ROW] items and [SITE_NAVIGATION] lists.\n"
-        "1. Scan the [ROW] labels (e.g., 'Wins: 47', 'Year: 1990') to find the exact answer.\n"
-        "2. If the user asks for a LIST (e.g., 'Top 5'), provide a numbered list.\n"
-        "3. Answer in natural language (sentences). Do NOT just repeat the raw data.\n"
-        "4. If the data is not in the context, say 'I cannot find that specific information in my current knowledge base.'\n\n"
-        "=== EXTRACTED CONTEXT ===\n"
+        "You are a helpful, conversational AI assistant. Answer the user's question using ONLY the provided DATA CONTEXT.\n"
+        "The context uses markup like ### ITEM POINT, [PRICE], [ROW]. Read it carefully to find relationships (e.g. associating a row in a DATA TABLE with the Source URL above it).\n"
+        "Formulate your final response as a natural, human-readable sentence or paragraph. Explain what you found clearly.\n"
+        "Do not apologize. If you strictly cannot find the answer across the context and related URLs, say 'I do not have enough information.'\n\n"
+        "=== DATA CONTEXT ===\n"
         f"{context_block}\n"
         "=== END CONTEXT ===\n\n"
-        f"User Question: {question}\n"
+        f"USER QUESTION: {question}\n"
         "<end_of_turn>\n"
         "<start_of_turn>model\n"
     )
@@ -147,6 +158,17 @@ def _call_colab_api(prompt: str) -> tuple[str, int]:
         resp.raise_for_status()
         data = resp.json()
         answer = data.get("answer", "No answer returned by the AI server.")
+        
+        # Post-process answer to prevent ANY formatting leakage
+        answer = re.sub(r"\[/?(?:PRICE|ROW|SITE_NAVIGATION|PAGE_TITLE|META_DESCRIPTION|PRODUCT_GRID|CONTENT_GRID|FOOTER|ACTION_BUTTON|BREADCRUMB|HERO_TEXT)\]", "", answer)
+        answer = answer.replace("### ITEM POINT", "").replace("## DATA TABLE:", "")
+        answer = re.sub(r"(?i)Image:\s*\S+", "", answer)
+        answer = re.sub(r"(?i)Link:\s*\S+", "", answer)
+        answer = answer.replace("---", "").strip()
+        
+        # Clean up double spaces created by stripping
+        answer = re.sub(r"\s{2,}", " ", answer)
+        
         return answer.strip(), 200
 
     except requests.exceptions.RequestException as exc:
