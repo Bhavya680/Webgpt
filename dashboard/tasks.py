@@ -67,8 +67,12 @@ def train_bot_task(bot_id, website_url):
     print(f"[CELERY] Starting universal heuristic scrape of {website_url}...")
 
     try:
+        import requests
         from ai_engine.scraper import scrape_url
         from ai_engine.embedder import embed_and_store, clear_collection
+
+        # Initialize a session to maintain cookies (e.g. for login gotchas)
+        session = requests.Session()
 
         # Reset bot's existing pages in DB and ChromaDB
         bot.pages.all().delete()
@@ -112,7 +116,8 @@ def train_bot_task(bot_id, website_url):
             print(f"[CELERY] [{pages_processed}/{CRAWL_LIMIT}] Scraping {current_url}...")
 
             try:
-                text, links = scrape_url(current_url)
+                # Pass the persistent session to the scraper
+                text, links = scrape_url(current_url, session=session)
                 
                 # Append newly discovered links to the end of the queue
                 for link in links:
@@ -141,6 +146,15 @@ def train_bot_task(bot_id, website_url):
                     chunks_count=chunks_created
                 )
                 
+            except requests.exceptions.HTTPError as http_err:
+                pages_failed += 1
+                print(f"[CELERY] Target site rejected request for {current_url}: {http_err}")
+                ScrapedPage.objects.create(
+                    bot=bot,
+                    url=current_url,
+                    status='failed',
+                    chunks_count=0
+                )
             except Exception as page_err:
                 pages_failed += 1
                 print(f"[CELERY] Failed to scrape {current_url}: {page_err}")

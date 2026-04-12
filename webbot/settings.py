@@ -165,3 +165,8 @@ CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = TIME_ZONE
+# Allow anyone to access the site via the tunnel
+ALLOWED_HOSTS = ['*'] 
+
+# Tell Django to trust form submissions (like creating a bot) from the tunnel
+CSRF_TRUSTED_ORIGINS = ['https://*.loca.lt']
